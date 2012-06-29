@@ -2,75 +2,66 @@
 
 namespace Gloubster\Gearman\Functions;
 
+use Gloubster\Communication\Result;
+use MediaAlchemyst\Specification\Image;
+use MediaAlchemyst\Exception\Exception;
+use Gloubster\Configuration;
+use Gloubster\Delivery\Factory;
+use MediaAlchemyst\Alchemyst;
+use MediaAlchemyst\DriversContainer;
 use Monolog\Logger;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
 
-class TransmuteImage implements FunctionInterface
+class TransmuteImage extends AbstractFunction
 {
-    protected $alchemyst;
-    protected $logger;
-    protected $redis;
-
-    public function __construct(Logger $logger, Redis $redis)
-    {
-        $drivers = new \MediaAlchemyst\DriversContainer(
-                new \Symfony\Component\DependencyInjection\ParameterBag\ParameterBag(array()),
-                $logger
-        );
-        $this->logger = $logger;
-        $this->redis = $redis;
-        $this->alchemyst = new \MediaAlchemyst\Alchemyst($drivers);
-    }
-
     public function getFunctionName()
     {
         return 'transmute_image';
     }
 
-    public function execute(\GearmanJob $job)
+    protected function processQuery(\GearmanJob $job, \Gloubster\Communication\Query $query)
     {
-        $this->logger->addInfo(sprintf('Receiving job handle %s (%s)', $job->handle(), $job->unique()));
+        $start = microtime(true);
 
         $job->sendStatus(0, 100);
-        $datas = json_decode($job->workload(), true);
-
-        if (null === $datas) {
-            $this->logger->addInfo(sprintf('Unable to unserialize datas %s', $job->workload()));
-        }
 
         $tempfile = tempnam(sys_get_temp_dir(), 'transmute_image');
         $tempdest = tempnam(sys_get_temp_dir(), 'transmute_image');
 
-        $job->sendStatus(30, 100);
-        if (false === $filecontent = @file_get_contents($datas['file'])) {
-            $this->logger->addInfo(sprintf('Unable to download file `%s`', $datas['file']));
+        if (false === $filecontent = @file_get_contents($query->getFile())) {
+            $this->logger->addInfo(sprintf('Unable to download file `%s`', $query->getFile()));
 
             return;
-        } else {
-            $this->logger->addInfo(sprintf('file %s retrieved', $datas['file']));
         }
 
-        $job->sendStatus(50, 100);
+        $this->logger->addInfo(sprintf('file %s retrieved', $query->getFile()));
+        $job->sendStatus(30, 100);
 
         file_put_contents($tempfile, $filecontent);
+        unset($filecontent);
 
-        $job->sendStatus(80, 100);
-        $specification = new \MediaAlchemyst\Specification\Image();
+        $job->sendStatus(50, 100);
+        $specification = new Image();
 
         try {
             $this->alchemyst->open($tempfile)
                 ->turnInto($tempdest, $specification)
                 ->close();
-        } catch (\MediaAlchemyst\Exception\Exception $e) {
+        } catch (Exception $e) {
             $this->logger->addInfo(sprintf('A media-alchemyst exception occured %s', $e->getMessage()));
+
             return;
         }
 
-        $job->sendStatus(100, 100);
-
-        $this->logger->addInfo('Conversion successfull');
+        $result = new Result($job->jobHandle(), $query->getUuid(), $job->workload(), file_get_contents($tempdest), (microtime(true) - $start));
 
         unlink($tempfile);
         unlink($tempdest);
+
+        $this->logger->addInfo('Conversion successfull');
+        $job->sendStatus(100, 100);
+
+        return $result;
     }
 }
 
