@@ -1,0 +1,19 @@
+{
+    "name": "gloubster/gloubster",
+    "authors": [
+        {
+            "name": "Romain Neutron",
+            "email": "imprec@gmail.com"
+        }
+    ],
+    "require": {
+        "monolog/monolog": "*",
+        "symfony/console" : "2.1.*",
+        "media-alchemyst/media-alchemyst":"dev-master"
+    },
+    "autoload": {
+        "psr-0": {
+            "Gloubster": "src"
+        }
+    }
+}
