@@ -2,6 +2,7 @@
 
 namespace Gloubster\Gearman\Functions;
 
+use Gloubster\Communication\Query;
 use Gloubster\Communication\Result;
 use MediaAlchemyst\Specification\Image;
 use MediaAlchemyst\Exception\Exception;
@@ -14,12 +15,13 @@ use Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
 
 class TransmuteImage extends AbstractFunction
 {
+
     public function getFunctionName()
     {
         return 'transmute_image';
     }
 
-    protected function processQuery(\GearmanJob $job, \Gloubster\Communication\Query $query)
+    protected function processQuery(\GearmanJob $job, Query $query)
     {
         $start = microtime(true);
 
@@ -31,7 +33,7 @@ class TransmuteImage extends AbstractFunction
         if (false === $filecontent = @file_get_contents($query->getFile())) {
             $this->logger->addInfo(sprintf('Unable to download file `%s`', $query->getFile()));
 
-            return;
+            return new Result($job->handle(), $query->getUuid(), $job->workload(), null, (microtime(true) - $start), array(), array(sprintf('Unable to download file `%s`', $query->getFile())));
         }
 
         $this->logger->addInfo(sprintf('file %s retrieved', $query->getFile()));
@@ -43,6 +45,26 @@ class TransmuteImage extends AbstractFunction
         $job->sendStatus(50, 100);
         $specification = new Image();
 
+        $width = $height = null;
+
+        foreach ($query->getParameters() as $name => $value) {
+            switch ($name) {
+                case 'width':
+                    $width = $value;
+                    break;
+                case 'height':
+                    $height = $value;
+                    break;
+                case 'quality':
+                    $specification->setQuality($value);
+                    break;
+            }
+        }
+
+        if (null !== $width && null !== $height) {
+            $specification->setDimensions($width, $height);
+        }
+
         try {
             $this->alchemyst->open($tempfile)
                 ->turnInto($tempdest, $specification)
@@ -50,10 +72,10 @@ class TransmuteImage extends AbstractFunction
         } catch (Exception $e) {
             $this->logger->addInfo(sprintf('A media-alchemyst exception occured %s', $e->getMessage()));
 
-            return;
+            return new Result($job->handle(), $query->getUuid(), $job->workload(), null, (microtime(true) - $start), array(), array(sprintf('A media-alchemyst exception occured %s', $e->getMessage())));
         }
 
-        $result = new Result($job->jobHandle(), $query->getUuid(), $job->workload(), file_get_contents($tempdest), (microtime(true) - $start));
+        $result = new Result($job->handle(), $query->getUuid(), $job->workload(), file_get_contents($tempdest), (microtime(true) - $start));
 
         unlink($tempfile);
         unlink($tempdest);

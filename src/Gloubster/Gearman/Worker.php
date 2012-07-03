@@ -9,9 +9,9 @@ class Worker
     protected $worker;
     protected $logger;
 
-    public function __construct(Logger $logger)
+    public function __construct(\GearmanWorker $worker, Logger $logger)
     {
-        $this->worker = new \GearmanWorker();
+        $this->worker = $worker;
         $this->logger = $logger;
         $this->logger->addInfo('Gearman Worker starting');
     }
@@ -54,6 +54,6 @@ class Worker
      */
     public function ping()
     {
-        return @$this->worker->echo('Hello There');
+        return $this->worker->echo('Hello There');
     }
 }
