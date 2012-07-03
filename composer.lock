@@ -10,8 +10,8 @@
         {
             "package": "gloubster/communications",
             "version": "dev-master",
-            "source-reference": "4a29866bad44a7fa3180f38a6ed79bd852426b93",
-            "commit-date": "1341327868"
+            "source-reference": "8820cfa3f8e0a7513132474967ca72567769a205",
+            "commit-date": "1341335670"
         },
         {
             "package": "imagine/Imagine",
@@ -104,20 +104,8 @@
         {
             "package": "symfony/dependency-injection",
             "version": "dev-master",
-            "alias-pretty-version": "2.1.x-dev",
-            "alias-version": "2.1.9999999.9999999-dev"
-        },
-        {
-            "package": "symfony/dependency-injection",
-            "version": "dev-master",
             "source-reference": "5ec72a390e4c8a737316f6dc2547f3d368d8bb9b",
             "commit-date": "1341238650"
-        },
-        {
-            "package": "symfony/http-foundation",
-            "version": "dev-master",
-            "alias-pretty-version": "2.1.x-dev",
-            "alias-version": "2.1.9999999.9999999-dev"
         },
         {
             "package": "symfony/http-foundation",
