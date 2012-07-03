@@ -1,5 +1,5 @@
 {
-    "hash": "b3e14e6a3295c94699dab453e1c7f5a1",
+    "hash": "ec6b90a7d9655d9cc3bad8e193abb03d",
     "packages": [
         {
             "package": "doctrine/common",
@@ -8,10 +8,22 @@
             "commit-date": "1334303204"
         },
         {
+            "package": "gloubster/communications",
+            "version": "dev-master",
+            "source-reference": "4a29866bad44a7fa3180f38a6ed79bd852426b93",
+            "commit-date": "1341327868"
+        },
+        {
             "package": "imagine/Imagine",
             "version": "dev-develop",
             "source-reference": "ea555767c851236f31ee1e048b4cd51f448cab2e",
             "commit-date": "1339599310"
+        },
+        {
+            "package": "justinrainbow/json-schema",
+            "version": "dev-master",
+            "source-reference": "535962c9997d0b09582189914cfae1a5ed1e3317",
+            "commit-date": "1337277049"
         },
         {
             "package": "media-alchemyst/media-alchemyst",
@@ -68,8 +80,8 @@
         {
             "package": "pimple/pimple",
             "version": "dev-master",
-            "source-reference": "86cae5c9e85cd02f1703c774ddf12f2448a5938c",
-            "commit-date": "1340285678"
+            "source-reference": "d2cfa2f02f50abef65c238747c753a5f6786f6be",
+            "commit-date": "1341139100"
         },
         {
             "package": "swftools/swftools",
@@ -98,8 +110,8 @@
         {
             "package": "symfony/dependency-injection",
             "version": "dev-master",
-            "source-reference": "v2.1.0-BETA1",
-            "commit-date": "1339503799"
+            "source-reference": "5ec72a390e4c8a737316f6dc2547f3d368d8bb9b",
+            "commit-date": "1341238650"
         },
         {
             "package": "symfony/http-foundation",
@@ -110,8 +122,8 @@
         {
             "package": "symfony/http-foundation",
             "version": "dev-master",
-            "source-reference": "eede6abb9b49fa6632f9776c857c703d8d8268e0",
-            "commit-date": "1340656150"
+            "source-reference": "f28a2ffa86ca77a83e56778ab290b0cd3005f36f",
+            "commit-date": "1341259877"
         },
         {
             "package": "symfony/process",
@@ -132,6 +144,7 @@
     ],
     "minimum-stability": "dev",
     "stability-flags": {
+        "gloubster/communications": 20,
         "media-alchemyst/media-alchemyst": 20
     }
 }

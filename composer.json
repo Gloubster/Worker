@@ -1,5 +1,5 @@
 {
-    "name": "gloubster/gloubster",
+    "name": "gloubster/worker",
     "authors": [
         {
             "name": "Romain Neutron",
@@ -7,9 +7,10 @@
         }
     ],
     "require": {
+        "gloubster/communications": "dev-master",
+        "media-alchemyst/media-alchemyst":"dev-master",
         "monolog/monolog": "*",
-        "symfony/console" : "2.1.*",
-        "media-alchemyst/media-alchemyst":"dev-master"
+        "symfony/console" : "2.1.*"
     },
     "autoload": {
         "psr-0": {
