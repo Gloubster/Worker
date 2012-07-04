@@ -10,8 +10,8 @@
         {
             "package": "gloubster/communications",
             "version": "dev-master",
-            "source-reference": "d94bd8b6128c0bc217c055ca63b5745bdcde60a1",
-            "commit-date": "1341405391"
+            "source-reference": "4612cfe7c85f4d5366809fdfec5e18ffeedc7c40",
+            "commit-date": "1341413712"
         },
         {
             "package": "imagine/Imagine",
@@ -112,12 +112,6 @@
             "version": "dev-master",
             "source-reference": "5ec72a390e4c8a737316f6dc2547f3d368d8bb9b",
             "commit-date": "1341238650"
-        },
-        {
-            "package": "symfony/event-dispatcher",
-            "version": "dev-master",
-            "alias-pretty-version": "2.1.x-dev",
-            "alias-version": "2.1.9999999.9999999-dev"
         },
         {
             "package": "symfony/event-dispatcher",
