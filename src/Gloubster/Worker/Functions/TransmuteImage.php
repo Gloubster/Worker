@@ -6,19 +6,13 @@ use Gloubster\Communication\Query;
 use Gloubster\Communication\Result;
 use MediaAlchemyst\Specification\Image;
 use MediaAlchemyst\Exception\Exception;
-use Gloubster\Configuration;
-use Gloubster\Delivery\Factory;
-use MediaAlchemyst\Alchemyst;
-use MediaAlchemyst\DriversContainer;
-use Monolog\Logger;
-use Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
 
 class TransmuteImage extends AbstractFunction
 {
 
     public function getFunctionName()
     {
-        return 'transmute_image';
+        return Query::FUNCTION_TRANSMUTE_IMAGE;
     }
 
     protected function processQuery(\GearmanJob $job, Query $query)
