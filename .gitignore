@@ -1,3 +1,6 @@
 /nbproject
 /vendor
+/config/config.json
 composer.phar
+/logs
+/tests/phpunit_report
