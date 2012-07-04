@@ -6,7 +6,7 @@ before_script:
   - sh -c "cd phpredis && phpize && ./configure && make && sudo make install"
   - echo "extension=redis.so" >> `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
   - wget http://pecl.php.net/get/gearman-1.0.2.tgz
-  - tar xzvf http://pecl.php.net/get/gearman-1.0.2.tgz
+  - tar xzvf gearman-1.0.2.tgz
   - sh -c "cd gearman-1.0.2 && phpize && ./configure && make && sudo make install"
   - echo "extension=gearman.so" >> `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
   - curl -s http://getcomposer.org/installer | php
