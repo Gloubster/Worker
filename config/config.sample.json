@@ -1,22 +1,21 @@
 {
     "gearman-servers":[
         {
-            "host":"127.0.0.1",
+            "host":"localhost",
             "port":4730
         }
     ],
     "delivery":{
         "name":"RedisStore",
         "configuration":{
-            "host":"redis-server",
+            "host":"localhost",
             "port":6379
         }
     },
     "worker": {
-        "specifications":{
+        "specification":{
             "name": "image",
-            "threads": 1,
-            "quantity": 25
+            "quantity": "auto"
         }
     }
 }

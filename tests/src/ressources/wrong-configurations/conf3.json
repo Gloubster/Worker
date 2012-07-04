@@ -16,20 +16,11 @@
             }
         }
     },
-    "worker": {
-        "specification":[
-            {
-                "name": "image",
-                "threads": "auto"
-            },
-            {
-                "name": "image",
-                "threads": 1
-            },
-            {
-                "name": "video",
-                "threads": 12
-            }
-        ]
+    "workers": {
+        "specification":{
+            "name": "image",
+            "threads": 1,
+            "quantity": 25
+        }
     }
 }

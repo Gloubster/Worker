@@ -13,11 +13,8 @@
         }
     },
     "worker": {
-        "specifications":[
-            {
-                "name": "image",
-                "threads": "auto"
-            }
-        ]
+        "specification":{
+            "name": "image"
+        }
     }
 }

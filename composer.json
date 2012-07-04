@@ -6,11 +6,22 @@
             "email": "imprec@gmail.com"
         }
     ],
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/romainneutron/SystemCpu"
+        }
+    ],
     "require": {
+        "kriswallsmith/spork":"*",
         "gloubster/communications": "dev-master",
         "media-alchemyst/media-alchemyst":"dev-master",
         "monolog/monolog": "*",
+        "system/cpu": "*",
         "symfony/console" : "2.1.*"
+    },
+    "require-dev": {
+        "symfony/finder" : "2.1.*"
     },
     "autoload": {
         "psr-0": {

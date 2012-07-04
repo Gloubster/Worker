@@ -22,7 +22,7 @@ class Worker
         $this->logger->addInfo(sprintf('Add server %s:%s', $host, $port));
     }
 
-    public function addFunction(Functions\FunctionInterface $function)
+    public function setFunction(Functions\FunctionInterface $function)
     {
         $this->worker->addFunction($function->getFunctionName(), array($function, 'execute'));
         $this->logger->addInfo(sprintf('Register function %s', $function->getFunctionName()));

@@ -23,7 +23,11 @@ abstract class AbstractFunction implements FunctionInterface
         $this->configuration = $configuration;
         $this->deliveryFactory = $factory;
 
-        $drivers = new DriversContainer(new ParameterBag(array()), $logger);
+        $spec = $configuration['worker']['specification'];
+
+        $drivers = new DriversContainer(new ParameterBag(array(
+                    'ffmpeg.threads' => isset($spec['threads']) ? $spec['threads'] : 1
+                )), $logger);
 
         $this->logger = $logger;
         $this->alchemyst = new Alchemyst($drivers);

@@ -44,9 +44,9 @@ class WorkerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Gloubster\Worker\Worker::addFunction
+     * @covers Gloubster\Worker\Worker::setFunction
      */
-    public function testAddFunction()
+    public function testSetFunction()
     {
         $registered_function = 'goldmember';
         $that = $this;
@@ -63,7 +63,7 @@ class WorkerTest extends \PHPUnit_Framework_TestCase
             ->method('getFunctionName')
             ->will($this->returnValue($registered_function));
 
-        $this->object->addFunction($function);
+        $this->object->setFunction($function);
     }
 
     /**

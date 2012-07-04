@@ -3,11 +3,10 @@
 
 require __DIR__ . '/../vendor/autoload.php';
 
-$Gloubster = require __DIR__ . '/../src/Gloubster/App.php';
-
 $cli = new \Symfony\Component\Console\Application('Gloubster CLI', '0');
 
 $cli->addCommands(array(
-    new Gloubster\Command\GearmanWorker('gloubster:gearman:run-workers'),
+    new Gloubster\Worker\RunWorkers('gloubster:run-workers')
 ));
+
 $cli->run();

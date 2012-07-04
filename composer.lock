@@ -1,5 +1,5 @@
 {
-    "hash": "ec6b90a7d9655d9cc3bad8e193abb03d",
+    "hash": "9fcea4dbd1da9eb0a5f2e6091b8d5554",
     "packages": [
         {
             "package": "doctrine/common",
@@ -10,8 +10,8 @@
         {
             "package": "gloubster/communications",
             "version": "dev-master",
-            "source-reference": "8820cfa3f8e0a7513132474967ca72567769a205",
-            "commit-date": "1341335670"
+            "source-reference": "d94bd8b6128c0bc217c055ca63b5745bdcde60a1",
+            "commit-date": "1341405391"
         },
         {
             "package": "imagine/Imagine",
@@ -24,6 +24,12 @@
             "version": "dev-master",
             "source-reference": "535962c9997d0b09582189914cfae1a5ed1e3317",
             "commit-date": "1337277049"
+        },
+        {
+            "package": "kriswallsmith/spork",
+            "version": "dev-master",
+            "source-reference": "e6a3ec2fc4d74a174148b539ab8c3c7cebefed0e",
+            "commit-date": "1339256178"
         },
         {
             "package": "media-alchemyst/media-alchemyst",
@@ -108,10 +114,22 @@
             "commit-date": "1341238650"
         },
         {
+            "package": "symfony/event-dispatcher",
+            "version": "dev-master",
+            "alias-pretty-version": "2.1.x-dev",
+            "alias-version": "2.1.9999999.9999999-dev"
+        },
+        {
+            "package": "symfony/event-dispatcher",
+            "version": "dev-master",
+            "source-reference": "v2.1.0-BETA1",
+            "commit-date": "1338018513"
+        },
+        {
             "package": "symfony/http-foundation",
             "version": "dev-master",
-            "source-reference": "f28a2ffa86ca77a83e56778ab290b0cd3005f36f",
-            "commit-date": "1341259877"
+            "source-reference": "3e53f0a9f802dc1f34a722109df0b0d2679671a8",
+            "commit-date": "1341379664"
         },
         {
             "package": "symfony/process",
@@ -122,11 +140,30 @@
         {
             "package": "symfony/process",
             "version": "dev-master",
-            "source-reference": "v2.1.0-BETA1",
-            "commit-date": "1337882028"
+            "source-reference": "abbb6c9a4fcbd070af4e6296753d449dcd4723aa",
+            "commit-date": "1341334717"
+        },
+        {
+            "package": "system/cpu",
+            "version": "dev-master",
+            "source-reference": "79853588fd75b4d0237b51c975957be132b1ada8",
+            "commit-date": "1341402498"
         }
     ],
-    "packages-dev": null,
+    "packages-dev": [
+        {
+            "package": "symfony/finder",
+            "version": "dev-master",
+            "alias-pretty-version": "2.1.x-dev",
+            "alias-version": "2.1.9999999.9999999-dev"
+        },
+        {
+            "package": "symfony/finder",
+            "version": "dev-master",
+            "source-reference": "4d6a965beae234bd0fa7f61681bd8a54df60f042",
+            "commit-date": "1341212719"
+        }
+    ],
     "aliases": [
 
     ],

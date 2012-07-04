@@ -15,10 +15,9 @@
         }
     },
     "worker": {
-        "specifications":[
-            {
-                "name": "image"
-            }
-        ]
+        "specification":{
+            "threads": 1,
+            "quantity": 25
+        }
     }
 }

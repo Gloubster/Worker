@@ -15,15 +15,10 @@
         }
     },
     "worker": {
-        "specifications":[
-            {
-                "name": "image",
-                "threads": "auto"
-            },
-            {
-                "name": "video",
-                "threads": 12
-            }
-        ]
+        "specification":{
+            "name": "image",
+            "threads": "12",
+            "quantity": "auto"
+        }
     }
 }

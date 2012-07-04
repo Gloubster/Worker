@@ -38,6 +38,11 @@ class TransmuteImageTest extends \PHPUnit_Framework_TestCase
                 'configuration' => array(
                     'path' => $dir
                 )
+            ),
+            'worker' => array(
+                'specification' => array(
+                    'type' => 'image'
+                )
             )
         );
 
