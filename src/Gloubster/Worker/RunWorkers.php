@@ -28,7 +28,6 @@ class RunWorkers extends Command
 
         $resolver = new SpawnResolver($configuration, CpuInfo::detect());
 
-        $manager = new ProcessManager(new EventDispatcher());
         $factory = new Factory();
         $classname = $resolver->getClassName();
 
@@ -38,28 +37,32 @@ class RunWorkers extends Command
             $outputLogger = new NullHandler();
         }
 
+        $workers = new \ArrayIterator();
+
         for ($i = 1; $i <= $resolver->getSpawnQuantity(); $i ++ ) {
 
             $output->write("Launching Worker <info>$i</info> ...");
 
-            $manager->fork(function() use ($configuration, $i, $factory, $classname, $outputLogger) {
+            $logger = new Logger('Worker-' . $i);
+            $logger->pushHandler($outputLogger);
+            $logger->pushHandler(new RotatingFileHandler(__DIR__ . '/../../../logs/worker-' . $i . '.logs', 3));
 
-                    $logger = new Logger('Worker-' . $i);
-                    $logger->pushHandler($outputLogger);
-                    $logger->pushHandler(new RotatingFileHandler(__DIR__ . '/../../../logs/worker-' . $i . '.logs', 3));
+            $worker = new Worker(new \GearmanWorker(), $logger);
 
-                    $worker = new Worker(new \GearmanWorker(), $logger);
+            foreach ($configuration['gearman-servers'] as $server) {
+                $worker->addServer($server['host'], $server['port']);
+            }
 
-                    foreach ($configuration['gearman-servers'] as $server) {
-                        $worker->addServer($server['host'], $server['port']);
-                    }
+            $worker->setFunction(new $classname($configuration, $logger, $factory));
 
-                    $worker->setFunction(new $classname($configuration, $logger, $factory));
-
-                    $worker->run();
-                });
+            $workers->append($worker);
 
             $output->writeln("Success !");
         }
+
+        $manager = new ProcessManager(new EventDispatcher());
+        $manager->process($workers, function(Worker $worker){
+            $worker->run();
+        });
     }
 }
