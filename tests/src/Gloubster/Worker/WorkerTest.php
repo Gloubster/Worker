@@ -1,6 +1,6 @@
 <?php
 
-namespace Gloubster\Gearman;
+namespace Gloubster\Worker;
 
 use Monolog\Handler\NullHandler;
 use Monolog\Logger;
@@ -14,7 +14,7 @@ class WorkerTest extends \PHPUnit_Framework_TestCase
     protected $gearmanWorker;
 
     /**
-     * @covers Gloubster\Gearman\Worker::__construct
+     * @covers Gloubster\Worker\Worker::__construct
      */
     protected function setUp()
     {
@@ -25,7 +25,7 @@ class WorkerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Gloubster\Gearman\Worker::addServer
+     * @covers Gloubster\Worker\Worker::addServer
      */
     public function testAddServer()
     {
@@ -44,7 +44,7 @@ class WorkerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Gloubster\Gearman\Worker::addFunction
+     * @covers Gloubster\Worker\Worker::addFunction
      */
     public function testAddFunction()
     {
@@ -57,7 +57,7 @@ class WorkerTest extends \PHPUnit_Framework_TestCase
                         $that->assertTrue(is_callable($callable));
                     }));
 
-        $function = $this->getMock('\\Gloubster\\Gearman\\Functions\\FunctionInterface', array('execute', 'getFunctionName'));
+        $function = $this->getMock('\\Gloubster\\Worker\\Functions\\FunctionInterface', array('execute', 'getFunctionName'));
 
         $function->expects($this->any())
             ->method('getFunctionName')
@@ -67,7 +67,7 @@ class WorkerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Gloubster\Gearman\Worker::run
+     * @covers Gloubster\Worker\Worker::run
      * @todo Implement testRun().
      */
     public function testRun()
@@ -79,7 +79,7 @@ class WorkerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Gloubster\Gearman\Worker::ping
+     * @covers Gloubster\Worker\Worker::ping
      */
     public function testPing()
     {
@@ -93,7 +93,7 @@ class WorkerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Gloubster\Gearman\Worker::ping
+     * @covers Gloubster\Worker\Worker::ping
      */
     public function testPingFailed()
     {

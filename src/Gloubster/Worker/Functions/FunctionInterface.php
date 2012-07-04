@@ -1,8 +1,6 @@
 <?php
 
-namespace Gloubster\Gearman\Functions;
-
-use Monolog\logger;
+namespace Gloubster\Worker\Functions;
 
 interface FunctionInterface
 {

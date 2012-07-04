@@ -1,6 +1,6 @@
 <?php
 
-namespace Gloubster\Gearman\Functions;
+namespace Gloubster\Worker\Functions;
 
 use Gloubster\Communication\Query;
 use Gloubster\Communication\Result;

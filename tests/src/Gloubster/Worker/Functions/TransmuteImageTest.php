@@ -1,6 +1,6 @@
 <?php
 
-namespace Gloubster\Gearman\Functions;
+namespace Gloubster\Worker\Functions;
 
 use Monolog\Handler\NullHandler;
 use Monolog\Logger;
@@ -18,7 +18,7 @@ class TransmuteImageTest extends \PHPUnit_Framework_TestCase
     protected $factory;
 
     /**
-     * @covers Gloubster\Gearman\Functions\TransmuteImage::__construct
+     * @covers Gloubster\Worker\Functions\TransmuteImage::__construct
      */
     protected function setUp()
     {
@@ -50,7 +50,7 @@ class TransmuteImageTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Gloubster\Gearman\Functions\TransmuteImage::getFunctionName
+     * @covers Gloubster\Worker\Functions\TransmuteImage::getFunctionName
      */
     public function testGetFunctionName()
     {
@@ -58,8 +58,8 @@ class TransmuteImageTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Gloubster\Gearman\Functions\TransmuteImage::processQuery
-     * @covers Gloubster\Gearman\Functions\TransmuteImage::execute
+     * @covers Gloubster\Worker\Functions\TransmuteImage::processQuery
+     * @covers Gloubster\Worker\Functions\TransmuteImage::execute
      */
     public function testExecute()
     {
@@ -91,7 +91,7 @@ class TransmuteImageTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Gloubster\Gearman\Functions\TransmuteImage::processQuery
+     * @covers Gloubster\Worker\Functions\TransmuteImage::processQuery
      */
     public function testExecuteWrongFileType()
     {
@@ -113,7 +113,7 @@ class TransmuteImageTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Gloubster\Gearman\Functions\TransmuteImage::processQuery
+     * @covers Gloubster\Worker\Functions\TransmuteImage::processQuery
      */
     public function testExecuteNonExistentFile()
     {

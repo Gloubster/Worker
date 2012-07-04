@@ -1,6 +1,6 @@
 <?php
 
-namespace Gloubster\Gearman;
+namespace Gloubster\Worker;
 
 use Monolog\Logger;
 
