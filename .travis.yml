@@ -2,9 +2,9 @@ language: php
 
 before_script:
   - sudo apt-get install -y redis-server libgearman-dev
-  - wget http://pecl.php.net/get/gearman-1.0.1.tgz
-  - tar xzvf gearman-1.0.1.tgz
-  - sh -c "cd gearman-1.0.1 && phpize && ./configure && make && sudo make install"
+  - wget http://pecl.php.net/get/gearman-0.8.0.tgz
+  - tar xzvf gearman-0.8.0.tgz
+  - sh -c "cd gearman-0.8.0 && phpize && ./configure && make && sudo make install"
   - echo "extension=gearman.so" >> `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
   - git clone https://github.com/nicolasff/phpredis.git
   - sh -c "cd phpredis && phpize && ./configure && make && sudo make install"
