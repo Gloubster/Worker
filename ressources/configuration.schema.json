@@ -1,0 +1,36 @@
+{
+    "name": "Configuration",
+    "type": "object",
+    "additionalProperties": true,
+    "properties": {
+        "worker": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": true,
+            "properties": {
+                "specifications": {
+                    "type": "array",
+                    "description": "The list of specifications this worker can do",
+                    "required": true,
+                    "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": true,
+                        "properties": {
+                            "name": {
+                                "type": "string",
+                                "description": "The name of the specification",
+                                "required": true
+                            },
+                            "threads": {
+                                "type": "any",
+                                "description": "The number of core to use for this spec",
+                                "required": true
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

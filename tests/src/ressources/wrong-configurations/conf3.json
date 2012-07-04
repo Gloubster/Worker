@@ -1,0 +1,35 @@
+{
+    "gearman-servers":[
+        {
+            "host":"127.0.0.1",
+            "port":4730
+        }
+    ],
+    "delivery":{
+        "name":"RedisStore",
+        "configuration":{
+            "host":"redis-server",
+            "port":6379,
+            "credentials":{
+                "login":"anonymous",
+                "password":"s3cr3t"
+            }
+        }
+    },
+    "worker": {
+        "specification":[
+            {
+                "name": "image",
+                "threads": "auto"
+            },
+            {
+                "name": "image",
+                "threads": 1
+            },
+            {
+                "name": "video",
+                "threads": 12
+            }
+        ]
+    }
+}
