@@ -36,7 +36,7 @@ class TransmuteImageTest extends \PHPUnit_Framework_TestCase
             'delivery' => array(
                 'name'          => 'FilesystemStore',
                 'configuration' => array(
-                    'path' => $dir
+                    'path'   => $dir
                 )
             ),
             'worker' => array(
@@ -75,13 +75,18 @@ class TransmuteImageTest extends \PHPUnit_Framework_TestCase
         $delivery = $this->factory->build($this->configuration);
 
         $dimensions = 100;
-        $query = new Query($uuid, $file, $delivery->getName(), $delivery->getSignature(), array('quality'=>50, 'width'  => $dimensions, 'height' => $dimensions));
+        $query = new Query($uuid, $file, $delivery->getName(), $delivery->getSignature(), array('quality' => 50, 'width'   => $dimensions, 'height'  => $dimensions));
 
         $job = $this->getGearmanJobMock($query, $handle, $uuid);
 
         $this->object->execute($job);
 
         $result = $delivery->retrieve($uuid);
+
+        if ($result->getErrors()) {
+            $this->fail("Failing, result got errors : " . implode(', ', $result->getErrors()));
+        }
+
         $this->assertInstanceOf('\\Gloubster\\Communication\\Result', $result);
 
         $this->assertGreaterThan(0, strlen($result->getBinaryData()));
