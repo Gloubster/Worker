@@ -84,9 +84,14 @@ class TransmuteImageTest extends \PHPUnit_Framework_TestCase
         $result = $delivery->retrieve($uuid);
         $this->assertInstanceOf('\\Gloubster\\Communication\\Result', $result);
 
+        $this->assertGreaterThan(0, strlen($result->getBinaryData()));
+
         $file = tempnam(sys_get_temp_dir(), 'resultcheck') . '.jpg';
         file_put_contents($file, $result->getBinaryData());
-        $infos = getimagesize($file);
+
+        $infos = @getimagesize($file);
+
+        $this->assertInternalType('array', $infos, "Reading $file informations returns an array");
 
         $this->assertLessThanOrEqual($dimensions, $infos[0]);
         $this->assertLessThanOrEqual($dimensions, $infos[1]);
