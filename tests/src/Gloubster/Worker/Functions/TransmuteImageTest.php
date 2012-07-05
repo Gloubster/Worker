@@ -72,7 +72,7 @@ class TransmuteImageTest extends \PHPUnit_Framework_TestCase
         $handle = 'job-' . mt_rand(10, 100);
         $file = 'file://' . __DIR__ . '/../../../testfiles/photo02.JPG';
 
-        $delivery = $this->factory->build($this->configuration['delivery']['name'], $this->configuration['delivery']['configuration']);
+        $delivery = $this->factory->build($this->configuration);
 
         $dimensions = 100;
         $query = new Query($uuid, $file, $delivery->getName(), $delivery->getSignature(), array('quality'=>50, 'width'  => $dimensions, 'height' => $dimensions));
@@ -104,7 +104,7 @@ class TransmuteImageTest extends \PHPUnit_Framework_TestCase
         $handle = 'job-' . mt_rand(10, 100);
         $file = 'file://' . __FILE__;
 
-        $delivery = $this->factory->build($this->configuration['delivery']['name'], $this->configuration['delivery']['configuration']);
+        $delivery = $this->factory->build($this->configuration);
 
         $query = new Query($uuid, $file, $delivery->getName(), $delivery->getSignature());
 
@@ -126,7 +126,7 @@ class TransmuteImageTest extends \PHPUnit_Framework_TestCase
         $handle = 'job-' . mt_rand(10, 100);
         $file = 'file://' . __FILE__ . mt_rand();
 
-        $delivery = $this->factory->build($this->configuration['delivery']['name'], $this->configuration['delivery']['configuration']);
+        $delivery = $this->factory->build($this->configuration);
 
         $query = new Query($uuid, $file, $delivery->getName(), $delivery->getSignature());
 

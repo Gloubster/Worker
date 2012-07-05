@@ -50,7 +50,7 @@ abstract class AbstractFunction implements FunctionInterface
         }
 
         try {
-            $query->getDelivery($this->deliveryFactory, $this->configuration['delivery']['configuration'])
+            $query->getDelivery($this->deliveryFactory, $this->configuration)
                 ->deliver($query->getUuid(), $this->processQuery($job, $query));
         } catch (Exception $e) {
             $this->logger->addError(sprintf('Error while processing : %s', $e->getMessage()));
