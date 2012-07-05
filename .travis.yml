@@ -1,7 +1,7 @@
 language: php
 
 before_script:
-  - sudo apt-get install -y redis-server libcloog-ppl0 libcloog-ppl-dev libboost-all-dev libevent-core-2.0-5 libevent-dev libevent-extra-2.0-5 libevent-openssl-2.0-5 libevent-pthreads-2.0-5
+  - sudo apt-get install -y php5-gd redis-server libcloog-ppl0 libcloog-ppl-dev libboost-all-dev libevent-core-2.0-5 libevent-dev libevent-extra-2.0-5 libevent-openssl-2.0-5 libevent-pthreads-2.0-5
   - wget https://launchpad.net/gearmand/trunk/0.33/+download/gearmand-0.33.tar.gz
   - tar xzvf gearmand-0.33.tar.gz
   - sh -c "cd gearmand-0.33 && ./configure && make && sudo make install"
