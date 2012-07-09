@@ -17,6 +17,7 @@ abstract class AbstractFunction implements FunctionInterface
     protected $logger;
     protected $deliveryFactory;
     protected $configuration;
+    protected $workerName;
 
     final public function __construct(Configuration $configuration, Logger $logger, Factory $factory)
     {
@@ -33,16 +34,23 @@ abstract class AbstractFunction implements FunctionInterface
         $this->alchemyst = new Alchemyst($drivers);
     }
 
+    final public function setWorkerName($workerName)
+    {
+        $this->workerName = $workerName;
+    }
+
     final public function execute(\GearmanJob $job)
     {
         $this->logger->addInfo(sprintf('Receiving job handle %s (%s)', $job->handle(), $job->unique()));
 
         try {
             $query = unserialize($job->workload());
+            $this->logger->addInfo('Workload unserialized');
 
             if ( ! $query instanceof Query) {
                 throw new RuntimeException('Expecting a Gloubster Query');
             }
+            $this->logger->addInfo('Query OK');
         } catch (RuntimeException $e) {
             $this->logger->addError(sprintf('Error while getting the job : %s', $e->getMessage()));
 
@@ -52,7 +60,7 @@ abstract class AbstractFunction implements FunctionInterface
         try {
             $query->getDelivery($this->deliveryFactory, $this->configuration)
                 ->deliver($query->getUuid(), $this->processQuery($job, $query));
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $this->logger->addError(sprintf('Error while processing : %s', $e->getMessage()));
         }
     }
