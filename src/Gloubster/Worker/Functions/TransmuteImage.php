@@ -27,7 +27,7 @@ class TransmuteImage extends AbstractFunction
         if (false === $filecontent = @file_get_contents($query->getFile())) {
             $this->logger->addInfo(sprintf('Unable to download file `%s`', $query->getFile()));
 
-            return new Result($job->handle(), $query->getUuid(), $job->workload(), null, 'workerName', $start, microtime(true), array(), array(sprintf('Unable to download file `%s`', $query->getFile())));
+            return new Result($job->handle(), $query->getUuid(), $job->workload(), null, $this->workerName, $start, microtime(true), array(), array(sprintf('Unable to download file `%s`', $query->getFile())));
         }
 
         $this->logger->addInfo(sprintf('file %s retrieved', $query->getFile()));
@@ -66,10 +66,14 @@ class TransmuteImage extends AbstractFunction
         } catch (Exception $e) {
             $this->logger->addInfo(sprintf('A media-alchemyst exception occured %s', $e->getMessage()));
 
-            return new Result($job->handle(), $query->getUuid(), $job->workload(), null, 'workerName', $start, microtime(true), array(), array(sprintf('A media-alchemyst exception occured %s', $e->getMessage())));
+            return new Result($job->handle(), $query->getUuid(), $job->workload(), null, $this->workerName, $start, microtime(true), array(), array(sprintf('A media-alchemyst exception occured %s', $e->getMessage())));
+        } catch (\Exception $e) {
+            $this->logger->addInfo(sprintf('An unexpected exception occured %s', $e->getMessage()));
+
+            return new Result($job->handle(), $query->getUuid(), $job->workload(), null, $this->workerName, $start, microtime(true), array(), array(sprintf('An unexpected exception occured %s', $e->getMessage())));
         }
 
-        $result = new Result($job->handle(), $query->getUuid(), $job->workload(), file_get_contents($tempdest), 'workerName', $start, microtime(true));
+        $result = new Result($job->handle(), $query->getUuid(), $job->workload(), file_get_contents($tempdest), $this->workerName, $start, microtime(true));
 
         unlink($tempfile);
         unlink($tempdest);

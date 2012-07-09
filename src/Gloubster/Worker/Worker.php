@@ -6,30 +6,40 @@ use Monolog\Logger;
 
 class Worker
 {
+    protected $name;
     protected $worker;
     protected $logger;
 
-    public function __construct(\GearmanWorker $worker, Logger $logger)
+    public function __construct($name, \GearmanWorker $worker, Logger $logger)
     {
+        $this->name = $name;
         $this->worker = $worker;
         $this->logger = $logger;
         $this->logger->addInfo('Gearman Worker starting');
     }
 
+    public function getName()
+    {
+        return $this->name;
+    }
+
     public function addServer($host, $port)
     {
         $this->worker->addServer($host, $port);
-        $this->logger->addInfo(sprintf('Add server %s:%s', $host, $port));
+        $this->logger->addDebug(sprintf('Add server %s:%s', $host, $port));
     }
 
     public function setFunction(Functions\FunctionInterface $function)
     {
+        $function->setWorkerName($this->getName());
         $this->worker->addFunction($function->getFunctionName(), array($function, 'execute'));
-        $this->logger->addInfo(sprintf('Register function %s', $function->getFunctionName()));
+        $this->logger->addDebug(sprintf('Register function %s', $function->getFunctionName()));
     }
 
     public function run()
     {
+        $this->logger->addInfo('Start running');
+
         while (true) {
             $this->worker->work();
             switch ($this->worker->returnCode()) {
@@ -44,6 +54,8 @@ class Worker
                     break;
             }
         }
+
+        $this->logger->addInfo('Stop running');
     }
 
     /**

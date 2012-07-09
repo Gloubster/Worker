@@ -47,7 +47,7 @@ class RunWorkers extends Command
             $logger->pushHandler($outputLogger);
             $logger->pushHandler(new RotatingFileHandler(__DIR__ . '/../../../logs/worker-' . $i . '.logs', 3));
 
-            $worker = new Worker(new \GearmanWorker(), $logger);
+            $worker = new Worker('Worker-' . $i, new \GearmanWorker(), $logger);
 
             foreach ($configuration['gearman-servers'] as $server) {
                 $worker->addServer($server['host'], $server['port']);
@@ -61,7 +61,7 @@ class RunWorkers extends Command
         }
 
         $manager = new ProcessManager(new EventDispatcher());
-        $manager->process($workers, function(Worker $worker){
+        $manager->process($workers, function(Worker $worker) {
             $worker->run();
         });
     }
