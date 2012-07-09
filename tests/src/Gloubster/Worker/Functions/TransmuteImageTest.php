@@ -68,7 +68,7 @@ class TransmuteImageTest extends \PHPUnit_Framework_TestCase
      */
     public function testExecute()
     {
-        $uuid = mt_rand();
+        $uuid = mt_rand(10000, 99999);
         $handle = 'job-' . mt_rand(10, 100);
         $file = 'file://' . __DIR__ . '/../../../testfiles/photo02.JPG';
 

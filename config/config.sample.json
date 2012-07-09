@@ -13,7 +13,8 @@
         }
     },
     "worker": {
-        "specification":{
+        "name": "Worker-1",
+        "specification": {
             "name": "image",
             "quantity": "auto"
         }

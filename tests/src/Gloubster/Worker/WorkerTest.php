@@ -21,7 +21,7 @@ class WorkerTest extends \PHPUnit_Framework_TestCase
         $logger = new Logger('test worker');
         $logger->pushHandler(new NullHandler());
         $this->gearmanWorker = $this->getMock('\\GearmanWorker');
-        $this->object = new Worker($this->gearmanWorker, $logger);
+        $this->object = new Worker('terminator', $this->gearmanWorker, $logger);
     }
 
     /**
@@ -57,7 +57,7 @@ class WorkerTest extends \PHPUnit_Framework_TestCase
                         $that->assertTrue(is_callable($callable));
                     }));
 
-        $function = $this->getMock('\\Gloubster\\Worker\\Functions\\FunctionInterface', array('execute', 'getFunctionName'));
+        $function = $this->getMock('\\Gloubster\\Worker\\Functions\\FunctionInterface', array('execute', 'getFunctionName', 'setWorkerName'));
 
         $function->expects($this->any())
             ->method('getFunctionName')

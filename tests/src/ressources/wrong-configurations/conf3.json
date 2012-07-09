@@ -17,6 +17,7 @@
         }
     },
     "workers": {
+        "name": "NeutronLaptop",
         "specification":{
             "name": "image",
             "threads": 1,

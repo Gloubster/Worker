@@ -15,6 +15,7 @@
         }
     },
     "worker": {
+        "name": "NeutronLaptop",
         "specification":{
             "threads": 1,
             "quantity": 25
