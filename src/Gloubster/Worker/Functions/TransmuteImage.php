@@ -22,7 +22,7 @@ class TransmuteImage extends AbstractFunction
         $job->sendStatus(0, 100);
 
         $tempfile = tempnam(sys_get_temp_dir(), 'transmute_image');
-        $tempdest = tempnam(sys_get_temp_dir(), 'transmute_image');
+        $tempdest = tempnam(sys_get_temp_dir(), 'transmute_image') . '.jpg';
 
         if (false === $filecontent = @file_get_contents($query->getFile())) {
             $this->logger->addInfo(sprintf('Unable to download file `%s`', $query->getFile()));
