@@ -19,7 +19,7 @@ class TransmuteImage extends AbstractFunction
     {
         $start = $interstart = microtime(true);
 
-        $infos = array();
+        $timers = array();
 
         $job->sendStatus(0, 100);
 
@@ -32,7 +32,7 @@ class TransmuteImage extends AbstractFunction
             return new Result($job->handle(), $query->getUuid(), $job->workload(), null, $this->workerName, $start, microtime(true), array(), array(sprintf('Unable to download file `%s`', $query->getFile())));
         }
 
-        $info[] = microtime(true) - $interstart;
+        $timers[] = microtime(true) - $interstart;
         $interstart = microtime(true);
 
         $this->logger->addInfo(sprintf('file %s retrieved', $query->getFile()));
@@ -41,7 +41,7 @@ class TransmuteImage extends AbstractFunction
         file_put_contents($tempfile, $filecontent);
         unset($filecontent);
 
-        $info[] = microtime(true) - $interstart;
+        $timers[] = microtime(true) - $interstart;
         $interstart = microtime(true);
 
         $job->sendStatus(50, 100);
@@ -72,7 +72,7 @@ class TransmuteImage extends AbstractFunction
                 ->turnInto($tempdest, $specification)
                 ->close();
 
-            $info[] = microtime(true) - $interstart;
+            $timers[] = microtime(true) - $interstart;
             $interstart = microtime(true);
         } catch (Exception $e) {
             $this->logger->addInfo(sprintf('A media-alchemyst exception occured %s', $e->getMessage()));
@@ -86,19 +86,19 @@ class TransmuteImage extends AbstractFunction
 
         $datas = file_get_contents($tempdest);
 
-        $info[] = microtime(true) - $interstart;
+        $timers[] = microtime(true) - $interstart;
         $interstart = microtime(true);
 
         unlink($tempfile);
         unlink($tempdest);
 
-        $info[] = microtime(true) - $interstart;
-        $interstart = microtime(true);
+        $timers[] = microtime(true) - $interstart;
 
         $this->logger->addInfo('Conversion successfull');
         $job->sendStatus(100, 100);
 
-        $result = new Result($job->handle(), $query->getUuid(), $job->workload(), $datas, $this->workerName, $start, microtime(true), $infos);
+        $result = new Result($job->handle(), $query->getUuid(), $job->workload(), $datas, $this->workerName, $start, microtime(true));
+        $result->setTimers($timers);
 
         return $result;
     }
