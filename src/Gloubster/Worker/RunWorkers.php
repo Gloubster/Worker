@@ -37,7 +37,7 @@ class RunWorkers extends Command
             $outputLogger = new NullHandler();
         }
 
-        $workers = new \ArrayIterator();
+        $manager = new ProcessManager(new EventDispatcher());
 
         for ($i = 1; $i <= $resolver->getSpawnQuantity(); $i ++ ) {
 
@@ -55,14 +55,11 @@ class RunWorkers extends Command
 
             $worker->setFunction(new $classname($configuration, $logger, $factory));
 
-            $workers->append($worker);
+            $manager->fork(function() use ($worker) {
+                $worker->run();
+            });
 
             $output->writeln("Success !");
         }
-
-        $manager = new ProcessManager(new EventDispatcher());
-        $manager->process($workers, function(Worker $worker) {
-            $worker->run();
-        });
     }
 }
