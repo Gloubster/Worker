@@ -17,7 +17,9 @@ class TransmuteImage extends AbstractFunction
 
     protected function processQuery(\GearmanJob $job, Query $query)
     {
-        $start = microtime(true);
+        $start = $interstart = microtime(true);
+
+        $infos = array();
 
         $job->sendStatus(0, 100);
 
@@ -30,11 +32,17 @@ class TransmuteImage extends AbstractFunction
             return new Result($job->handle(), $query->getUuid(), $job->workload(), null, $this->workerName, $start, microtime(true), array(), array(sprintf('Unable to download file `%s`', $query->getFile())));
         }
 
+        $info[] = microtime(true) - $interstart;
+        $interstart = microtime(true);
+
         $this->logger->addInfo(sprintf('file %s retrieved', $query->getFile()));
         $job->sendStatus(30, 100);
 
         file_put_contents($tempfile, $filecontent);
         unset($filecontent);
+
+        $info[] = microtime(true) - $interstart;
+        $interstart = microtime(true);
 
         $job->sendStatus(50, 100);
         $specification = new Image();
@@ -63,6 +71,9 @@ class TransmuteImage extends AbstractFunction
             $this->alchemyst->open($tempfile)
                 ->turnInto($tempdest, $specification)
                 ->close();
+
+            $info[] = microtime(true) - $interstart;
+            $interstart = microtime(true);
         } catch (Exception $e) {
             $this->logger->addInfo(sprintf('A media-alchemyst exception occured %s', $e->getMessage()));
 
@@ -73,13 +84,21 @@ class TransmuteImage extends AbstractFunction
             return new Result($job->handle(), $query->getUuid(), $job->workload(), null, $this->workerName, $start, microtime(true), array(), array(sprintf('An unexpected exception occured %s', $e->getMessage())));
         }
 
-        $result = new Result($job->handle(), $query->getUuid(), $job->workload(), file_get_contents($tempdest), $this->workerName, $start, microtime(true));
+        $datas = file_get_contents($tempdest);
+
+        $info[] = microtime(true) - $interstart;
+        $interstart = microtime(true);
 
         unlink($tempfile);
         unlink($tempdest);
 
+        $info[] = microtime(true) - $interstart;
+        $interstart = microtime(true);
+
         $this->logger->addInfo('Conversion successfull');
         $job->sendStatus(100, 100);
+
+        $result = new Result($job->handle(), $query->getUuid(), $job->workload(), $datas, $this->workerName, $start, microtime(true), $infos);
 
         return $result;
     }
