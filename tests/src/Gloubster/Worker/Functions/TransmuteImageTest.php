@@ -89,10 +89,8 @@ class TransmuteImageTest extends \PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf('\\Gloubster\\Communication\\Result', $result);
 
-        $this->assertGreaterThan(0, strlen($result->getBinaryData()));
-
         $file = tempnam(sys_get_temp_dir(), 'resultcheck') . '.jpg';
-        file_put_contents($file, $result->getBinaryData());
+        file_put_contents($file, $delivery->retrieveData($uuid));
 
         $infos = @getimagesize($file);
 

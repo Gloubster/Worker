@@ -15,6 +15,11 @@ abstract class AbstractFunction implements FunctionInterface
 {
     protected $alchemyst;
     protected $logger;
+    /**
+     *
+     * @var \Gloubster\ProxySource\ProxySourceInterface
+     */
+    protected $proxy;
     protected $deliveryFactory;
     protected $configuration;
     protected $workerName;
@@ -32,6 +37,8 @@ abstract class AbstractFunction implements FunctionInterface
 
         $this->logger = $logger;
         $this->alchemyst = new Alchemyst($drivers);
+
+        $this->proxy = isset($configuration['proxy']) ? \Gloubster\ProxySource\Factory::build($configuration['proxy']) : new \Gloubster\ProxySource\NullProxy();
     }
 
     final public function setWorkerName($workerName)
@@ -58,11 +65,17 @@ abstract class AbstractFunction implements FunctionInterface
         }
 
         try {
+            list($result, $binaryData) = $this->processQuery($job, $query);
             $query->getDelivery($this->deliveryFactory, $this->configuration)
-                ->deliver($query->getUuid(), $this->processQuery($job, $query));
+                ->deliver($query->getUuid(), $result, $binaryData);
         } catch (\Exception $e) {
             $this->logger->addError(sprintf('Error while processing : %s', $e->getMessage()));
         }
+    }
+
+    protected function getFile($file)
+    {
+        return $this->proxy->getDatas($file);
     }
 
     abstract protected function processQuery(\GearmanJob $job, Query $query);

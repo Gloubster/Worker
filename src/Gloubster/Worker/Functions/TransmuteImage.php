@@ -26,10 +26,10 @@ class TransmuteImage extends AbstractFunction
         $tempfile = tempnam(sys_get_temp_dir(), 'transmute_image');
         $tempdest = tempnam(sys_get_temp_dir(), 'transmute_image') . '.jpg';
 
-        if (false === $filecontent = @file_get_contents($query->getFile())) {
+        if (false === $filecontent = $this->getFile($query->getFile())) {
             $this->logger->addInfo(sprintf('Unable to download file `%s`', $query->getFile()));
 
-            return new Result($job->handle(), $query->getUuid(), $job->workload(), null, $this->workerName, $start, microtime(true), array(), array(sprintf('Unable to download file `%s`', $query->getFile())));
+            return array(new Result($job->handle(), $query->getUuid(), $job->workload(), $this->workerName, $start, microtime(true), array(), array(sprintf('Unable to download file `%s`', $query->getFile()))), null);
         }
 
         $timers[] = microtime(true) - $interstart;
@@ -77,11 +77,11 @@ class TransmuteImage extends AbstractFunction
         } catch (Exception $e) {
             $this->logger->addInfo(sprintf('A media-alchemyst exception occured %s', $e->getMessage()));
 
-            return new Result($job->handle(), $query->getUuid(), $job->workload(), null, $this->workerName, $start, microtime(true), array(), array(sprintf('A media-alchemyst exception occured %s', $e->getMessage())));
+            return array(new Result($job->handle(), $query->getUuid(), $job->workload(), $this->workerName, $start, microtime(true), array(), array(sprintf('A media-alchemyst exception occured %s', $e->getMessage()))), null);
         } catch (\Exception $e) {
             $this->logger->addInfo(sprintf('An unexpected exception occured %s', $e->getMessage()));
 
-            return new Result($job->handle(), $query->getUuid(), $job->workload(), null, $this->workerName, $start, microtime(true), array(), array(sprintf('An unexpected exception occured %s', $e->getMessage())));
+            return array(new Result($job->handle(), $query->getUuid(), $job->workload(), $this->workerName, $start, microtime(true), array(), array(sprintf('An unexpected exception occured %s', $e->getMessage()))), null);
         }
 
         $datas = file_get_contents($tempdest);
@@ -97,10 +97,10 @@ class TransmuteImage extends AbstractFunction
         $this->logger->addInfo('Conversion successfull');
         $job->sendStatus(100, 100);
 
-        $result = new Result($job->handle(), $query->getUuid(), $job->workload(), $datas, $this->workerName, $start, microtime(true));
+        $result = new Result($job->handle(), $query->getUuid(), $job->workload(), $this->workerName, $start, microtime(true));
         $result->setTimers($timers);
 
-        return $result;
+        return array($result, $datas);
     }
 }
 

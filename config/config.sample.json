@@ -12,6 +12,13 @@
             "port":6379
         }
     },
+    "proxy":{
+        "name":"Redis",
+        "configuration":{
+            "host":"localhost",
+            "port":6379
+        }
+    },
     "worker": {
         "name": "Worker-1",
         "specification": {

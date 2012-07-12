@@ -3,6 +3,24 @@
     "type": "object",
     "additionalProperties": true,
     "properties": {
+        "delivery": {
+            "type": "object",
+            "description": "Proxy system",
+            "additionalProperties": false,
+            "required": false,
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "description": "The classname of the proxy system",
+                    "required": true
+                },
+                "configuration": {
+                    "type": "object",
+                    "description": "Proxy configuration",
+                    "required": true
+                }
+            }
+        },
         "worker": {
             "type": "object",
             "additionalProperties": false,
