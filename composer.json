@@ -13,7 +13,6 @@
         }
     ],
     "require": {
-        "kriswallsmith/spork":"*",
         "gloubster/communications": "dev-master",
         "media-alchemyst/media-alchemyst":"dev-master",
         "monolog/monolog": "*",
