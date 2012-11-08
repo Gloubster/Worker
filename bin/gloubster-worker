@@ -1,0 +1,27 @@
+#!/usr/bin/env php
+<?php
+require __DIR__ . '/../vendor/autoload.php';
+
+use Gloubster\Configuration;
+use Gloubster\Exchange;
+use Gloubster\RabbitMQFactory;
+use Gloubster\Worker\Console\RunWorker;
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
+use Symfony\Component\Console\Application;
+
+return call_user_func(function() {
+    $configuration = new Configuration(file_get_contents(__DIR__ . '/../config/config.json'), array(
+        file_get_contents(__DIR__ . '/../resources/configuration.schema.json')
+    ));
+
+    $connection = RabbitMQFactory::createConnection($configuration);
+
+    $logger = new Logger('Worker');
+    $logger->pushHandler(new StreamHandler('php://stdout'));
+
+    $app = new Application("Gloubster Worker");
+    $app->add(new RunWorker($connection->channel(), $configuration, $logger));
+
+    return $app->run();
+});
