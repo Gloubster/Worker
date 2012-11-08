@@ -1,0 +1,28 @@
+{
+    "name": "Configuration",
+    "type": "object",
+    "additionalProperties": true,
+    "properties": {
+        "workers": {
+            "type": "object",
+            "description": "Gloubster Workers",
+            "required": true,
+            "additionalProperties": true,
+            "properties": {
+            }
+        },
+        "log": {
+            "type": "object",
+            "description": "Gloubster Log configuration",
+            "required": true,
+            "additionalProperties": true,
+            "properties": {
+                "exchange-name": {
+                    "type": "string",
+                    "description": "Log exchange name",
+                    "required": true
+                }
+            }
+        }
+    }
+}
