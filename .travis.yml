@@ -1,6 +1,7 @@
 language: php
 
 before_script:
+  - sudo apt-get install ffmpeg
   - composer install --dev
 
 php:
