@@ -1,161 +1,1120 @@
 {
-    "hash": "9fcea4dbd1da9eb0a5f2e6091b8d5554",
+    "hash": "8c11d3f5fa0e17d33824b26536c9609d",
     "packages": [
         {
-            "package": "doctrine/common",
-            "version": "2.2.x-dev",
-            "source-reference": "1e0aa60d109c630d19543d999f12e2852ef8f932",
-            "commit-date": "1334303204"
-        },
-        {
-            "package": "gloubster/communications",
+            "name": "alchemy/ghostscript",
             "version": "dev-master",
-            "source-reference": "14d199463c0b2f5f435927561829cb7f086fe082",
-            "commit-date": "1342114261"
+            "source": {
+                "type": "git",
+                "url": "git://github.com/alchemy-fr/Ghostscript-PHP.git",
+                "reference": "dfb0fa60e94cbb29558d2567223ff75207169608"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/alchemy-fr/Ghostscript-PHP/zipball/dfb0fa60e94cbb29558d2567223ff75207169608",
+                "reference": "dfb0fa60e94cbb29558d2567223ff75207169608",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3",
+                "symfony/process": ">=2.0,<=2.2",
+                "monolog/monolog": "1.*"
+            },
+            "require-dev": {
+                "fabpot/php-cs-fixer": "master",
+                "sami/sami": "dev-master",
+                "silex/silex": "dev-master"
+            },
+            "time": "1351093185",
+            "type": "library",
+            "installation-source": "source",
+            "autoload": {
+                "psr-0": {
+                    "Ghostscript": "src"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Romain Neutron",
+                    "email": "imprec@gmail.com",
+                    "homepage": "http://www.lickmychip.com/"
+                },
+                {
+                    "name": "Phraseanet Team",
+                    "email": "info@alchemy.fr",
+                    "homepage": "http://www.phraseanet.com/"
+                }
+            ],
+            "description": "Ghostscript PDF, a library to handle PDF through ghostscript",
+            "keywords": [
+                "pdf",
+                "ghostscript"
+            ]
         },
         {
-            "package": "imagine/Imagine",
+            "name": "doctrine/common",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/doctrine/common",
+                "reference": "20cb487a5809a42f03020c89fa09eb4458de827f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/doctrine/common/zipball/20cb487a5809a42f03020c89fa09eb4458de827f",
+                "reference": "20cb487a5809a42f03020c89fa09eb4458de827f",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2"
+            },
+            "time": "1350491397",
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.4.x-dev"
+                }
+            },
+            "installation-source": "source",
+            "autoload": {
+                "psr-0": {
+                    "Doctrine\\Common\\": "lib/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jonathan Wage",
+                    "email": "jonwage@gmail.com",
+                    "homepage": "http://www.jwage.com/"
+                },
+                {
+                    "name": "Guilherme Blanco",
+                    "email": "guilhermeblanco@gmail.com",
+                    "homepage": "http://www.instaclick.com"
+                },
+                {
+                    "name": "Roman Borschel",
+                    "email": "roman@code-factory.org"
+                },
+                {
+                    "name": "Benjamin Eberlei",
+                    "email": "kontakt@beberlei.de"
+                },
+                {
+                    "name": "Johannes Schmitt",
+                    "email": "schmittjoh@gmail.com",
+                    "homepage": "http://jmsyst.com",
+                    "role": "Developer of wrapped JMSSerializerBundle"
+                }
+            ],
+            "description": "Common Library for Doctrine projects",
+            "homepage": "http://www.doctrine-project.org",
+            "keywords": [
+                "collections",
+                "spl",
+                "eventmanager",
+                "annotations",
+                "persistence"
+            ]
+        },
+        {
+            "name": "gloubster/communications",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Gloubster/Communications",
+                "reference": "70f4aafe35da377325801961fc7c2de80bfbd644"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/Gloubster/Communications/archive/70f4aafe35da377325801961fc7c2de80bfbd644.zip",
+                "reference": "70f4aafe35da377325801961fc7c2de80bfbd644",
+                "shasum": ""
+            },
+            "require": {
+                "justinrainbow/json-schema": "*",
+                "videlalvaro/php-amqplib": "dev-master"
+            },
+            "require-dev": {
+                "symfony/finder": ">=2.0,<=2.2.x-dev",
+                "symfony/filesystem": ">=2.0,<=2.2.x-dev"
+            },
+            "time": "1352371004",
+            "type": "library",
+            "installation-source": "source",
+            "autoload": {
+                "psr-0": {
+                    "Gloubster": "src"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Romain Neutron",
+                    "email": "imprec@gmail.com",
+                    "homepage": "http://www.lickmychip.com/"
+                }
+            ]
+        },
+        {
+            "name": "imagine/Imagine",
             "version": "dev-develop",
-            "source-reference": "ea555767c851236f31ee1e048b4cd51f448cab2e",
-            "commit-date": "1339599310"
+            "source": {
+                "type": "git",
+                "url": "https://github.com/avalanche123/Imagine",
+                "reference": "2da3004b1201649598377c1aa5b24f9788abe83f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/avalanche123/Imagine/zipball/2da3004b1201649598377c1aa5b24f9788abe83f",
+                "reference": "2da3004b1201649598377c1aa5b24f9788abe83f",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2"
+            },
+            "require-dev": {
+                "sami/sami": "dev-master"
+            },
+            "time": "1350920158",
+            "type": "library",
+            "installation-source": "source",
+            "autoload": {
+                "psr-0": {
+                    "Imagine": "lib/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Bulat Shakirzyanov",
+                    "email": "mallluhuct@gmail.com",
+                    "homepage": "http://avalanche123.com"
+                }
+            ],
+            "description": "Image processing for PHP 5.3",
+            "homepage": "http://imagine.readthedocs.org/",
+            "keywords": [
+                "image manipulation",
+                "image processing",
+                "drawing",
+                "graphics"
+            ]
         },
         {
-            "package": "justinrainbow/json-schema",
+            "name": "justinrainbow/json-schema",
             "version": "dev-master",
-            "source-reference": "535962c9997d0b09582189914cfae1a5ed1e3317",
-            "commit-date": "1337277049"
+            "source": {
+                "type": "git",
+                "url": "git://github.com/justinrainbow/json-schema.git",
+                "reference": "6573b23bed508c6744a61ffbe196a73a327761b7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/justinrainbow/json-schema/archive/6573b23bed508c6744a61ffbe196a73a327761b7.zip",
+                "reference": "6573b23bed508c6744a61ffbe196a73a327761b7",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "time": "1351872170",
+            "type": "library",
+            "installation-source": "source",
+            "autoload": {
+                "psr-0": {
+                    "JsonSchema": "src/"
+                }
+            },
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Igor Wiedler",
+                    "email": "igor@wiedler.ch",
+                    "homepage": "http://wiedler.ch/igor/"
+                },
+                {
+                    "name": "Bruno Prieto Reis",
+                    "email": "bruno.p.reis@gmail.com"
+                },
+                {
+                    "name": "Justin Rainbow",
+                    "email": "justin.rainbow@gmail.com"
+                },
+                {
+                    "name": "Robert Schönthal",
+                    "email": "seroscho@googlemail.com",
+                    "homepage": "http://digitalkaoz.net"
+                }
+            ],
+            "description": "A library to validate a json schema.",
+            "homepage": "https://github.com/justinrainbow/json-schema",
+            "keywords": [
+                "json",
+                "schema"
+            ]
         },
         {
-            "package": "kriswallsmith/spork",
+            "name": "media-alchemyst/media-alchemyst",
             "version": "dev-master",
-            "source-reference": "e6a3ec2fc4d74a174148b539ab8c3c7cebefed0e",
-            "commit-date": "1339256178"
+            "source": {
+                "type": "git",
+                "url": "https://github.com/alchemy-fr/Media-Alchemyst",
+                "reference": "8f2c693906d14aa9a8f9896556ab501dd07498d5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/alchemy-fr/Media-Alchemyst/zipball/8f2c693906d14aa9a8f9896556ab501dd07498d5",
+                "reference": "8f2c693906d14aa9a8f9896556ab501dd07498d5",
+                "shasum": ""
+            },
+            "require": {
+                "mediavorus/mediavorus": "dev-master",
+                "swftools/swftools": "dev-master",
+                "php-ffmpeg/php-ffmpeg": "dev-master",
+                "php-unoconv/php-unoconv": "dev-master",
+                "imagine/imagine": "dev-develop",
+                "php-mp4box/php-mp4box": "dev-master",
+                "php": ">=5.3.3",
+                "pimple/pimple": "*",
+                "monolog/monolog": "1.0.*",
+                "symfony/console": ">=2.0,<=2.2",
+                "alchemy/ghostscript": "dev-master"
+            },
+            "require-dev": {
+                "grom/silex-service-provider": "dev-master",
+                "phpexiftool/phpexiftool": "dev-master"
+            },
+            "time": "1351081006",
+            "type": "library",
+            "installation-source": "source",
+            "autoload": {
+                "psr-0": {
+                    "MediaAlchemyst": "src"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Romain Neutron",
+                    "email": "imprec@gmail.com",
+                    "homepage": "http://www.lickmychip.com/"
+                },
+                {
+                    "name": "Phraseanet Team",
+                    "email": "info@alchemy.fr",
+                    "homepage": "http://www.phraseanet.com/"
+                }
+            ],
+            "description": "An Object Oriented wrapper for easy multimedia conversion, based on Imagine, FFMpeg, SwfTools, Unoconv and other libs",
+            "keywords": [
+                "image processing",
+                "image",
+                "audio",
+                "video processing",
+                "video",
+                "audio processing"
+            ]
         },
         {
-            "package": "media-alchemyst/media-alchemyst",
+            "name": "mediavorus/mediavorus",
             "version": "dev-master",
-            "source-reference": "8b81d5d5e46402cb61541598e0ddf8ca8f68f8c6",
-            "commit-date": "1342002821"
+            "source": {
+                "type": "git",
+                "url": "https://github.com/romainneutron/MediaVorus",
+                "reference": "6741811aa4cb88c62f5300f3264c06c02bd5d0c9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/romainneutron/MediaVorus/zipball/6741811aa4cb88c62f5300f3264c06c02bd5d0c9",
+                "reference": "6741811aa4cb88c62f5300f3264c06c02bd5d0c9",
+                "shasum": ""
+            },
+            "require": {
+                "phpexiftool/phpexiftool": "dev-master",
+                "symfony/http-foundation": ">2.0",
+                "php-ffmpeg/php-ffmpeg": "dev-master",
+                "php": ">=5.3.0",
+                "monolog/monolog": "1.0.*",
+                "symfony/console": ">2.0"
+            },
+            "require-dev": {
+                "fabpot/php-cs-fixer": "*",
+                "silex/silex": "dev-master"
+            },
+            "time": "1347368981",
+            "type": "library",
+            "installation-source": "source",
+            "autoload": {
+                "psr-0": {
+                    "MediaVorus": "src"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Romain Neutron",
+                    "email": "imprec@gmail.com",
+                    "homepage": "http://www.lickmychip.com/"
+                }
+            ],
+            "description": "MediaVorus",
+            "keywords": [
+                "metadata"
+            ]
         },
         {
-            "package": "mediavorus/mediavorus",
+            "name": "monolog/monolog",
+            "version": "1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Seldaek/monolog",
+                "reference": "1.0.2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/Seldaek/monolog/zipball/1.0.2",
+                "reference": "1.0.2",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "time": "2011-10-24 02:39:02",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-0": {
+                    "Monolog": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jordi Boggiano",
+                    "email": "j.boggiano@seld.be",
+                    "homepage": "http://seld.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Logging for PHP 5.3",
+            "homepage": "http://github.com/Seldaek/monolog",
+            "keywords": [
+                "log",
+                "logging"
+            ]
+        },
+        {
+            "name": "neutron/temporary-filesystem",
             "version": "dev-master",
-            "source-reference": "28e3ce826a37126e901b5d80c3253090af74647a",
-            "commit-date": "1339782829"
+            "source": {
+                "type": "git",
+                "url": "git://github.com/romainneutron/Temporary-Filesystem.git",
+                "reference": "7d07cd2b25c03470f27aea69161a816908d7b908"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/romainneutron/Temporary-Filesystem/zipball/7d07cd2b25c03470f27aea69161a816908d7b908",
+                "reference": "7d07cd2b25c03470f27aea69161a816908d7b908",
+                "shasum": ""
+            },
+            "require": {
+                "symfony/filesystem": ">=2.0,<=2.2.x-dev"
+            },
+            "time": "1351854327",
+            "type": "library",
+            "installation-source": "source",
+            "autoload": {
+                "psr-0": {
+                    "Neutron": "src"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Romain Neutron",
+                    "email": "imprec@gmail.com",
+                    "homepage": "http://www.lickmychip.com/"
+                }
+            ],
+            "description": "Symfony filesystem extension to handle temporary files"
         },
         {
-            "package": "monolog/monolog",
-            "version": "1.0.2"
-        },
-        {
-            "package": "php-ffmpeg/php-ffmpeg",
+            "name": "php-ffmpeg/php-ffmpeg",
             "version": "dev-master",
-            "source-reference": "b6b8bd502131e0dd82f53517ccc84d3de2c09424",
-            "commit-date": "1340268165"
+            "source": {
+                "type": "git",
+                "url": "https://github.com/alchemy-fr/PHP-FFmpeg",
+                "reference": "60b2aeff24f2d9a68bee89789dc567c6c1352c00"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/alchemy-fr/PHP-FFmpeg/zipball/60b2aeff24f2d9a68bee89789dc567c6c1352c00",
+                "reference": "60b2aeff24f2d9a68bee89789dc567c6c1352c00",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3",
+                "symfony/process": ">=2.0,<=2.2",
+                "monolog/monolog": "1.*"
+            },
+            "require-dev": {
+                "fabpot/php-cs-fixer": "master",
+                "sami/sami": "dev-master",
+                "silex/silex": "dev-master"
+            },
+            "suggest": {
+                "php-ffmpeg/extras": "A compilation of common audio & video drivers for PHP-FFMpeg"
+            },
+            "time": "1351638519",
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.2.x-dev"
+                }
+            },
+            "installation-source": "source",
+            "autoload": {
+                "psr-0": {
+                    "FFMpeg": "src"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Romain Neutron",
+                    "email": "imprec@gmail.com",
+                    "homepage": "http://www.lickmychip.com/"
+                },
+                {
+                    "name": "Phraseanet Team",
+                    "email": "info@alchemy.fr",
+                    "homepage": "http://www.phraseanet.com/"
+                }
+            ],
+            "description": "FFMpeg PHP, an Object Oriented library to communicate with AVconv / ffmpeg",
+            "keywords": [
+                "audio",
+                "video processing",
+                "video",
+                "audio processing",
+                "avconv",
+                "ffmpeg",
+                "avprobe",
+                "ffprobe"
+            ]
         },
         {
-            "package": "php-mp4box/php-mp4box",
+            "name": "php-mp4box/php-mp4box",
             "version": "dev-master",
-            "source-reference": "ed3ae359984793a699c540871acc1d68ca6589fe",
-            "commit-date": "1335481578"
+            "source": {
+                "type": "git",
+                "url": "git://github.com/alchemy-fr/PHP-MP4Box.git",
+                "reference": "2c272a3f77807771275fb4f2c404071e9c263e19"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/alchemy-fr/PHP-MP4Box/zipball/2c272a3f77807771275fb4f2c404071e9c263e19",
+                "reference": "2c272a3f77807771275fb4f2c404071e9c263e19",
+                "shasum": ""
+            },
+            "require": {
+                "monolog/monolog": "1.0.*",
+                "php": ">=5.3.3",
+                "symfony/process": ">=2.0,<=2.2"
+            },
+            "require-dev": {
+                "fabpot/php-cs-fixer": "dev-master",
+                "silex/silex": "dev-master"
+            },
+            "time": "1349804408",
+            "type": "library",
+            "installation-source": "source",
+            "autoload": {
+                "psr-0": {
+                    "MP4Box": "src"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Romain Neutron",
+                    "email": "imprec@gmail.com",
+                    "homepage": "http://www.lickmychip.com/"
+                },
+                {
+                    "name": "Phraseanet Team",
+                    "email": "info@alchemy.fr",
+                    "homepage": "http://www.phraseanet.com/"
+                }
+            ],
+            "description": "PHP MP4Box, an Object Oriented library for easy file conversion with MP4 Box"
         },
         {
-            "package": "php-unoconv/php-unoconv",
+            "name": "php-unoconv/php-unoconv",
             "version": "dev-master",
-            "source-reference": "27f257203be01e3343128b902a06fb82363876b8",
-            "commit-date": "1335481542"
+            "source": {
+                "type": "git",
+                "url": "https://github.com/alchemy-fr/PHP-Unoconv",
+                "reference": "dd49df9be9ab649af37674f07393037727077124"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/alchemy-fr/PHP-Unoconv/zipball/dd49df9be9ab649af37674f07393037727077124",
+                "reference": "dd49df9be9ab649af37674f07393037727077124",
+                "shasum": ""
+            },
+            "require": {
+                "monolog/monolog": "1.0.*",
+                "php": ">=5.3.3",
+                "symfony/process": ">=2.0,<=2.2"
+            },
+            "require-dev": {
+                "silex/silex": "dev-master",
+                "fabpot/php-cs-fixer": "dev-master"
+            },
+            "time": "1349713000",
+            "type": "library",
+            "installation-source": "source",
+            "autoload": {
+                "psr-0": {
+                    "Unoconv": "src"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Romain Neutron",
+                    "email": "imprec@gmail.com",
+                    "homepage": "http://www.lickmychip.com/"
+                },
+                {
+                    "name": "Phraseanet Team",
+                    "email": "info@alchemy.fr",
+                    "homepage": "http://www.phraseanet.com/"
+                }
+            ],
+            "description": "Unoconv PHP, an Object Oriented library for easy file conversion with LibreOffice's unoconv"
         },
         {
-            "package": "phpexiftool/exiftool",
+            "name": "phpexiftool/exiftool",
             "version": "dev-master",
-            "source-reference": "999e660215b25a12fd3409df9a31883b6c617570",
-            "commit-date": "1339513761"
+            "source": {
+                "type": "git",
+                "url": "https://github.com/alchemy-fr/exiftool",
+                "reference": "c68d98b5a00aaf7ae0db7eebddfcde27d948e537"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/alchemy-fr/exiftool/zipball/c68d98b5a00aaf7ae0db7eebddfcde27d948e537",
+                "reference": "c68d98b5a00aaf7ae0db7eebddfcde27d948e537",
+                "shasum": ""
+            },
+            "require": {
+                "phpexiftool/phpexiftool": "*"
+            },
+            "time": "1346256086",
+            "type": "library",
+            "installation-source": "source",
+            "license": [
+                "Perl Licensing"
+            ],
+            "authors": [
+                {
+                    "name": "Phil Harvey",
+                    "email": "phil@owl.phy.queensu.ca",
+                    "homepage": "http://www.sno.phy.queensu.ca/~phil/exiftool/"
+                }
+            ],
+            "description": "Exiftool is a library for reading, writing and editing meta information. This package is not PHP, but required for the main PHP driver : PHP Exiftool",
+            "keywords": [
+                "exiftool",
+                "metadatas"
+            ]
         },
         {
-            "package": "phpexiftool/phpexiftool",
+            "name": "phpexiftool/phpexiftool",
             "version": "dev-master",
-            "source-reference": "5dc6e9a21e4b0faf6809070bc4f1cc4fef06ead6",
-            "commit-date": "1339680734"
+            "source": {
+                "type": "git",
+                "url": "https://github.com/romainneutron/PHPExiftool",
+                "reference": "c72f9a88a74c1967fb14de62f342048c8311cb9b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/romainneutron/PHPExiftool/zipball/c72f9a88a74c1967fb14de62f342048c8311cb9b",
+                "reference": "c72f9a88a74c1967fb14de62f342048c8311cb9b",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3",
+                "doctrine/common": ">=2.2",
+                "phpexiftool/exiftool": "dev-master",
+                "symfony/process": "2.1.*"
+            },
+            "require-dev": {
+                "symfony/css-selector": "2.1.*",
+                "symfony/finder": "2.1.*",
+                "symfony/console": "2.1.*",
+                "symfony/dom-crawler": "2.1.*",
+                "fabpot/php-cs-fixer": "dev-master",
+                "sami/sami": "dev-master",
+                "silex/silex": "dev-master"
+            },
+            "time": "1346681208",
+            "type": "library",
+            "installation-source": "source",
+            "autoload": {
+                "psr-0": {
+                    "PHPExiftool": "lib"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Romain Neutron",
+                    "email": "imprec@gmail.com",
+                    "homepage": "http://www.lickmychip.com/"
+                }
+            ],
+            "description": "Exiftool driver for PHP",
+            "keywords": [
+                "metadata",
+                "exiftool"
+            ]
         },
         {
-            "package": "pimple/pimple",
+            "name": "pimple/pimple",
             "version": "dev-master",
-            "alias-pretty-version": "1.0.x-dev",
-            "alias-version": "1.0.9999999.9999999-dev"
+            "source": {
+                "type": "git",
+                "url": "git://github.com/fabpot/Pimple.git",
+                "reference": "b9f27b8dc18c08f00627dec02359b46a24791dc3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/fabpot/Pimple/zipball/b9f27b8dc18c08f00627dec02359b46a24791dc3",
+                "reference": "b9f27b8dc18c08f00627dec02359b46a24791dc3",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "time": "1347278988",
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "installation-source": "source",
+            "autoload": {
+                "psr-0": {
+                    "Pimple": "lib/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                }
+            ],
+            "description": "Pimple is a simple Dependency Injection Container for PHP 5.3",
+            "homepage": "http://pimple.sensiolabs.org",
+            "keywords": [
+                "dependency injection",
+                "container"
+            ]
         },
         {
-            "package": "pimple/pimple",
+            "name": "swftools/swftools",
             "version": "dev-master",
-            "source-reference": "d2cfa2f02f50abef65c238747c753a5f6786f6be",
-            "commit-date": "1341139100"
+            "source": {
+                "type": "git",
+                "url": "https://github.com/alchemy-fr/PHPSwftools",
+                "reference": "9b79c0fb1f43a2e84c26e908d54b1ed98091510c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/alchemy-fr/PHPSwftools/zipball/9b79c0fb1f43a2e84c26e908d54b1ed98091510c",
+                "reference": "9b79c0fb1f43a2e84c26e908d54b1ed98091510c",
+                "shasum": ""
+            },
+            "require": {
+                "monolog/monolog": "1.0.*",
+                "php": ">=5.3.3",
+                "symfony/process": ">=2.0,<=2.2"
+            },
+            "require-dev": {
+                "fabpot/php-cs-fixer": "dev-master",
+                "sami/sami": "dev-master",
+                "silex/silex": "dev-master"
+            },
+            "time": "1349705213",
+            "type": "library",
+            "installation-source": "source",
+            "autoload": {
+                "psr-0": {
+                    "SwfTools": "src"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Romain Neutron",
+                    "email": "imprec@gmail.com",
+                    "homepage": "http://www.lickmychip.com/"
+                },
+                {
+                    "name": "Phraseanet Team",
+                    "email": "support@alchemy.fr",
+                    "homepage": "http://www.phraseanet.com/"
+                }
+            ],
+            "description": "PHP SwfTools",
+            "keywords": [
+                "flash",
+                "swf",
+                "adobe flash"
+            ]
         },
         {
-            "package": "swftools/swftools",
-            "version": "dev-master",
-            "source-reference": "72f339293ca74606814f41fd95f8c552257d8c3b",
-            "commit-date": "1339439296"
+            "name": "symfony/console",
+            "version": "2.1.x-dev",
+            "target-dir": "Symfony/Component/Console",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/Console",
+                "reference": "fda96868928f4731986152a2e51052ea32b88e25"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/symfony/Console/archive/fda96868928f4731986152a2e51052ea32b88e25.zip",
+                "reference": "fda96868928f4731986152a2e51052ea32b88e25",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "time": "1352017759",
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.1-dev"
+                }
+            },
+            "installation-source": "source",
+            "autoload": {
+                "psr-0": {
+                    "Symfony\\Component\\Console": ""
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "http://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Console Component",
+            "homepage": "http://symfony.com"
         },
         {
-            "package": "symfony/console",
+            "name": "symfony/filesystem",
             "version": "dev-master",
-            "alias-pretty-version": "2.1.x-dev",
-            "alias-version": "2.1.9999999.9999999-dev"
+            "target-dir": "Symfony/Component/Filesystem",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/Filesystem",
+                "reference": "ef5f0ab0c2115494911118f7014be5ebddbf172f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/symfony/Filesystem/zipball/ef5f0ab0c2115494911118f7014be5ebddbf172f",
+                "reference": "ef5f0ab0c2115494911118f7014be5ebddbf172f",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "time": "1351093287",
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.2-dev"
+                }
+            },
+            "installation-source": "source",
+            "autoload": {
+                "psr-0": {
+                    "Symfony\\Component\\Filesystem\\": ""
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "http://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Filesystem Component",
+            "homepage": "http://symfony.com"
         },
         {
-            "package": "symfony/console",
+            "name": "symfony/http-foundation",
             "version": "dev-master",
-            "source-reference": "4458137cead530271007bf82711dcd718d263a16",
-            "commit-date": "1341926729"
+            "target-dir": "Symfony/Component/HttpFoundation",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/HttpFoundation",
+                "reference": "61c1551f4e429fda1609ed0c8aa5a194ace599ec"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/symfony/HttpFoundation/archive/61c1551f4e429fda1609ed0c8aa5a194ace599ec.zip",
+                "reference": "61c1551f4e429fda1609ed0c8aa5a194ace599ec",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "time": "1352231732",
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.2-dev"
+                }
+            },
+            "installation-source": "source",
+            "autoload": {
+                "psr-0": {
+                    "Symfony\\Component\\HttpFoundation\\": ""
+                },
+                "classmap": [
+                    "Symfony/Component/HttpFoundation/Resources/stubs"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "http://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony HttpFoundation Component",
+            "homepage": "http://symfony.com"
         },
         {
-            "package": "symfony/dependency-injection",
-            "version": "dev-master",
-            "source-reference": "803f11bdfd4730da01221b5ecb6a935a5f9b6bff",
-            "commit-date": "1341838460"
+            "name": "symfony/process",
+            "version": "2.1.x-dev",
+            "target-dir": "Symfony/Component/Process",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/Process",
+                "reference": "v2.1.3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/symfony/Process/zipball/v2.1.3",
+                "reference": "v2.1.3",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "time": "1350717030",
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.1-dev"
+                }
+            },
+            "installation-source": "source",
+            "autoload": {
+                "psr-0": {
+                    "Symfony\\Component\\Process": ""
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "http://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Process Component",
+            "homepage": "http://symfony.com"
         },
         {
-            "package": "symfony/event-dispatcher",
+            "name": "system/cpu",
             "version": "dev-master",
-            "source-reference": "0dc437f2eca7dea19facfde6db7f7f5e8e71d0bc",
-            "commit-date": "1341838460"
+            "source": {
+                "type": "git",
+                "url": "git://github.com/romainneutron/SystemCpu.git",
+                "reference": "79853588fd75b4d0237b51c975957be132b1ada8"
+            },
+            "require": {
+                "symfony/process": "2.1.*"
+            },
+            "time": "1341402498",
+            "type": "library",
+            "installation-source": "source",
+            "autoload": {
+                "psr-0": {
+                    "Neutron": "src"
+                }
+            },
+            "authors": [
+                {
+                    "name": "Romain Neutron",
+                    "email": "imprec@gmail.com"
+                }
+            ],
+            "description": "A CPU probe"
         },
         {
-            "package": "symfony/http-foundation",
+            "name": "videlalvaro/php-amqplib",
             "version": "dev-master",
-            "source-reference": "3399f6f068cd41f1b42140699db1f1e6d3bcb361",
-            "commit-date": "1342107786"
-        },
-        {
-            "package": "symfony/process",
-            "version": "dev-master",
-            "alias-pretty-version": "2.1.x-dev",
-            "alias-version": "2.1.9999999.9999999-dev"
-        },
-        {
-            "package": "symfony/process",
-            "version": "dev-master",
-            "source-reference": "f78e5d1e0f74532ff2e9269a18c7202dc25159e9",
-            "commit-date": "1342010717"
-        },
-        {
-            "package": "system/cpu",
-            "version": "dev-master",
-            "source-reference": "79853588fd75b4d0237b51c975957be132b1ada8",
-            "commit-date": "1341402498"
+            "source": {
+                "type": "git",
+                "url": "git://github.com/videlalvaro/php-amqplib.git",
+                "reference": "237870120238f37d66703583ca0e186b4567b1a9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/videlalvaro/php-amqplib/zipball/237870120238f37d66703583ca0e186b4567b1a9",
+                "reference": "237870120238f37d66703583ca0e186b4567b1a9",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "time": "1351776374",
+            "type": "library",
+            "installation-source": "source",
+            "autoload": {
+                "psr-0": {
+                    "PhpAmqpLib": ""
+                }
+            },
+            "authors": [
+                {
+                    "name": "Alvaro Videla"
+                }
+            ],
+            "description": "This library is a pure PHP implementation of the AMQP protocol. It's been tested against RabbitMQ.",
+            "homepage": "https://github.com/videlalvaro/php-amqplib/",
+            "keywords": [
+                "queue",
+                "rabbitmq",
+                "message"
+            ]
         }
     ],
     "packages-dev": [
         {
-            "package": "symfony/finder",
+            "name": "symfony/finder",
             "version": "dev-master",
-            "alias-pretty-version": "2.1.x-dev",
-            "alias-version": "2.1.9999999.9999999-dev"
-        },
-        {
-            "package": "symfony/finder",
-            "version": "dev-master",
-            "source-reference": "53377047bae92edd04e232c79b653d2beb309bf6",
-            "commit-date": "1341846417"
+            "target-dir": "Symfony/Component/Finder",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/Finder",
+                "reference": "5027186f852f928c53567f3d599d2d9ceda449d0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/symfony/Finder/zipball/5027186f852f928c53567f3d599d2d9ceda449d0",
+                "reference": "5027186f852f928c53567f3d599d2d9ceda449d0",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "time": "1352017821",
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.2-dev"
+                }
+            },
+            "installation-source": "source",
+            "autoload": {
+                "psr-0": {
+                    "Symfony\\Component\\Finder\\": ""
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "http://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Finder Component",
+            "homepage": "http://symfony.com"
         }
     ],
     "aliases": [
@@ -164,6 +1123,8 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "gloubster/communications": 20,
-        "media-alchemyst/media-alchemyst": 20
+        "media-alchemyst/media-alchemyst": 20,
+        "neutron/temporary-filesystem": 20,
+        "videlalvaro/php-amqplib": 20
     }
 }

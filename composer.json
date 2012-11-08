@@ -8,20 +8,23 @@
     ],
     "repositories": [
         {
-            "type": "vcs",
-            "url": "https://github.com/romainneutron/SystemCpu"
+            "type": "git",
+            "url": "git://github.com/romainneutron/SystemCpu.git"
         }
     ],
     "require": {
         "gloubster/communications": "dev-master",
         "media-alchemyst/media-alchemyst":"dev-master",
-        "monolog/monolog": "*",
-        "system/cpu": "*",
-        "symfony/console" : "2.1.*"
+	    "system/cpu": "*",
+	    "neutron/temporary-filesystem": "dev-master",
+        "monolog/monolog": "1.*",
+        "symfony/console" : ">=2.0,<=2.2.x-dev",
+        "videlalvaro/php-amqplib": "dev-master"
     },
     "require-dev": {
-        "symfony/finder" : "2.1.*"
+        "symfony/finder" : ">=2.0,<=2.2.x-dev"
     },
+    "minimum-stability": "dev",
     "autoload": {
         "psr-0": {
             "Gloubster": "src"
