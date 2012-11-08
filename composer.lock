@@ -129,12 +129,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Gloubster/Communications",
-                "reference": "70f4aafe35da377325801961fc7c2de80bfbd644"
+                "reference": "0438dd6e18da37ad6657d6106cff581c1d6ec983"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/Gloubster/Communications/archive/70f4aafe35da377325801961fc7c2de80bfbd644.zip",
-                "reference": "70f4aafe35da377325801961fc7c2de80bfbd644",
+                "url": "https://github.com/Gloubster/Communications/archive/0438dd6e18da37ad6657d6106cff581c1d6ec983.zip",
+                "reference": "0438dd6e18da37ad6657d6106cff581c1d6ec983",
                 "shasum": ""
             },
             "require": {
@@ -145,7 +145,7 @@
                 "symfony/finder": ">=2.0,<=2.2.x-dev",
                 "symfony/filesystem": ">=2.0,<=2.2.x-dev"
             },
-            "time": "1352371004",
+            "time": "1352400979",
             "type": "library",
             "installation-source": "source",
             "autoload": {
@@ -818,18 +818,18 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Console",
-                "reference": "fda96868928f4731986152a2e51052ea32b88e25"
+                "reference": "70aaa62deb161694d1343e4606b9d4027fe5a9cd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/symfony/Console/archive/fda96868928f4731986152a2e51052ea32b88e25.zip",
-                "reference": "fda96868928f4731986152a2e51052ea32b88e25",
+                "url": "https://github.com/symfony/Console/archive/70aaa62deb161694d1343e4606b9d4027fe5a9cd.zip",
+                "reference": "70aaa62deb161694d1343e4606b9d4027fe5a9cd",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
             },
-            "time": "1352017759",
+            "time": "1352394182",
             "type": "library",
             "extra": {
                 "branch-alias": {
