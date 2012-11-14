@@ -55,7 +55,7 @@ abstract class AbstractWorker
 
     public function sendPresence()
     {
-        $this->logger->addDebug( "sending presence\n");
+        $this->logger->addDebug("sending presence");
         $this->channel->basic_publish(new AMQPMessage(serialize(array('hello'=>'world'))), Exchange::GLOUBSTER_DISPATCHER, RoutingKey::WORKER);
     }
 
