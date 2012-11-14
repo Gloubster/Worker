@@ -15,6 +15,6 @@
         }
     },
     "log": {
-        "exchange-name": "Gloubster\\Exchange::LOGS"
+        "exchange-name": "Gloubster\\Exchange::GLOUBSTER_DISPATCHER"
     }
 }
