@@ -21,7 +21,7 @@ return call_user_func(function() {
     $logger->pushHandler(new StreamHandler('php://stdout'));
 
     $app = new Application("Gloubster Worker");
-    $app->add(new RunWorker($connection->channel(), $configuration, $logger));
+    $app->add(new RunWorker($connection, $configuration, $logger));
 
     return $app->run();
 });
