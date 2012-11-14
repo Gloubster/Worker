@@ -14,9 +14,11 @@ class RunWorkerTest extends \PHPUnit_Framework_TestCase
      */
     public function testExecute()
     {
-        $channel = $this->getMockBuilder('PhpAmqpLib\Channel\AMQPChannel')
-            ->disableOriginalConstructor()
-            ->getMock();
+        $conn = $this->getConnection();
+
+        $conn->expects($this->any())
+            ->method('channel')
+            ->will($this->returnValue($this->getChannel()));
 
         $logger = $this->getMockBuilder('Monolog\\Logger')
             ->disableOriginalConstructor()
@@ -36,16 +38,30 @@ class RunWorkerTest extends \PHPUnit_Framework_TestCase
                 )
             ),
             "log"       => array(
-                "exchange-name" => "Gloubster\\Exchange::LOGS"
+                "exchange-name" => "Gloubster\\Exchange::GLOUBSTER_DISPATCHER"
             )
         )));
 
         $application = new Application();
-        $application->add(new RunWorker($channel, $conf, $logger));
+        $application->add(new RunWorker($conn, $conf, $logger));
 
         $command = $application->find('worker:run');
 
         $commandTester = new CommandTester($command);
         $commandTester->execute(array('command' => $command->getName(), 'type'=>'image', '--iterations'=>5));
+    }
+
+    private function getConnection()
+    {
+        return $this->getMockBuilder('PhpAmqpLib\Connection\AMQPConnection')
+            ->disableOriginalConstructor()
+            ->getMock();
+    }
+
+    private function getChannel()
+    {
+        return $this->getMockBuilder('PhpAmqpLib\Channel\AMQPChannel')
+            ->disableOriginalConstructor()
+            ->getMock();
     }
 }

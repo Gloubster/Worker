@@ -8,6 +8,7 @@ use Gloubster\Delivery\FileSystem;
 use Gloubster\Delivery\DeliveryInterface;
 use Neutron\TemporaryFilesystem\TemporaryFilesystem;
 use PhpAmqpLib\Channel\AMQPChannel;
+use PhpAmqpLib\Message\AMQPMessage;
 
 require_once __DIR__ . '/AbstractWorkerTest.php';
 
@@ -42,7 +43,15 @@ class ImageWorkerTest extends AbstractWorkerTest
                 ->getMock();
         }
 
-        return new ImageWorker(self::ID, $channel, self::QUEUE, self::LOG_EXCHANGE, new TemporaryFilesystem, $logger);
+        $conn = $this->getMockBuilder('PhpAmqpLib\Connection\AMQPConnection')
+            ->disableOriginalConstructor()
+            ->getmock();
+
+        $conn->expects($this->any())
+            ->method('channel')
+            ->will($this->returnValue($channel));
+
+        return $this->getMock('Gloubster\Worker\ImageWorker', array('sendPresence'), array(self::ID, $conn, self::QUEUE, self::LOG_EXCHANGE, new TemporaryFilesystem, $logger));
     }
 
     /**
@@ -60,17 +69,17 @@ class ImageWorkerTest extends AbstractWorkerTest
         }
     }
 
-    public function assertGoodLocalLogJob($message)
+    public function assertGoodLocalLogJob(AMQPMessage $message)
     {
-        $job = unserialize($message);
+        $job = unserialize($message->body);
 
         $this->assertEquals(array('format' => 'jpg'), $job->getParameters());
         $this->assertEquals($this->source, $job->getSource());
     }
 
-    public function assertWrongLocalLogJob($message)
+    public function assertWrongLocalLogJob(AMQPMessage $message)
     {
-        $job = unserialize($message);
+        $job = unserialize($message->body);
 
         $this->assertEquals(array('format' => 'jpg'), $job->getParameters());
         $this->assertEquals($this->source, $job->getSource());

@@ -2,8 +2,11 @@
 
 namespace Gloubster\Worker\Console;
 
+use PhpAmqpLib\Connection\AMQPConnection;
 use PhpAmqpLib\Channel\AMQPChannel;
 use Gloubster\Configuration;
+use Gloubster\Exchange;
+use Gloubster\RoutingKey;
 use Gloubster\Worker\ImageWorker;
 use Gloubster\Worker\Factory;
 use Monolog\Logger;
@@ -17,14 +20,14 @@ use Symfony\Component\Console\Command\Command;
 class RunWorker extends Command
 {
     private $logger;
-    private $channel;
+    private $conn;
     private $conf;
 
-    public function __construct(AMQPChannel $channel, Configuration $conf, Logger $logger)
+    public function __construct(AMQPConnection $conn, Configuration $conf, Logger $logger)
     {
         parent::__construct('worker:run');
 
-        $this->channel = $channel;
+        $this->conn = $conn;
         $this->conf = $conf;
         $this->logger = $logger;
         $this->setDescription('Run a worker');
@@ -43,7 +46,7 @@ class RunWorker extends Command
 
         $output->writeln(sprintf("Running %s worker #%s ...", $type, $id));
 
-        $worker = Factory::createWorker($type, $id, $this->channel, $this->conf, new TemporaryFilesystem(), $this->logger);
+        $worker = Factory::createWorker($type, $id, $this->conn, $this->conf, new TemporaryFilesystem(), $this->logger);
         $worker->run($input->getOption('iterations'));
     }
 }

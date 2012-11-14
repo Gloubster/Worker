@@ -7,6 +7,23 @@ use Gloubster\Configuration;
 class FactoryTest extends \PHPUnit_Framework_TestCase
 {
 
+    private function getConnection()
+    {
+        $channel = $this->getMockBuilder('PhpAmqpLib\Channel\AMQPChannel')
+            ->disableOriginalConstructor()
+            ->getmock();
+
+        $conn = $this->getMockBuilder('PhpAmqpLib\Connection\AMQPConnection')
+            ->disableOriginalConstructor()
+            ->getmock();
+
+        $conn->expects($this->any())
+            ->method('channel')
+            ->will($this->returnValue($channel));
+
+        return $conn;
+    }
+
     /**
      * @covers Gloubster\Worker\Factory::createWorker
      * @expectedException Gloubster\Exception\InvalidArgumentException
@@ -27,15 +44,12 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
                         )
                     ),
                     "log" => array(
-                        "exchange-name"=>'Gloubster\\Exchange::NOLOGS'
+                        "exchange-name"=>'Gloubster\\Exchange::GLOUBSTER_LOG'
                     )
                 )), array(
                 file_get_contents(__DIR__ . '/../../../../resources/configuration.schema.json')
             ));
 
-        $channel = $this->getMockBuilder('PhpAmqpLib\\Channel\\AMQPChannel')
-            ->disableOriginalConstructor()
-            ->getmock();
         $filesystem = $this->getMockBuilder('Neutron\\TemporaryFilesystem\\TemporaryFilesystem')
             ->disableOriginalConstructor()
             ->getmock();
@@ -43,7 +57,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getmock();
 
-        Factory::createWorker("image", "image-001", $channel, $configuration, $filesystem, $logger);
+        Factory::createWorker("image", "image-001", $this->getConnection(), $configuration, $filesystem, $logger);
     }
 
     /**
@@ -66,15 +80,12 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
                         )
                     ),
                     "log" => array(
-                        "exchange-name"=>'Gloubster\\Exchange::LOGS'
+                        "exchange-name"=>'Gloubster\\Exchange::GLOUBSTER_DISPATCHER'
                     )
                 )), array(
                 file_get_contents(__DIR__ . '/../../../../resources/configuration.schema.json')
             ));
 
-        $channel = $this->getMockBuilder('PhpAmqpLib\\Channel\\AMQPChannel')
-            ->disableOriginalConstructor()
-            ->getmock();
         $filesystem = $this->getMockBuilder('Neutron\\TemporaryFilesystem\\TemporaryFilesystem')
             ->disableOriginalConstructor()
             ->getmock();
@@ -82,7 +93,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getmock();
 
-        Factory::createWorker("image", "image-001", $channel, $configuration, $filesystem, $logger);
+        Factory::createWorker("image", "image-001", $this->getConnection(), $configuration, $filesystem, $logger);
     }
 
     /**
@@ -105,13 +116,13 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
                         )
                     ),
                     "log" => array(
-                        "exchange-name"=>'Gloubster\\Exchange::LOGS'
+                        "exchange-name"=>'Gloubster\\Exchange::GLOUBSTER_DISPATCHER'
                     )
                 )), array(
                 file_get_contents(__DIR__ . '/../../../../resources/configuration.schema.json')
             ));
 
-        $channel = $this->getMockBuilder('PhpAmqpLib\\Channel\\AMQPChannel')
+        $conn = $this->getMockBuilder('PhpAmqpLib\Connection\AMQPConnection')
             ->disableOriginalConstructor()
             ->getmock();
         $filesystem = $this->getMockBuilder('Neutron\\TemporaryFilesystem\\TemporaryFilesystem')
@@ -121,7 +132,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getmock();
 
-        Factory::createWorker("image", "image-001", $channel, $configuration, $filesystem, $logger);
+        Factory::createWorker("image", "image-001", $this->getConnection(), $configuration, $filesystem, $logger);
     }
 
     /**
@@ -143,15 +154,12 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
                         )
                     ),
                     "log" => array(
-                        "exchange-name"=>'Gloubster\\Exchange::LOGS'
+                        "exchange-name"=>'Gloubster\\Exchange::GLOUBSTER_DISPATCHER'
                     )
                 )), array(
                 file_get_contents(__DIR__ . '/../../../../resources/configuration.schema.json')
             ));
 
-        $channel = $this->getMockBuilder('PhpAmqpLib\\Channel\\AMQPChannel')
-            ->disableOriginalConstructor()
-            ->getmock();
         $filesystem = $this->getMockBuilder('Neutron\\TemporaryFilesystem\\TemporaryFilesystem')
             ->disableOriginalConstructor()
             ->getmock();
@@ -159,7 +167,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getmock();
 
-        $worker = Factory::createWorker("image", "image-001", $channel, $configuration, $filesystem, $logger);
+        $worker = Factory::createWorker("image", "image-001", $this->getConnection(), $configuration, $filesystem, $logger);
 
         $this->assertInstanceOf('Gloubster\\Worker\\ImageWorker', $worker);
     }

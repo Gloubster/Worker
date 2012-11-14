@@ -2,6 +2,7 @@
 
 namespace Gloubster\Worker;
 
+use PhpAmqpLib\Connection\AMQPConnection;
 use PhpAmqpLib\Channel\AMQPChannel;
 use Gloubster\Configuration;
 use Gloubster\RabbitMQFactory;
@@ -12,7 +13,7 @@ use Neutron\TemporaryFilesystem\TemporaryFilesystem;
 class Factory
 {
 
-    public static function createWorker($type, $id, AMQPChannel $channel, Configuration $configuration, TemporaryFilesystem $filesystem, Logger $logger)
+    public static function createWorker($type, $id, AMQPConnection $conn, Configuration $configuration, TemporaryFilesystem $filesystem, Logger $logger)
     {
         if (!isset($configuration['workers'][$type])) {
             throw new InvalidArgumentException(sprintf('Worker %s is not defined', $type));
@@ -32,6 +33,6 @@ class Factory
         $queueName = (string) constant($worker['queue-name']);
         $logExchange = (string) constant($configuration['log']['exchange-name']);
 
-        return new $classname($id, $channel, $queueName, $logExchange, $filesystem, $logger);
+        return new $classname($id, $conn, $queueName, $logExchange, $filesystem, $logger);
     }
 }
