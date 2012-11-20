@@ -1,14 +1,19 @@
 <?php
 
+/*
+ * This file is part of Gloubster.
+ *
+ * (c) Alchemy <info@alchemy.fr>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Gloubster\Worker\Console;
 
-use PhpAmqpLib\Connection\AMQPConnection;
-use PhpAmqpLib\Channel\AMQPChannel;
 use Gloubster\Configuration;
-use Gloubster\Exchange;
-use Gloubster\RoutingKey;
-use Gloubster\Worker\ImageWorker;
 use Gloubster\Worker\Factory;
+use Gloubster\RabbitMQFactory;
 use Monolog\Logger;
 use Neutron\TemporaryFilesystem\TemporaryFilesystem;
 use Symfony\Component\Console\Input\InputInterface;
@@ -20,14 +25,12 @@ use Symfony\Component\Console\Command\Command;
 class RunWorker extends Command
 {
     private $logger;
-    private $conn;
     private $conf;
 
-    public function __construct(AMQPConnection $conn, Configuration $conf, Logger $logger)
+    public function __construct(Configuration $conf, Logger $logger)
     {
         parent::__construct('worker:run');
 
-        $this->conn = $conn;
         $this->conf = $conf;
         $this->logger = $logger;
         $this->setDescription('Run a worker');
@@ -41,12 +44,19 @@ class RunWorker extends Command
 
     public function execute(InputInterface $input, OutputInterface $output)
     {
+        $conn = RabbitMQFactory::createConnection($this->conf);
+
         $type = $input->getArgument('type');
-        $id = $input->getArgument('id')? : $type . '-' . uniqid('', true);
+        $id = $input->getArgument('id') ?: $this->generateId($type);
 
         $output->writeln(sprintf("Running %s worker #%s ...", $type, $id));
 
-        $worker = Factory::createWorker($type, $id, $this->conn, $this->conf, new TemporaryFilesystem(), $this->logger);
+        $worker = Factory::createWorker($type, $id, $conn, $this->conf, new TemporaryFilesystem(), $this->logger);
         $worker->run($input->getOption('iterations'));
+    }
+
+    private function generateId($type)
+    {
+        return $type . '-' . uniqid('', true);
     }
 }
