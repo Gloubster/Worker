@@ -5,18 +5,14 @@ namespace Gloubster\Worker;
 use Gloubster\Exception\RuntimeException;
 use Gloubster\Delivery\DeliveryInterface;
 use Gloubster\Delivery\FileSystem;
+use Gloubster\Exchange;
+use Gloubster\RoutingKey;
 use Neutron\TemporaryFilesystem\TemporaryFilesystem;
 use PhpAmqpLib\Message\AMQPMessage;
 use PhpAmqpLib\Channel\AMQPChannel;
 
-/**
- * @covers Gloubster\Worker\AbstractWorker
- */
 abstract class AbstractWorkerTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @var AbstractWorker
-     */
     protected $object;
     protected $target;
 
@@ -38,9 +34,6 @@ abstract class AbstractWorkerTest extends \PHPUnit_Framework_TestCase
         parent::tearDown();
     }
 
-    /**
-     * @covers Gloubster\Worker\AbstractWorker::run
-     */
     public function testRun()
     {
         $conn = $this->getConnection();
@@ -53,14 +46,17 @@ abstract class AbstractWorkerTest extends \PHPUnit_Framework_TestCase
             ->method('channel')
             ->will($this->returnValue($channel));
 
-        $worker = $this->getMockForAbstractClass('Gloubster\\Worker\\AbstractWorker', array($this->getId(), $conn, $this->getQueueName(), $this->getLogExchangeName(), new TemporaryFilesystem(), $this->getLogger()));
+        $worker = $this->getMockForAbstractClass('Gloubster\\Worker\\AbstractWorker', array(
+            $this->getId(),
+            $conn,
+            $this->getQueueName(),
+            new TemporaryFilesystem(),
+            $this->getLogger()
+        ));
 
         $worker->run(1);
     }
 
-    /**
-     * @covers Gloubster\Worker\AbstractWorker::run
-     */
     public function testRun5Iterations()
     {
         $conn = $this->getConnection();
@@ -73,22 +69,22 @@ abstract class AbstractWorkerTest extends \PHPUnit_Framework_TestCase
             ->method('channel')
             ->will($this->returnValue($channel));
 
-        $worker = $this->getMockForAbstractClass('Gloubster\\Worker\\AbstractWorker', array($this->getId(), $conn, $this->getQueueName(), $this->getLogExchangeName(), new TemporaryFilesystem(), $this->getLogger()));
+        $worker = $this->getMockForAbstractClass('Gloubster\\Worker\\AbstractWorker', array(
+            $this->getId(),
+            $conn,
+            $this->getQueueName(),
+            new TemporaryFilesystem(),
+            $this->getLogger()
+        ));
 
         $worker->run(5);
     }
 
-    /**
-     * @covers Gloubster\Worker\AbstractWorker::getType
-     */
     public function testGetType()
     {
         $this->assertInternalType('string', $this->getWorker()->getType());
     }
 
-    /**
-     * @covers Gloubster\Worker\AbstractWorker::process
-     */
     public function testWrongProcess()
     {
         $wrongData = serialize(array('hello' => 'world'));
@@ -99,9 +95,11 @@ abstract class AbstractWorkerTest extends \PHPUnit_Framework_TestCase
 
         $that = $this;
 
-        $this->probePublishValues($channel, null, $this->getQueueName() . '.error', $this->getLogExchangeName(), function($message) use ($wrongData, $that) {
+        $this->probePublishValues($channel, null, RoutingKey::ERROR,
+            function($message) use ($wrongData, $that) {
                 $that->assertEquals($wrongData, $message->body);
-            });
+            }
+        );
 
         try {
             $this->getWorker($channel)->process($message);
@@ -111,9 +109,6 @@ abstract class AbstractWorkerTest extends \PHPUnit_Framework_TestCase
         }
     }
 
-    /**
-     * @covers Gloubster\Worker\AbstractWorker::process
-     */
     public function testProcess()
     {
         $job = $this->getJob(new FileSystem($this->target));
@@ -121,18 +116,15 @@ abstract class AbstractWorkerTest extends \PHPUnit_Framework_TestCase
 
         $message = $this->getAMQPMessage(serialize($job));
         $channel = $this->getChannel();
-        $this->ensureAcknowledgement($channel, $message->delivery_info['delivery_tag']);
 
-        $this->probePublishValues($channel, true, $this->getQueueName() . '.log', $this->getLogExchangeName());
+        $this->ensureAcknowledgement($channel, $message->delivery_info['delivery_tag']);
+        $this->probePublishValues($channel, true, RoutingKey::LOG);
 
         $this->getWorker($channel)->process($message);
 
         $this->assertTrue(file_exists($this->target));
     }
 
-    /**
-     * @covers Gloubster\Worker\AbstractWorker::process
-     */
     public function testProcessFailed()
     {
         $job = $this->getJob(new FileSystem($this->target));
@@ -147,12 +139,16 @@ abstract class AbstractWorkerTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue($channel));
 
         $this->ensureAcknowledgement($channel, $message->delivery_info['delivery_tag']);
-
-        $this->probePublishValues($channel, false, $this->getQueueName() . '.log', $this->getLogExchangeName());
+        $this->probePublishValues($channel, false, RoutingKey::LOG);
 
         $exception = new \Exception('Plouf');
 
-        $worker = $this->getMock('Gloubster\\Worker\\AbstractWorker', array('sendPresence', 'getType', 'compute'), array($this->getId(), $conn, $this->getQueueName(), $this->getLogExchangeName(), new TemporaryFilesystem(), $this->getLogger()));
+        $worker = $this->getMock(
+            'Gloubster\\Worker\\AbstractWorker',
+            array('getType', 'compute'),
+            array($this->getId(), $conn, $this->getQueueName(), new TemporaryFilesystem(), $this->getLogger())
+        );
+
         $worker->expects($this->once())
             ->method('compute')
             ->will($this->throwException($exception));
@@ -172,9 +168,9 @@ abstract class AbstractWorkerTest extends \PHPUnit_Framework_TestCase
 
         $message = $this->getAMQPMessage(serialize($job));
         $channel = $this->getChannel();
-        $this->ensureAcknowledgement($channel, $message->delivery_info['delivery_tag']);
 
-        $this->probePublishValues($channel, false, $this->getQueueName() . '.log', $this->getLogExchangeName());
+        $this->ensureAcknowledgement($channel, $message->delivery_info['delivery_tag']);
+        $this->probePublishValues($channel, false, RoutingKey::LOG);
 
         try {
             $this->getWorker($channel)->process($message);
@@ -184,30 +180,58 @@ abstract class AbstractWorkerTest extends \PHPUnit_Framework_TestCase
         }
     }
 
-    private function probePublishValues(AMQPChannel $channel, $good, $expectedQueueName, $expectedExchangeName, $callback = null)
+    public function testSendPresenceRegularly()
+    {
+        $collector = array();
+
+        $channel = $this->getChannel();
+        $channel->expects($this->any())
+            ->method('basic_publish')
+            ->will($this->returnCallback(function($message) use (&$collector) {
+                $collector[] = $message;
+            }));
+
+        $worker = $this->getWorker($channel);
+        $worker->setTimeout(3);
+        $worker->run();
+
+        $this->assertGreaterThanOrEqual(2, count($collector));
+
+        foreach($collector as $message) {
+            $job = unserialize($message->body);
+            $this->assertInstanceOf('Gloubster\Monitor\Worker\Presence', $job);
+        }
+    }
+
+    private function probePublishValues(AMQPChannel $channel, $good, $expectedQueueName, $callback = null)
     {
         $that = $this;
 
-        $channel->expects($this->once())
+        $channel->expects($this->any())
             ->method('basic_publish')
-            ->with($this->isInstanceOf('PhpAmqpLib\Message\AMQPMessage'), $this->isType('string'), $this->isType('string'))
-            ->will($this->returnCallback(function($message, $exchangeName, $routingKey) use ($that, $good, $expectedQueueName, $expectedExchangeName, $callback) {
+            ->with($this->isInstanceOf('PhpAmqpLib\Message\AMQPMessage'),
+                    $this->isType('string'),
+                    $this->isType('string'))
+            ->will($this->returnCallback(
+                function($message, $exchangeName, $routingKey)
+                    use ($that, $good, $expectedQueueName, $callback) {
 
-                        $that->assertEquals($expectedQueueName, $routingKey);
-                        $that->assertEquals($expectedExchangeName, $exchangeName);
+                    $that->assertEquals(Exchange::GLOUBSTER_DISPATCHER, $exchangeName);
+                    $that->assertEquals($expectedQueueName, $routingKey);
 
-                        if ($good === true) {
-                            $that->assertGoodLogJob($message);
-                            $that->assertGoodLocalLogJob($message);
-                        } elseif ($good === false) {
-                            $that->assertGoodLogWrongJob($message);
-                            $that->assertWrongLocalLogJob($message);
-                        }
+                    if ($good === true) {
+                        $that->assertGoodLogJob($message);
+                        $that->assertGoodLocalLogJob($message);
+                    } elseif ($good === false) {
+                        $that->assertGoodLogWrongJob($message);
+                        $that->assertWrongLocalLogJob($message);
+                    }
 
-                        if ($callback) {
-                            $callback($message);
-                        }
-                    }));
+                    if ($callback) {
+                        $callback($message);
+                    }
+                }
+            ));
     }
 
     protected function assertGoodLogJob(AMQPMessage $message)
@@ -287,9 +311,7 @@ abstract class AbstractWorkerTest extends \PHPUnit_Framework_TestCase
 
     abstract public function getQueueName();
 
-    abstract public function getLogExchangeName();
-
-    abstract public function getWorker();
+    abstract public function getWorker(AMQPChannel $channel = null);
 
     abstract public function getJob(DeliveryInterface $delivery);
 

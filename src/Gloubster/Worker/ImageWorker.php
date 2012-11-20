@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of Gloubster.
+ *
+ * (c) Alchemy <info@alchemy.fr>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Gloubster\Worker;
 
 use MediaAlchemyst\Alchemyst;
@@ -8,6 +17,7 @@ use MediaAlchemyst\Specification\Image;
 use Gloubster\Exception\RuntimeException;
 use Gloubster\Job\JobInterface;
 use Gloubster\Job\ImageJob;
+use Gloubster\Worker\Job\Result;
 
 class ImageWorker extends AbstractWorker
 {
@@ -31,7 +41,7 @@ class ImageWorker extends AbstractWorker
             ->turnInto($tmpFile, $this->specificationsFromJob($job))
             ->close();
 
-        return $tmpFile;
+        return new Result(Result::TYPE_PATHFILE, $tmpFile);
     }
 
     private function specificationsFromJob(ImageJob $job)

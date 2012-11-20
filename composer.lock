@@ -129,23 +129,22 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Gloubster/Communications",
-                "reference": "2f86f3d3322fb7e456dbacb921ededcff9735ec8"
+                "reference": "bd590720740ca085ccf31366f2677cd489e3ebe0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/Gloubster/Communications/archive/2f86f3d3322fb7e456dbacb921ededcff9735ec8.zip",
-                "reference": "2f86f3d3322fb7e456dbacb921ededcff9735ec8",
+                "url": "https://github.com/Gloubster/Communications/archive/bd590720740ca085ccf31366f2677cd489e3ebe0.zip",
+                "reference": "bd590720740ca085ccf31366f2677cd489e3ebe0",
                 "shasum": ""
             },
             "require": {
-                "justinrainbow/json-schema": "*",
-                "videlalvaro/php-amqplib": "dev-master"
+                "justinrainbow/json-schema": "*"
             },
             "require-dev": {
                 "symfony/finder": ">=2.0,<=2.2.x-dev",
                 "symfony/filesystem": ">=2.0,<=2.2.x-dev"
             },
-            "time": "1352823865",
+            "time": "1353411285",
             "type": "library",
             "installation-source": "source",
             "autoload": {
@@ -962,18 +961,18 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/HttpFoundation",
-                "reference": "b210b233889ffae6d4b25837eae8aaf40b189826"
+                "reference": "56335c0d6de1cd7d465fe6c1323b1e8754780bdd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/symfony/HttpFoundation/archive/b210b233889ffae6d4b25837eae8aaf40b189826.zip",
-                "reference": "b210b233889ffae6d4b25837eae8aaf40b189826",
+                "url": "https://github.com/symfony/HttpFoundation/archive/56335c0d6de1cd7d465fe6c1323b1e8754780bdd.zip",
+                "reference": "56335c0d6de1cd7d465fe6c1323b1e8754780bdd",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
             },
-            "time": "1352824527",
+            "time": "1353329932",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -1012,18 +1011,18 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Process",
-                "reference": "5437d5f85a089d227337a8be4a46d160b60e1ab1"
+                "reference": "a7938028486f28dd611787fb691eff273f9c2752"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/symfony/Process/archive/5437d5f85a089d227337a8be4a46d160b60e1ab1.zip",
-                "reference": "5437d5f85a089d227337a8be4a46d160b60e1ab1",
+                "url": "https://github.com/symfony/Process/archive/a7938028486f28dd611787fb691eff273f9c2752.zip",
+                "reference": "a7938028486f28dd611787fb691eff273f9c2752",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
             },
-            "time": "1352368308",
+            "time": "1353358432",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -1089,7 +1088,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/videlalvaro/php-amqplib/zipball/237870120238f37d66703583ca0e186b4567b1a9",
+                "url": "https://github.com/videlalvaro/php-amqplib/archive/237870120238f37d66703583ca0e186b4567b1a9.zip",
                 "reference": "237870120238f37d66703583ca0e186b4567b1a9",
                 "shasum": ""
             },
@@ -1126,18 +1125,18 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Finder",
-                "reference": "c626c9eeb220a2c3ddd9b597c896d2e7675b42a1"
+                "reference": "9e54a0dff72fdc422e0f3cb74d1a4d45c1d4b1b7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/symfony/Finder/archive/c626c9eeb220a2c3ddd9b597c896d2e7675b42a1.zip",
-                "reference": "c626c9eeb220a2c3ddd9b597c896d2e7675b42a1",
+                "url": "https://github.com/symfony/Finder/archive/9e54a0dff72fdc422e0f3cb74d1a4d45c1d4b1b7.zip",
+                "reference": "9e54a0dff72fdc422e0f3cb74d1a4d45c1d4b1b7",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
             },
-            "time": "1352815684",
+            "time": "1353329932",
             "type": "library",
             "extra": {
                 "branch-alias": {

@@ -6,7 +6,6 @@ use Gloubster\Configuration;
 
 class FactoryTest extends \PHPUnit_Framework_TestCase
 {
-
     private function getConnection()
     {
         $channel = $this->getMockBuilder('PhpAmqpLib\Channel\AMQPChannel')
@@ -28,63 +27,27 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
      * @covers Gloubster\Worker\Factory::createWorker
      * @expectedException Gloubster\Exception\InvalidArgumentException
      */
-    public function testCreateWorkerWithWrongLogEchange()
-    {
-        $configuration = new Configuration(json_encode(array(
-                    "server" => array(
-                        "host"     => "localhost",
-                        "port"     => 5672,
-                        "user"     => "guest",
-                        "password" => "guest",
-                        "vhost"    => "/",
-                    ),
-                    "workers"  => array(
-                        "image" => array(
-                            "queue-name" => 'Gloubster\\Queue::IMAGE_PROCESSING',
-                        )
-                    ),
-                    "log" => array(
-                        "exchange-name"=>'Gloubster\\Exchange::GLOUBSTER_LOG'
-                    )
-                )), array(
-                file_get_contents(__DIR__ . '/../../../../resources/configuration.schema.json')
-            ));
-
-        $filesystem = $this->getMockBuilder('Neutron\\TemporaryFilesystem\\TemporaryFilesystem')
-            ->disableOriginalConstructor()
-            ->getmock();
-        $logger = $this->getMockBuilder('Monolog\\Logger')
-            ->disableOriginalConstructor()
-            ->getmock();
-
-        Factory::createWorker("image", "image-001", $this->getConnection(), $configuration, $filesystem, $logger);
-    }
-
-    /**
-     * @covers Gloubster\Worker\Factory::createWorker
-     * @expectedException Gloubster\Exception\InvalidArgumentException
-     */
     public function testCreateWorkerWithWrongQueueName()
     {
         $configuration = new Configuration(json_encode(array(
-                    "server" => array(
-                        "host"     => "localhost",
-                        "port"     => 5672,
-                        "user"     => "guest",
-                        "password" => "guest",
-                        "vhost"    => "/",
-                    ),
-                    "workers"  => array(
-                        "image" => array(
-                            "queue-name" => 'Gloubster\\Queue::CATS_PROCESSING',
-                        )
-                    ),
-                    "log" => array(
-                        "exchange-name"=>'Gloubster\\Exchange::GLOUBSTER_DISPATCHER'
+                "server" => array(
+                    "host"     => "localhost",
+                    "port"     => 5672,
+                    "user"     => "guest",
+                    "password" => "guest",
+                    "vhost"    => "/",
+                ),
+                "workers"  => array(
+                    "image" => array(
+                        "queue-name" => 'Gloubster\\Queue::CATS_PROCESSING',
                     )
-                )), array(
-                file_get_contents(__DIR__ . '/../../../../resources/configuration.schema.json')
-            ));
+                ),
+                "log" => array(
+                    "exchange-name"=>'Gloubster\\Exchange::GLOUBSTER_DISPATCHER'
+                )
+            )), array(
+            file_get_contents(__DIR__ . '/../../../../resources/configuration.schema.json')
+        ));
 
         $filesystem = $this->getMockBuilder('Neutron\\TemporaryFilesystem\\TemporaryFilesystem')
             ->disableOriginalConstructor()
@@ -103,28 +66,25 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
     public function testCreateWorkerThatDoesNotExists()
     {
         $configuration = new Configuration(json_encode(array(
-                    "server" => array(
-                        "host"     => "localhost",
-                        "port"     => 5672,
-                        "user"     => "guest",
-                        "password" => "guest",
-                        "vhost"    => "/",
-                    ),
-                    "workers"  => array(
-                        "imagine" => array(
-                            "queue-name" => 'Gloubster\\Queue::IMAGE_PROCESSING',
-                        )
-                    ),
-                    "log" => array(
-                        "exchange-name"=>'Gloubster\\Exchange::GLOUBSTER_DISPATCHER'
+                "server" => array(
+                    "host"     => "localhost",
+                    "port"     => 5672,
+                    "user"     => "guest",
+                    "password" => "guest",
+                    "vhost"    => "/",
+                ),
+                "workers"  => array(
+                    "imagine" => array(
+                        "queue-name" => 'Gloubster\\Queue::IMAGE_PROCESSING',
                     )
-                )), array(
-                file_get_contents(__DIR__ . '/../../../../resources/configuration.schema.json')
-            ));
+                ),
+                "log" => array(
+                    "exchange-name"=>'Gloubster\\Exchange::GLOUBSTER_DISPATCHER'
+                )
+            )), array(
+            file_get_contents(__DIR__ . '/../../../../resources/configuration.schema.json')
+        ));
 
-        $conn = $this->getMockBuilder('PhpAmqpLib\Connection\AMQPConnection')
-            ->disableOriginalConstructor()
-            ->getmock();
         $filesystem = $this->getMockBuilder('Neutron\\TemporaryFilesystem\\TemporaryFilesystem')
             ->disableOriginalConstructor()
             ->getmock();
@@ -141,24 +101,24 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
     public function testCreateImageWorker()
     {
         $configuration = new Configuration(json_encode(array(
-                    "server" => array(
-                        "host"     => "localhost",
-                        "port"     => 5672,
-                        "user"     => "guest",
-                        "password" => "guest",
-                        "vhost"    => "/",
-                    ),
-                    "workers"  => array(
-                        "image" => array(
-                            "queue-name" => 'Gloubster\\Queue::IMAGE_PROCESSING',
-                        )
-                    ),
-                    "log" => array(
-                        "exchange-name"=>'Gloubster\\Exchange::GLOUBSTER_DISPATCHER'
+                "server" => array(
+                    "host"     => "localhost",
+                    "port"     => 5672,
+                    "user"     => "guest",
+                    "password" => "guest",
+                    "vhost"    => "/",
+                ),
+                "workers"  => array(
+                    "image" => array(
+                        "queue-name" => 'Gloubster\\Queue::IMAGE_PROCESSING',
                     )
-                )), array(
-                file_get_contents(__DIR__ . '/../../../../resources/configuration.schema.json')
-            ));
+                ),
+                "log" => array(
+                    "exchange-name"=>'Gloubster\\Exchange::GLOUBSTER_DISPATCHER'
+                )
+            )), array(
+            file_get_contents(__DIR__ . '/../../../../resources/configuration.schema.json')
+        ));
 
         $filesystem = $this->getMockBuilder('Neutron\\TemporaryFilesystem\\TemporaryFilesystem')
             ->disableOriginalConstructor()

@@ -1,10 +1,18 @@
 #!/usr/bin/env php
 <?php
+
+/*
+ * This file is part of Gloubster.
+ *
+ * (c) Alchemy <info@alchemy.fr>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 require __DIR__ . '/../vendor/autoload.php';
 
 use Gloubster\Configuration;
-use Gloubster\Exchange;
-use Gloubster\RabbitMQFactory;
 use Gloubster\Worker\Console\RunWorker;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
@@ -15,13 +23,11 @@ return call_user_func(function() {
         file_get_contents(__DIR__ . '/../resources/configuration.schema.json')
     ));
 
-    $connection = RabbitMQFactory::createConnection($configuration);
-
     $logger = new Logger('Worker');
     $logger->pushHandler(new StreamHandler('php://stdout'));
 
     $app = new Application("Gloubster Worker");
-    $app->add(new RunWorker($connection, $configuration, $logger));
+    $app->add(new RunWorker($configuration, $logger));
 
     return $app->run();
 });

@@ -13,8 +13,5 @@
         "video": {
             "queue-name": "Gloubster\\Queue::VIDEO_PROCESSING"
         }
-    },
-    "log": {
-        "exchange-name": "Gloubster\\Exchange::GLOUBSTER_DISPATCHER"
     }
 }

@@ -9,17 +9,18 @@ use Gloubster\Delivery\DeliveryInterface;
 use Neutron\TemporaryFilesystem\TemporaryFilesystem;
 use PhpAmqpLib\Channel\AMQPChannel;
 use PhpAmqpLib\Message\AMQPMessage;
+use Gloubster\Worker\Job\Result;
 
 require_once __DIR__ . '/AbstractWorkerTest.php';
 
 /**
+ * @covers Gloubster\Worker\AbstractWorker
  * @covers Gloubster\Worker\ImageWorker
  */
 class ImageWorkerTest extends AbstractWorkerTest
 {
     const ID = 'jolie.id';
     const QUEUE = 'jolie.queue';
-    const LOG_EXCHANGE = 'jolie.logs';
 
     private $source;
 
@@ -51,7 +52,7 @@ class ImageWorkerTest extends AbstractWorkerTest
             ->method('channel')
             ->will($this->returnValue($channel));
 
-        return $this->getMock('Gloubster\Worker\ImageWorker', array('sendPresence'), array(self::ID, $conn, self::QUEUE, self::LOG_EXCHANGE, new TemporaryFilesystem, $logger));
+        return $this->getMock('Gloubster\Worker\ImageWorker', array('sendPresence'), array(self::ID, $conn, self::QUEUE, new TemporaryFilesystem, $logger));
     }
 
     /**
@@ -62,7 +63,10 @@ class ImageWorkerTest extends AbstractWorkerTest
         $target = tempnam(sys_get_temp_dir(), 'compute-image');
         $data = $this->getWorker()->compute($this->getJob(new FileSystem($target)));
 
-        $this->assertTrue(file_exists($data));
+        $this->assertInstanceOf('Gloubster\Worker\Job\Result', $data);
+
+        $this->assertTrue(file_exists($data->getData()));
+        $this->assertEquals(Result::TYPE_PATHFILE, $data->getType());
 
         if (file_exists($target)) {
             unlink($target);
@@ -104,11 +108,6 @@ class ImageWorkerTest extends AbstractWorkerTest
     public function getQueueName()
     {
         return self::QUEUE;
-    }
-
-    public function getLogExchangeName()
-    {
-        return self::LOG_EXCHANGE;
     }
 
     public function testWithOptions()

@@ -1,18 +1,24 @@
 <?php
 
+/*
+ * This file is part of Gloubster.
+ *
+ * (c) Alchemy <info@alchemy.fr>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Gloubster\Worker;
 
 use PhpAmqpLib\Connection\AMQPConnection;
-use PhpAmqpLib\Channel\AMQPChannel;
 use Gloubster\Configuration;
-use Gloubster\RabbitMQFactory;
 use Gloubster\Exception\InvalidArgumentException;
 use Monolog\Logger;
 use Neutron\TemporaryFilesystem\TemporaryFilesystem;
 
 class Factory
 {
-
     public static function createWorker($type, $id, AMQPConnection $conn, Configuration $configuration, TemporaryFilesystem $filesystem, Logger $logger)
     {
         if (!isset($configuration['workers'][$type])) {
@@ -26,13 +32,9 @@ class Factory
         if (!defined($worker['queue-name'])) {
             throw new InvalidArgumentException('Invalid queue name');
         }
-        if (!defined($configuration['log']['exchange-name'])) {
-            throw new InvalidArgumentException('Invalid log exchange-name');
-        }
 
         $queueName = (string) constant($worker['queue-name']);
-        $logExchange = (string) constant($configuration['log']['exchange-name']);
 
-        return new $classname($id, $conn, $queueName, $logExchange, $filesystem, $logger);
+        return new $classname($id, $conn, $queueName, $filesystem, $logger);
     }
 }

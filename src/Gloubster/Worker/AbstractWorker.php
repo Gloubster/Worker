@@ -1,75 +1,99 @@
 <?php
 
+/*
+ * This file is part of Gloubster.
+ *
+ * (c) Alchemy <info@alchemy.fr>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Gloubster\Worker;
 
-use PhpAmqpLib\Connection\AMQPConnection;
-use PhpAmqpLib\Channel\AMQPChannel;
+use Gloubster\Monitor\Worker\Presence;
 use Gloubster\Exchange;
 use Gloubster\RoutingKey;
-use PhpAmqpLib\Message\AMQPMessage;
 use Gloubster\Job\JobInterface;
+use Gloubster\Exception\InvalidArgumentException;
 use Gloubster\Exception\RuntimeException;
+use Gloubster\Worker\Job\Counter;
+use Gloubster\Worker\Job\Result;
 use Monolog\Logger;
 use Neutron\TipTop\Clock;
 use Neutron\TemporaryFilesystem\TemporaryFilesystem;
+use PhpAmqpLib\Connection\AMQPConnection;
+use PhpAmqpLib\Message\AMQPMessage;
 
 abstract class AbstractWorker
 {
     private $id;
-    /**
-     *
-     * @var AMQPConnection
-     */
-    private $conn;
     private $channel;
     private $queue;
-    private $logExchange;
-
-    /**
-     *
-     * @var TemporaryFilesystem
-     */
+    private $clock;
+    private $running;
+    private $jobCounter;
     protected $filesystem;
-
-    /**
-     *
-     * @var Logger
-     */
     protected $logger;
 
-    public function __construct($id, AMQPConnection $conn, $queue, $logExchange, TemporaryFilesystem $filesystem, Logger $logger)
+    final public function __construct($id, AMQPConnection $conn, $queue, TemporaryFilesystem $filesystem, Logger $logger)
     {
         $this->id = $id;
         $this->queue = $queue;
-        $this->logExchange = $logExchange;
         $this->conn = $conn;
         $this->channel = $conn->channel();
         $this->logger = $logger;
         $this->filesystem = $filesystem;
+        $this->jobCounter = new Counter();
+        $this->running = false;
 
-        declare(ticks=1);
-        $clock = new Clock();
-        $clock->addPeriodicTimer(1, array($this, 'sendPresence'));
-        $this->sendPresence();
+        declare(ticks = 1);
+        $this->clock = new Clock();
+        $this->clock->addPeriodicTimer(1, array($this, 'sendPresence'));
     }
 
-    public function sendPresence()
+    final public function setTimeout($time)
     {
-        $this->logger->addDebug("sending presence");
-        $this->channel->basic_publish(new AMQPMessage(serialize(array('hello'=>'world'))), Exchange::GLOUBSTER_DISPATCHER, RoutingKey::WORKER);
+        if ($time < 1) {
+            throw new InvalidArgumentException('Timeout must be a positive integer');
+        }
+
+        $this->clock->addTimer($time, array($this, 'stop'));
     }
 
-    public function run($iterations = true)
+    final public function stop()
     {
-        while ($iterations) {
-            $this->logger->addDebug(sprintf('Current memory usage : %s Mo', round(memory_get_usage() / (1024 * 1024),3)));
+        $this->running = false;
+    }
+
+    final public function sendPresence()
+    {
+        $presence = new Presence();
+        $presence->setFailureJobs($this->jobCounter->getFailures())
+            ->setId($this->id)
+            ->setIdle(false)
+            ->setLastJobTime($this->jobCounter->getUpdateTimestamp())
+            ->setReportTime(microtime(true))
+            ->setStartedTime($this->jobCounter->getStartTimestamp())
+            ->setSuccessJobs($this->jobCounter->getSuccess())
+            ->setTotalJobs($this->jobCounter->getTotal())
+            ->setMemory(memory_get_usage());
+
+        $this->channel->basic_publish(new AMQPMessage(serialize($presence)), Exchange::GLOUBSTER_DISPATCHER, RoutingKey::WORKER);
+    }
+
+    final public function run($iterations = true)
+    {
+        $this->running = true;
+
+        while ($this->running && $iterations) {
             $this->logger->addInfo('Waiting for jobs ...');
             try {
                 $this->channel->basic_consume($this->queue, null, false, false, false, false, array($this, 'process'));
 
-                while (count($this->channel->callbacks)) {
-                    $read   = array($this->conn->getSocket()); // add here other sockets that you need to attend
-                    $write  = null;
+                while ($this->running && count($this->channel->callbacks)) {
+                    $read = array($this->conn->getSocket());
+                    $write = null;
                     $except = null;
                     if (false === ($num_changed_streams = @stream_select($read, $write, $except, 60))) {
                         /* Error handling */
@@ -87,7 +111,7 @@ abstract class AbstractWorker
         return $this;
     }
 
-    public function process(AMQPMessage $message)
+    final public function process(AMQPMessage $message)
     {
         $this->logger->addInfo(sprintf('Processing job %s', $message->delivery_info['delivery_tag']));
 
@@ -95,7 +119,7 @@ abstract class AbstractWorker
 
         if (!$job instanceof JobInterface) {
             $this->logger->addCritical(sprintf('Received a wrong job message : %s', $message->body));
-            $this->channel->basic_publish(new AMQPMessage($message->body), $this->logExchange, $this->queue . '.error');
+            $this->channel->basic_publish(new AMQPMessage($message->body), Exchange::GLOUBSTER_DISPATCHER, RoutingKey::ERROR);
 
             $this->channel->basic_ack($message->delivery_info['delivery_tag']);
 
@@ -105,6 +129,7 @@ abstract class AbstractWorker
         $error = null;
 
         try {
+            $this->jobCounter->add();
             $job->setWorkerId($this->id);
             assert($job->isOk(true));
 
@@ -119,6 +144,7 @@ abstract class AbstractWorker
             $this->deliver($job, $data);
             $this->logger->addInfo('Job delivered.');
             $job->setDeliveryDuration(microtime(true) - $start);
+            $this->jobCounter->addSuccess();
         } catch (\Exception $e) {
             $error = $e;
             $job->setError(true);
@@ -141,14 +167,19 @@ abstract class AbstractWorker
 
     abstract public function getType();
 
+    /**
+     * @return string The path to the file or binary data
+     */
     abstract public function compute(JobInterface $job);
 
-    private function deliver(JobInterface $job, $data)
+    private function deliver(JobInterface $job, Result $data)
     {
-        if (is_file($data)) {
-            $job->getDelivery()->deliverFile($data);
+        if ($data->isPath()) {
+            $job->getDelivery()->deliverFile($data->getData());
+        } elseif ($data->isBinary()) {
+            $job->getDelivery()->deliverBinary($data->getData());
         } else {
-            $job->getDelivery()->deliverBinary($data);
+            throw new RuntimeException(sprintf('Result `%s` is not known', $data->getType()));
         }
 
         return $this;
@@ -156,6 +187,6 @@ abstract class AbstractWorker
 
     private function log(JobInterface $message)
     {
-        $this->channel->basic_publish(new AMQPMessage(serialize($message)), $this->logExchange, $this->queue . '.log');
+        $this->channel->basic_publish(new AMQPMessage(serialize($message)), Exchange::GLOUBSTER_DISPATCHER, RoutingKey::LOG);
     }
 }
