@@ -13,7 +13,7 @@ namespace Gloubster\Worker\Console;
 
 use Gloubster\Configuration;
 use Gloubster\Worker\Factory;
-use Gloubster\Worker\RabbitMQFactory;
+use Gloubster\RabbitMQFactory;
 use Monolog\Logger;
 use Neutron\TemporaryFilesystem\TemporaryFilesystem;
 use Symfony\Component\Console\Input\InputInterface;
@@ -38,7 +38,7 @@ class RunWorker extends Command
         $this->addArgument('type', InputArgument::REQUIRED, 'The worker type', null);
         $this->addArgument('id', InputArgument::OPTIONAL, 'The worker id', null);
         $this->addOption('iterations', 'i', InputOption::VALUE_OPTIONAL, 'The number of iterations', true);
-        $this->addOption('timeout', 't', InputOption::VALUE_OPTIONAL, 'The worker timeout', true);
+        $this->addOption('timeout', 't', InputOption::VALUE_OPTIONAL, 'The worker timeout', false);
 
         return $this;
     }
@@ -54,7 +54,7 @@ class RunWorker extends Command
 
         $worker = Factory::createWorker($type, $id, $conn, $this->conf, new TemporaryFilesystem(), $this->logger);
 
-        if ($input->getOption('timeout')) {
+        if (0 < (int) $input->getOption('timeout')) {
             $worker->setTimeout($input->getOption('timeout'));
         }
 

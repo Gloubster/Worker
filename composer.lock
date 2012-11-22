@@ -25,7 +25,7 @@
                 "sami/sami": "dev-master",
                 "silex/silex": "dev-master"
             },
-            "time": "1351093185",
+            "time": "2012-10-24 15:39:45",
             "type": "library",
             "installation-source": "source",
             "autoload": {
@@ -60,18 +60,18 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/common",
-                "reference": "30b8cea3bfe22f5eb58b5b0165f21df750aeb2e2"
+                "reference": "d8c17cd427ff345ebc13193ebbf3a4dee49e44ff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/doctrine/common/archive/30b8cea3bfe22f5eb58b5b0165f21df750aeb2e2.zip",
-                "reference": "30b8cea3bfe22f5eb58b5b0165f21df750aeb2e2",
+                "url": "https://github.com/doctrine/common/archive/d8c17cd427ff345ebc13193ebbf3a4dee49e44ff.zip",
+                "reference": "d8c17cd427ff345ebc13193ebbf3a4dee49e44ff",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.2"
             },
-            "time": "1352815365",
+            "time": "2012-11-21 02:32:44",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -129,22 +129,23 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Gloubster/Communications",
-                "reference": "bd590720740ca085ccf31366f2677cd489e3ebe0"
+                "reference": "5e948219e3e6fcfda5ec76445d52f8b3c4197dc8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/Gloubster/Communications/archive/bd590720740ca085ccf31366f2677cd489e3ebe0.zip",
-                "reference": "bd590720740ca085ccf31366f2677cd489e3ebe0",
+                "url": "https://github.com/Gloubster/Communications/archive/5e948219e3e6fcfda5ec76445d52f8b3c4197dc8.zip",
+                "reference": "5e948219e3e6fcfda5ec76445d52f8b3c4197dc8",
                 "shasum": ""
             },
             "require": {
-                "justinrainbow/json-schema": "*"
+                "justinrainbow/json-schema": "*",
+                "videlalvaro/php-amqplib": "dev-master"
             },
             "require-dev": {
                 "symfony/finder": ">=2.0,<=2.2.x-dev",
                 "symfony/filesystem": ">=2.0,<=2.2.x-dev"
             },
-            "time": "1353411285",
+            "time": "2012-11-22 17:14:52",
             "type": "library",
             "installation-source": "source",
             "autoload": {
@@ -169,12 +170,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/avalanche123/Imagine",
-                "reference": "a1e5a7e58f43fc2eb6cf4f64e5ad8685dc5197ad"
+                "reference": "1b771cfe813714f3b7c2a0d9381c35ffa5b4ba88"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/avalanche123/Imagine/archive/a1e5a7e58f43fc2eb6cf4f64e5ad8685dc5197ad.zip",
-                "reference": "a1e5a7e58f43fc2eb6cf4f64e5ad8685dc5197ad",
+                "url": "https://github.com/avalanche123/Imagine/archive/1b771cfe813714f3b7c2a0d9381c35ffa5b4ba88.zip",
+                "reference": "1b771cfe813714f3b7c2a0d9381c35ffa5b4ba88",
                 "shasum": ""
             },
             "require": {
@@ -183,7 +184,7 @@
             "require-dev": {
                 "sami/sami": "dev-master"
             },
-            "time": "1352755003",
+            "time": "2012-11-21 15:08:19",
             "type": "library",
             "installation-source": "source",
             "autoload": {
@@ -227,7 +228,7 @@
             "require": {
                 "php": ">=5.3.0"
             },
-            "time": "1351872170",
+            "time": "2012-11-02 16:02:50",
             "type": "library",
             "installation-source": "source",
             "autoload": {
@@ -296,7 +297,7 @@
                 "grom/silex-service-provider": "dev-master",
                 "phpexiftool/phpexiftool": "dev-master"
             },
-            "time": "1351081006",
+            "time": "2012-10-24 12:16:46",
             "type": "library",
             "installation-source": "source",
             "autoload": {
@@ -355,7 +356,7 @@
                 "fabpot/php-cs-fixer": "*",
                 "silex/silex": "dev-master"
             },
-            "time": "1347368981",
+            "time": "2012-09-11 13:09:41",
             "type": "library",
             "installation-source": "source",
             "autoload": {
@@ -438,7 +439,7 @@
             "require": {
                 "symfony/filesystem": ">=2.0,<=2.2.x-dev"
             },
-            "time": "1351854327",
+            "time": "2012-11-02 11:05:27",
             "type": "library",
             "installation-source": "source",
             "autoload": {
@@ -464,12 +465,12 @@
             "source": {
                 "type": "git",
                 "url": "git://github.com/romainneutron/Tip-Top.git",
-                "reference": "c313be5ab72216130c525344d84b9b36c58ca309"
+                "reference": "74dbd3763fceed04753e7ce6afef93d29640f89c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/romainneutron/Tip-Top/archive/c313be5ab72216130c525344d84b9b36c58ca309.zip",
-                "reference": "c313be5ab72216130c525344d84b9b36c58ca309",
+                "url": "https://github.com/romainneutron/Tip-Top/archive/74dbd3763fceed04753e7ce6afef93d29640f89c.zip",
+                "reference": "74dbd3763fceed04753e7ce6afef93d29640f89c",
                 "shasum": ""
             },
             "require": {
@@ -477,7 +478,10 @@
                 "ext-pcntl": "*",
                 "ext-posix": "*"
             },
-            "time": "1352901307",
+            "require-dev": {
+                "sami/sami": "dev-master"
+            },
+            "time": "2012-11-21 16:11:29",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -535,7 +539,7 @@
             "suggest": {
                 "php-ffmpeg/extras": "A compilation of common audio & video drivers for PHP-FFMpeg"
             },
-            "time": "1351638519",
+            "time": "2012-10-30 23:08:39",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -598,7 +602,7 @@
                 "fabpot/php-cs-fixer": "dev-master",
                 "silex/silex": "dev-master"
             },
-            "time": "1349804408",
+            "time": "2012-10-09 17:40:08",
             "type": "library",
             "installation-source": "source",
             "autoload": {
@@ -646,7 +650,7 @@
                 "silex/silex": "dev-master",
                 "fabpot/php-cs-fixer": "dev-master"
             },
-            "time": "1349713000",
+            "time": "2012-10-08 16:16:40",
             "type": "library",
             "installation-source": "source",
             "autoload": {
@@ -688,7 +692,7 @@
             "require": {
                 "phpexiftool/phpexiftool": "*"
             },
-            "time": "1346256086",
+            "time": "2012-08-29 16:01:26",
             "type": "library",
             "installation-source": "source",
             "license": [
@@ -736,7 +740,7 @@
                 "sami/sami": "dev-master",
                 "silex/silex": "dev-master"
             },
-            "time": "1346681208",
+            "time": "2012-09-03 14:06:48",
             "type": "library",
             "installation-source": "source",
             "autoload": {
@@ -777,7 +781,7 @@
             "require": {
                 "php": ">=5.3.0"
             },
-            "time": "1352622754",
+            "time": "2012-11-11 08:32:34",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -830,7 +834,7 @@
                 "sami/sami": "dev-master",
                 "silex/silex": "dev-master"
             },
-            "time": "1349705213",
+            "time": "2012-10-08 14:06:53",
             "type": "library",
             "installation-source": "source",
             "autoload": {
@@ -878,7 +882,7 @@
             "require": {
                 "php": ">=5.3.3"
             },
-            "time": "1352451171",
+            "time": "2012-11-09 08:52:51",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -925,7 +929,7 @@
             "require": {
                 "php": ">=5.3.3"
             },
-            "time": "1352815684",
+            "time": "2012-11-13 14:08:04",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -972,7 +976,7 @@
             "require": {
                 "php": ">=5.3.3"
             },
-            "time": "1353329932",
+            "time": "2012-11-19 12:58:52",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -1022,7 +1026,7 @@
             "require": {
                 "php": ">=5.3.3"
             },
-            "time": "1353358432",
+            "time": "2012-11-19 20:53:52",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -1062,7 +1066,7 @@
             "require": {
                 "symfony/process": "2.1.*"
             },
-            "time": "1341402498",
+            "time": "2012-07-04 11:48:18",
             "type": "library",
             "installation-source": "source",
             "autoload": {
@@ -1095,7 +1099,7 @@
             "require": {
                 "php": ">=5.3.0"
             },
-            "time": "1351776374",
+            "time": "2012-11-01 13:26:14",
             "type": "library",
             "installation-source": "source",
             "autoload": {
@@ -1136,7 +1140,7 @@
             "require": {
                 "php": ">=5.3.3"
             },
-            "time": "1353329932",
+            "time": "2012-11-19 12:58:52",
             "type": "library",
             "extra": {
                 "branch-alias": {
