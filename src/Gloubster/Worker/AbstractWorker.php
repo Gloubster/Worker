@@ -79,7 +79,7 @@ abstract class AbstractWorker
             ->setTotalJobs($this->jobCounter->getTotal())
             ->setMemory(memory_get_usage());
 
-        $this->channel->basic_publish(new AMQPMessage(serialize($presence)), Exchange::GLOUBSTER_DISPATCHER, RoutingKey::WORKER);
+        $this->channel->basic_publish(new AMQPMessage(serialize($presence)), Exchange::GLOUBSTER_MONITOR);
     }
 
     final public function run($iterations = true)

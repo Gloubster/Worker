@@ -7,12 +7,12 @@
             "source": {
                 "type": "git",
                 "url": "git://github.com/alchemy-fr/Ghostscript-PHP.git",
-                "reference": "dfb0fa60e94cbb29558d2567223ff75207169608"
+                "reference": "731a477710d8a9d093574b5ee1876fabfb02b5ee"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/alchemy-fr/Ghostscript-PHP/zipball/dfb0fa60e94cbb29558d2567223ff75207169608",
-                "reference": "dfb0fa60e94cbb29558d2567223ff75207169608",
+                "url": "https://github.com/alchemy-fr/Ghostscript-PHP/archive/731a477710d8a9d093574b5ee1876fabfb02b5ee.zip",
+                "reference": "731a477710d8a9d093574b5ee1876fabfb02b5ee",
                 "shasum": ""
             },
             "require": {
@@ -25,8 +25,13 @@
                 "sami/sami": "dev-master",
                 "silex/silex": "dev-master"
             },
-            "time": "2012-10-24 15:39:45",
+            "time": "2012-11-27 10:34:30",
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.2.x-dev"
+                }
+            },
             "installation-source": "source",
             "autoload": {
                 "psr-0": {
@@ -60,18 +65,18 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/common",
-                "reference": "d8c17cd427ff345ebc13193ebbf3a4dee49e44ff"
+                "reference": "a836c86c13e964051549e234250cf665a5f5a190"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/doctrine/common/archive/d8c17cd427ff345ebc13193ebbf3a4dee49e44ff.zip",
-                "reference": "d8c17cd427ff345ebc13193ebbf3a4dee49e44ff",
+                "url": "https://github.com/doctrine/common/archive/a836c86c13e964051549e234250cf665a5f5a190.zip",
+                "reference": "a836c86c13e964051549e234250cf665a5f5a190",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.2"
             },
-            "time": "2012-11-21 02:32:44",
+            "time": "2012-11-22 19:41:13",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -129,12 +134,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Gloubster/Communications",
-                "reference": "5e948219e3e6fcfda5ec76445d52f8b3c4197dc8"
+                "reference": "ccd85fb150879d1087d7a46c6895a24b1b3a3ea9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/Gloubster/Communications/archive/5e948219e3e6fcfda5ec76445d52f8b3c4197dc8.zip",
-                "reference": "5e948219e3e6fcfda5ec76445d52f8b3c4197dc8",
+                "url": "https://github.com/Gloubster/Communications/archive/ccd85fb150879d1087d7a46c6895a24b1b3a3ea9.zip",
+                "reference": "ccd85fb150879d1087d7a46c6895a24b1b3a3ea9",
                 "shasum": ""
             },
             "require": {
@@ -145,7 +150,7 @@
                 "symfony/finder": ">=2.0,<=2.2.x-dev",
                 "symfony/filesystem": ">=2.0,<=2.2.x-dev"
             },
-            "time": "2012-11-22 17:14:52",
+            "time": "2012-11-28 16:21:37",
             "type": "library",
             "installation-source": "source",
             "autoload": {
@@ -272,33 +277,38 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/alchemy-fr/Media-Alchemyst",
-                "reference": "8f2c693906d14aa9a8f9896556ab501dd07498d5"
+                "reference": "c7021570486e90007866885a3454505010ff3a38"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/alchemy-fr/Media-Alchemyst/zipball/8f2c693906d14aa9a8f9896556ab501dd07498d5",
-                "reference": "8f2c693906d14aa9a8f9896556ab501dd07498d5",
+                "url": "https://github.com/alchemy-fr/Media-Alchemyst/archive/c7021570486e90007866885a3454505010ff3a38.zip",
+                "reference": "c7021570486e90007866885a3454505010ff3a38",
                 "shasum": ""
             },
             "require": {
-                "mediavorus/mediavorus": "dev-master",
                 "swftools/swftools": "dev-master",
                 "php-ffmpeg/php-ffmpeg": "dev-master",
                 "php-unoconv/php-unoconv": "dev-master",
                 "imagine/imagine": "dev-develop",
                 "php-mp4box/php-mp4box": "dev-master",
                 "php": ">=5.3.3",
-                "pimple/pimple": "*",
-                "monolog/monolog": "1.0.*",
                 "symfony/console": ">=2.0,<=2.2",
-                "alchemy/ghostscript": "dev-master"
+                "pimple/pimple": "1.*",
+                "mediavorus/mediavorus": "0.2.*",
+                "monolog/monolog": "1.*",
+                "alchemy/ghostscript": "0.2.*"
             },
             "require-dev": {
                 "grom/silex-service-provider": "dev-master",
                 "phpexiftool/phpexiftool": "dev-master"
             },
-            "time": "2012-10-24 12:16:46",
+            "time": "2012-11-27 12:54:58",
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.1.x-dev"
+                }
+            },
             "installation-source": "source",
             "autoload": {
                 "psr-0": {
@@ -336,28 +346,33 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/romainneutron/MediaVorus",
-                "reference": "6741811aa4cb88c62f5300f3264c06c02bd5d0c9"
+                "reference": "9834a6460eb50424c5cae24081a5b0e2f8c4fc87"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/romainneutron/MediaVorus/zipball/6741811aa4cb88c62f5300f3264c06c02bd5d0c9",
-                "reference": "6741811aa4cb88c62f5300f3264c06c02bd5d0c9",
+                "url": "https://github.com/romainneutron/MediaVorus/archive/9834a6460eb50424c5cae24081a5b0e2f8c4fc87.zip",
+                "reference": "9834a6460eb50424c5cae24081a5b0e2f8c4fc87",
                 "shasum": ""
             },
             "require": {
                 "phpexiftool/phpexiftool": "dev-master",
-                "symfony/http-foundation": ">2.0",
                 "php-ffmpeg/php-ffmpeg": "dev-master",
                 "php": ">=5.3.0",
                 "monolog/monolog": "1.0.*",
-                "symfony/console": ">2.0"
+                "symfony/http-foundation": ">2.0,<=2.2",
+                "symfony/console": ">2.0,<=2.2"
             },
             "require-dev": {
                 "fabpot/php-cs-fixer": "*",
-                "silex/silex": "dev-master"
+                "silex/silex": "1.0.*-dev"
             },
-            "time": "2012-09-11 13:09:41",
+            "time": "2012-11-26 19:06:25",
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.2.x-dev"
+                }
+            },
             "installation-source": "source",
             "autoload": {
                 "psr-0": {
@@ -960,37 +975,35 @@
         },
         {
             "name": "symfony/http-foundation",
-            "version": "dev-master",
+            "version": "2.1.x-dev",
             "target-dir": "Symfony/Component/HttpFoundation",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/HttpFoundation",
-                "reference": "56335c0d6de1cd7d465fe6c1323b1e8754780bdd"
+                "reference": "1019af12f75155fdf9b90240d22f7fa5a0e16ceb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/symfony/HttpFoundation/archive/56335c0d6de1cd7d465fe6c1323b1e8754780bdd.zip",
-                "reference": "56335c0d6de1cd7d465fe6c1323b1e8754780bdd",
+                "url": "https://github.com/symfony/HttpFoundation/archive/1019af12f75155fdf9b90240d22f7fa5a0e16ceb.zip",
+                "reference": "1019af12f75155fdf9b90240d22f7fa5a0e16ceb",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
             },
-            "time": "2012-11-19 12:58:52",
+            "time": "2012-11-16 16:51:07",
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.2-dev"
+                    "dev-master": "2.1-dev"
                 }
             },
             "installation-source": "source",
             "autoload": {
                 "psr-0": {
-                    "Symfony\\Component\\HttpFoundation\\": ""
-                },
-                "classmap": [
-                    "Symfony/Component/HttpFoundation/Resources/stubs"
-                ]
+                    "Symfony\\Component\\HttpFoundation": "",
+                    "SessionHandlerInterface": "Symfony/Component/HttpFoundation/Resources/stubs"
+                }
             },
             "license": [
                 "MIT"
@@ -1088,18 +1101,18 @@
             "source": {
                 "type": "git",
                 "url": "git://github.com/videlalvaro/php-amqplib.git",
-                "reference": "237870120238f37d66703583ca0e186b4567b1a9"
+                "reference": "bdf9f66dd918ffbb314c7ea0f810a39dcb25942e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/videlalvaro/php-amqplib/archive/237870120238f37d66703583ca0e186b4567b1a9.zip",
-                "reference": "237870120238f37d66703583ca0e186b4567b1a9",
+                "url": "https://github.com/videlalvaro/php-amqplib/archive/bdf9f66dd918ffbb314c7ea0f810a39dcb25942e.zip",
+                "reference": "bdf9f66dd918ffbb314c7ea0f810a39dcb25942e",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.0"
             },
-            "time": "2012-11-01 13:26:14",
+            "time": "2012-11-28 13:25:21",
             "type": "library",
             "installation-source": "source",
             "autoload": {
