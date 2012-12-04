@@ -77,7 +77,8 @@ abstract class AbstractWorker
             ->setStartedTime($this->jobCounter->getStartTimestamp())
             ->setSuccessJobs($this->jobCounter->getSuccess())
             ->setTotalJobs($this->jobCounter->getTotal())
-            ->setMemory(memory_get_usage());
+            ->setMemory(memory_get_usage())
+            ->setWorkerType($this->getType());
 
         $this->channel->basic_publish(new AMQPMessage(serialize($presence)), Exchange::GLOUBSTER_MONITOR);
     }
