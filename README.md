@@ -24,6 +24,7 @@ There are two interesting properties in the configuration :
 
  - *workers* : workers defines wich type of workers are available for running.
 
+```json
 {
     "server": {
         "host": "localhost",
@@ -41,6 +42,7 @@ There are two interesting properties in the configuration :
         }
     }
 }
+```
 
 ## Execution
 
