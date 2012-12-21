@@ -4,9 +4,10 @@ namespace Gloubster\Worker;
 
 use Gloubster\Exception\RuntimeException;
 use Gloubster\Delivery\DeliveryInterface;
-use Gloubster\Delivery\FileSystem;
-use Gloubster\Exchange;
-use Gloubster\RoutingKey;
+use Gloubster\Message\Factory as MessageFactory;
+use Gloubster\Delivery\Filesystem;
+use Gloubster\Message\Presence\WorkerPresence;
+use Gloubster\RabbitMQ\Configuration as RabbitMQConfiguration;
 use Neutron\TemporaryFilesystem\TemporaryFilesystem;
 use PhpAmqpLib\Message\AMQPMessage;
 use PhpAmqpLib\Channel\AMQPChannel;
@@ -87,7 +88,7 @@ abstract class AbstractWorkerTest extends \PHPUnit_Framework_TestCase
 
     public function testWrongProcess()
     {
-        $wrongData = serialize(array('hello' => 'world'));
+        $wrongData = json_encode(array('type' => 'Gloubster\\Worker\\FakeSpace\\NonImageJob'));
 
         $message = $this->getAMQPMessage($wrongData);
         $channel = $this->getChannel();
@@ -95,7 +96,7 @@ abstract class AbstractWorkerTest extends \PHPUnit_Framework_TestCase
 
         $that = $this;
 
-        $this->probePublishValues($channel, null, RoutingKey::ERROR,
+        $this->probePublishValues($channel, null, RabbitMQConfiguration::ROUTINGKEY_ERROR,
             function($message) use ($wrongData, $that) {
                 $that->assertEquals($wrongData, $message->body);
             }
@@ -111,14 +112,14 @@ abstract class AbstractWorkerTest extends \PHPUnit_Framework_TestCase
 
     public function testProcess()
     {
-        $job = $this->getJob(new FileSystem($this->target));
+        $job = $this->getJob(Filesystem::create($this->target));
         $this->assertTrue($job->isOk());
 
-        $message = $this->getAMQPMessage(serialize($job));
+        $message = $this->getAMQPMessage($job->toJson());
         $channel = $this->getChannel();
 
         $this->ensureAcknowledgement($channel, $message->delivery_info['delivery_tag']);
-        $this->probePublishValues($channel, true, RoutingKey::LOG);
+        $this->probePublishValues($channel, true, RabbitMQConfiguration::ROUTINGKEY_LOG);
 
         $this->getWorker($channel)->process($message);
 
@@ -127,10 +128,10 @@ abstract class AbstractWorkerTest extends \PHPUnit_Framework_TestCase
 
     public function testProcessFailed()
     {
-        $job = $this->getJob(new FileSystem($this->target));
+        $job = $this->getJob(Filesystem::create($this->target));
         $this->assertTrue($job->isOk());
 
-        $message = $this->getAMQPMessage(serialize($job));
+        $message = $this->getAMQPMessage($job->toJson());
         $conn = $this->getConnection();
         $channel = $this->getChannel();
 
@@ -139,7 +140,7 @@ abstract class AbstractWorkerTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue($channel));
 
         $this->ensureAcknowledgement($channel, $message->delivery_info['delivery_tag']);
-        $this->probePublishValues($channel, false, RoutingKey::LOG);
+        $this->probePublishValues($channel, false, RabbitMQConfiguration::ROUTINGKEY_LOG);
 
         $exception = new \Exception('Plouf');
 
@@ -163,14 +164,19 @@ abstract class AbstractWorkerTest extends \PHPUnit_Framework_TestCase
 
     public function testProcessWithWrongJobType()
     {
-        $job = $this->getWrongJob(new FileSystem($this->target));
+        $job = $this->getWrongJob(Filesystem::create($this->target));
         $this->assertTrue($job->isOk());
 
-        $message = $this->getAMQPMessage(serialize($job));
+        $json = $job->toJson();
+        $data = json_decode($json, true);
+        $data['type'] = 'Gloubster\\Message\\Job\\ImageJob';
+        $json = json_encode($data);
+
+        $message = $this->getAMQPMessage($json);
         $channel = $this->getChannel();
 
         $this->ensureAcknowledgement($channel, $message->delivery_info['delivery_tag']);
-        $this->probePublishValues($channel, false, RoutingKey::LOG);
+        $this->probePublishValues($channel, false, RabbitMQConfiguration::ROUTINGKEY_LOG);
 
         try {
             $this->getWorker($channel)->process($message);
@@ -192,14 +198,14 @@ abstract class AbstractWorkerTest extends \PHPUnit_Framework_TestCase
             }));
 
         $worker = $this->getWorker($channel);
-        $worker->setTimeout(3);
+        $worker->setTimeout(2);
         $worker->run();
 
         $this->assertGreaterThanOrEqual(2, count($collector));
 
         foreach($collector as $message) {
-            $job = unserialize($message->body);
-            $this->assertInstanceOf('Gloubster\Monitor\Worker\Presence', $job);
+            $job = MessageFactory::fromJson($message->body);
+            $this->assertInstanceOf('Gloubster\\Message\\Presence\\WorkerPresence', $job);
         }
     }
 
@@ -216,7 +222,11 @@ abstract class AbstractWorkerTest extends \PHPUnit_Framework_TestCase
                 function($message, $exchangeName, $routingKey)
                     use ($that, $good, $expectedQueueName, $callback) {
 
-                    $that->assertEquals(Exchange::GLOUBSTER_DISPATCHER, $exchangeName);
+                    if(MessageFactory::fromJson($message->body) instanceof WorkerPresence) {
+                        return;
+                    }
+
+                    $that->assertEquals(RabbitMQConfiguration::EXCHANGE_DISPATCHER, $exchangeName);
                     $that->assertEquals($expectedQueueName, $routingKey);
 
                     if ($good === true) {
@@ -236,23 +246,23 @@ abstract class AbstractWorkerTest extends \PHPUnit_Framework_TestCase
 
     protected function assertGoodLogJob(AMQPMessage $message)
     {
-        $job = unserialize($message->body);
+        $job = MessageFactory::fromJson($message->body);
 
+        $this->assertFalse($job->isOnError());
         $this->assertGreaterThan(0, $job->getBeginning());
         $this->assertGreaterThan(0, $job->getEnd());
         $this->assertGreaterThan($job->getBeginning(), $job->getEnd());
         $this->assertGreaterThan(0, $job->getDeliveryDuration());
         $this->assertGreaterThan(0, $job->getProcessDuration());
-        $this->assertFalse($job->isOnError());
         $this->assertInstanceOf('Gloubster\\Delivery\\DeliveryInterface', $job->getDelivery());
         $this->assertEquals($this->getId(), $job->getWorkerId());
     }
 
     protected function assertGoodLogWrongJob(AMQPMessage $message)
     {
-        $job = unserialize($message->body);
+        $job = MessageFactory::fromJson($message->body);
 
-        $this->assertInstanceOf('Gloubster\\Job\\JobInterface', $job);
+        $this->assertInstanceOf('Gloubster\\Message\\Job\\JobInterface', $job);
 
         $this->assertGreaterThan(0, $job->getBeginning());
         $this->assertGreaterThan(0, $job->getEnd());

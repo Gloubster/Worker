@@ -15,8 +15,8 @@ use MediaAlchemyst\Alchemyst;
 use MediaAlchemyst\DriversContainer;
 use MediaAlchemyst\Specification\Image;
 use Gloubster\Exception\RuntimeException;
-use Gloubster\Job\JobInterface;
-use Gloubster\Job\ImageJob;
+use Gloubster\Message\Job\ImageJob;
+use Gloubster\Message\Job\JobInterface;
 use Gloubster\Worker\Job\Result;
 
 class ImageWorker extends AbstractWorker
@@ -32,6 +32,9 @@ class ImageWorker extends AbstractWorker
         if (!$job instanceof ImageJob) {
             throw new RuntimeException('Image worker only process image job');
         }
+
+        // throws a RuntimeException in case a parameter is missing
+        $job->isOk(true);
 
         $parameters = $job->getParameters();
         $tmpFile = $this->filesystem->createEmptyFile(sys_get_temp_dir(), null, null, $parameters['format'], 50);

@@ -2,12 +2,12 @@
 
 namespace Gloubster\Worker;
 
-use Gloubster\Job\JobInterface;
+use Gloubster\Message\Job\JobInterface;
 
 class TestWorker extends AbstractWorker
 {
     public static $iterations;
-    
+
     public function compute(JobInterface $job)
     {
 

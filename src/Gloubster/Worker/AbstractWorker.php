@@ -11,14 +11,14 @@
 
 namespace Gloubster\Worker;
 
-use Gloubster\Monitor\Worker\Presence;
-use Gloubster\Exchange;
-use Gloubster\RoutingKey;
-use Gloubster\Job\JobInterface;
+use Gloubster\Message\Presence\WorkerPresence;
+use Gloubster\RabbitMQ\Configuration as RabbitMQConfiguration;
+use Gloubster\Message\Job\JobInterface;
 use Gloubster\Exception\InvalidArgumentException;
 use Gloubster\Exception\RuntimeException;
 use Gloubster\Worker\Job\Counter;
 use Gloubster\Worker\Job\Result;
+use Gloubster\Message\Factory as MessageFactory;
 use Monolog\Logger;
 use Neutron\TipTop\Clock;
 use Neutron\TemporaryFilesystem\TemporaryFilesystem;
@@ -68,7 +68,7 @@ abstract class AbstractWorker
 
     final public function sendPresence()
     {
-        $presence = new Presence();
+        $presence = new WorkerPresence();
         $presence->setFailureJobs($this->jobCounter->getFailures())
             ->setId($this->id)
             ->setIdle(false)
@@ -80,7 +80,7 @@ abstract class AbstractWorker
             ->setMemory(memory_get_usage())
             ->setWorkerType($this->getType());
 
-        $this->channel->basic_publish(new AMQPMessage(serialize($presence)), Exchange::GLOUBSTER_MONITOR);
+        $this->channel->basic_publish(new AMQPMessage($presence->toJson()), RabbitMQConfiguration::EXCHANGE_MONITOR);
     }
 
     final public function run($iterations = true)
@@ -93,9 +93,11 @@ abstract class AbstractWorker
                 $this->channel->basic_consume($this->queue, null, false, false, false, false, array($this, 'process'));
 
                 while ($this->running && count($this->channel->callbacks)) {
+
                     $read = array($this->conn->getSocket());
                     $write = null;
                     $except = null;
+
                     if (false === ($num_changed_streams = @stream_select($read, $write, $except, 60))) {
                         /* Error handling */
                     } elseif ($num_changed_streams > 0) {
@@ -116,12 +118,20 @@ abstract class AbstractWorker
     {
         $this->logger->addInfo(sprintf('Processing job %s', $message->delivery_info['delivery_tag']));
 
-        $job = unserialize($message->body);
+        $error = false;
 
-        if (!$job instanceof JobInterface) {
+        try {
+            $job = MessageFactory::fromJson($message->body);
+            if (!$job instanceof JobInterface) {
+                $error = true;
+            }
+        } catch (RuntimeException $e) {
+            $error = true;
+        }
+
+        if ($error) {
             $this->logger->addCritical(sprintf('Received a wrong job message : %s', $message->body));
-            $this->channel->basic_publish(new AMQPMessage($message->body), Exchange::GLOUBSTER_DISPATCHER, RoutingKey::ERROR);
-
+            $this->channel->basic_publish(new AMQPMessage($message->body), RabbitMQConfiguration::EXCHANGE_DISPATCHER, RabbitMQConfiguration::ROUTINGKEY_ERROR);
             $this->channel->basic_ack($message->delivery_info['delivery_tag']);
 
             throw new RuntimeException('Wrong job message');
@@ -149,6 +159,7 @@ abstract class AbstractWorker
         } catch (\Exception $e) {
             $error = $e;
             $job->setError(true);
+            $job->setErrorMessage($e->getMessage());
         }
 
         if ($job->requireReceipt()) {
@@ -188,6 +199,6 @@ abstract class AbstractWorker
 
     private function log(JobInterface $message)
     {
-        $this->channel->basic_publish(new AMQPMessage(serialize($message)), Exchange::GLOUBSTER_DISPATCHER, RoutingKey::LOG);
+        $this->channel->basic_publish(new AMQPMessage($message->toJson()), RabbitMQConfiguration::EXCHANGE_DISPATCHER, RabbitMQConfiguration::ROUTINGKEY_LOG);
     }
 }

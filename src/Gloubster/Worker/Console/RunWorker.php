@@ -13,7 +13,7 @@ namespace Gloubster\Worker\Console;
 
 use Gloubster\Configuration;
 use Gloubster\Worker\Factory;
-use Gloubster\RabbitMQFactory;
+use Gloubster\RabbitMQ\Factory as RabbitMQFactory;
 use Monolog\Logger;
 use Neutron\TemporaryFilesystem\TemporaryFilesystem;
 use Symfony\Component\Console\Input\InputInterface;
@@ -45,7 +45,7 @@ class RunWorker extends Command
 
     public function execute(InputInterface $input, OutputInterface $output)
     {
-        $conn = RabbitMQFactory::createConnection($this->conf);
+        $conn = RabbitMQFactory::createAMQPLibConnection($this->conf);
 
         $type = $input->getArgument('type');
         $id = $input->getArgument('id') ?: $this->generateId($type);

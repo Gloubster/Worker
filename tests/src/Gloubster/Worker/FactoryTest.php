@@ -39,11 +39,8 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
                 ),
                 "workers"  => array(
                     "image" => array(
-                        "queue-name" => 'Gloubster\\Queue::CATS_PROCESSING',
+                        "queue-name" => 'Gloubster\\RabbitMQ\\Configuration::QUEUE_CATS_PROCESSING',
                     )
-                ),
-                "log" => array(
-                    "exchange-name"=>'Gloubster\\Exchange::GLOUBSTER_DISPATCHER'
                 )
             )), array(
             file_get_contents(__DIR__ . '/../../../../resources/configuration.schema.json')
@@ -75,11 +72,8 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
                 ),
                 "workers"  => array(
                     "imagine" => array(
-                        "queue-name" => 'Gloubster\\Queue::IMAGE_PROCESSING',
+                        "queue-name" => 'Gloubster\\RabbitMQ\\Configuration::QUEUE_IMAGE_PROCESSING',
                     )
-                ),
-                "log" => array(
-                    "exchange-name"=>'Gloubster\\Exchange::GLOUBSTER_DISPATCHER'
                 )
             )), array(
             file_get_contents(__DIR__ . '/../../../../resources/configuration.schema.json')
@@ -110,11 +104,8 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
                 ),
                 "workers"  => array(
                     "image" => array(
-                        "queue-name" => 'Gloubster\\Queue::IMAGE_PROCESSING',
+                        "queue-name" => 'Gloubster\\RabbitMQ\\Configuration::QUEUE_IMAGE_PROCESSING',
                     )
-                ),
-                "log" => array(
-                    "exchange-name"=>'Gloubster\\Exchange::GLOUBSTER_DISPATCHER'
                 )
             )), array(
             file_get_contents(__DIR__ . '/../../../../resources/configuration.schema.json')

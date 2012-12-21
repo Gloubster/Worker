@@ -2,14 +2,15 @@
 
 namespace Gloubster\Worker;
 
-use Gloubster\Job\ImageJob;
-use Gloubster\Job\VideoJob;
-use Gloubster\Delivery\FileSystem;
+use Gloubster\Message\Job\ImageJob;
+use Gloubster\Message\Job\VideoJob;
+use Gloubster\Delivery\Filesystem;
+use Gloubster\Message\Factory as MessageFactory;
+use Gloubster\Worker\Job\Result;
 use Gloubster\Delivery\DeliveryInterface;
 use Neutron\TemporaryFilesystem\TemporaryFilesystem;
 use PhpAmqpLib\Channel\AMQPChannel;
 use PhpAmqpLib\Message\AMQPMessage;
-use Gloubster\Worker\Job\Result;
 
 require_once __DIR__ . '/AbstractWorkerTest.php';
 
@@ -61,7 +62,7 @@ class ImageWorkerTest extends AbstractWorkerTest
     public function testCompute()
     {
         $target = tempnam(sys_get_temp_dir(), 'compute-image');
-        $data = $this->getWorker()->compute($this->getJob(new FileSystem($target)));
+        $data = $this->getWorker()->compute($this->getJob(Filesystem::create($target)));
 
         $this->assertInstanceOf('Gloubster\Worker\Job\Result', $data);
 
@@ -75,29 +76,31 @@ class ImageWorkerTest extends AbstractWorkerTest
 
     public function assertGoodLocalLogJob(AMQPMessage $message)
     {
-        $job = unserialize($message->body);
+        $job = MessageFactory::fromJson($message->body);
 
         $this->assertEquals(array('format' => 'jpg'), $job->getParameters());
-        $this->assertEquals($this->source, $job->getSource());
     }
 
     public function assertWrongLocalLogJob(AMQPMessage $message)
     {
-        $job = unserialize($message->body);
+        $job = MessageFactory::fromJson($message->body);
 
         $this->assertEquals(array('format' => 'jpg'), $job->getParameters());
-        $this->assertEquals($this->source, $job->getSource());
         $this->assertTrue($job->isOnError());
     }
 
     public function getJob(DeliveryInterface $delivery)
     {
-        return new ImageJob($this->source, $delivery, array('format' => 'jpg'));
+        return ImageJob::create($this->source, $delivery, array('format' => 'jpg'));
     }
 
     public function getWrongJob(DeliveryInterface $delivery)
     {
-        return new VideoJob($this->source, $delivery, array('format' => 'jpg'));
+        $job = new FakeSpace\NonImageJob();
+        $job->setDelivery($delivery);
+        $job->setParameters(array('format' => 'jpg'));
+
+        return $job;
     }
 
     public function getId()
@@ -123,8 +126,8 @@ class ImageWorkerTest extends AbstractWorkerTest
             'rotation'         => 90,
             'quality'          => 100,
         );
-        $job = new ImageJob(__DIR__ . '/../../testfiles/photo02.JPG', new FileSystem($this->target), $parameters);
-        $message = $this->getAMQPMessage(serialize($job));
+        $job = ImageJob::create(__DIR__ . '/../../testfiles/photo02.JPG', Filesystem::create($this->target), $parameters);
+        $message = $this->getAMQPMessage($job->toJson());
 
         $this->getWorker()->process($message);
 

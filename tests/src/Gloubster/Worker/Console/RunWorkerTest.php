@@ -27,11 +27,8 @@ class RunWorkerTest extends \PHPUnit_Framework_TestCase
             ),
             "workers"  => array(
                 "image" => array(
-                    "queue-name" => "Gloubster\\Queue::IMAGE_PROCESSING"
+                    "queue-name" => "Gloubster\\RabbitMQ\\Configuration::QUEUE_IMAGE_PROCESSING"
                 )
-            ),
-            "log"        => array(
-                "exchange-name" => "Gloubster\\Exchange::GLOUBSTER_DISPATCHER"
             )
         )));
 
