@@ -1,5 +1,5 @@
 {
-    "hash": "36b66d5c3d0d45b5d3b030e0324b982e",
+    "hash": "a902f54c2499a3a10a119c9dfc3da316",
     "packages": [
         {
             "name": "alchemy/ghostscript",
@@ -65,12 +65,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php",
-                "reference": "4f5174e7d2e1c313d45b953d3363dfff06d2072a"
+                "reference": "2.0.3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/aws/aws-sdk-php/archive/4f5174e7d2e1c313d45b953d3363dfff06d2072a.zip",
-                "reference": "4f5174e7d2e1c313d45b953d3363dfff06d2072a",
+                "url": "https://github.com/aws/aws-sdk-php/archive/2.0.3.zip",
+                "reference": "2.0.3",
                 "shasum": ""
             },
             "require": {
@@ -84,7 +84,7 @@
                 "ext-apc": "*",
                 "phpunit/phpunit": "3.7.*"
             },
-            "time": "2012-12-20 20:20:07",
+            "time": "2012-12-20 22:46:13",
             "type": "library",
             "installation-source": "source",
             "autoload": {
@@ -434,12 +434,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/alchemy-fr/Media-Alchemyst",
-                "reference": "7f0f15b085ccef8974200b53865cd3e73b9a4753"
+                "reference": "0.2.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/alchemy-fr/Media-Alchemyst/archive/7f0f15b085ccef8974200b53865cd3e73b9a4753.zip",
-                "reference": "7f0f15b085ccef8974200b53865cd3e73b9a4753",
+                "url": "https://github.com/alchemy-fr/Media-Alchemyst/archive/0.2.0.zip",
+                "reference": "0.2.0",
                 "shasum": ""
             },
             "require": {
@@ -459,7 +459,7 @@
                 "grom/silex-service-provider": "dev-master",
                 "phpexiftool/phpexiftool": "dev-master"
             },
-            "time": "2012-12-21 16:10:42",
+            "time": "2012-12-21 16:57:14",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -775,12 +775,12 @@
             "source": {
                 "type": "git",
                 "url": "git://github.com/alchemy-fr/PHP-MP4Box.git",
-                "reference": "0129a46ef13b85d42619f8194b3243641c4a669a"
+                "reference": "2e8db20b7ebc53818b3e23c99f4e23c6e2bfc1c4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/alchemy-fr/PHP-MP4Box/archive/0129a46ef13b85d42619f8194b3243641c4a669a.zip",
-                "reference": "0129a46ef13b85d42619f8194b3243641c4a669a",
+                "url": "https://github.com/alchemy-fr/PHP-MP4Box/archive/2e8db20b7ebc53818b3e23c99f4e23c6e2bfc1c4.zip",
+                "reference": "2e8db20b7ebc53818b3e23c99f4e23c6e2bfc1c4",
                 "shasum": ""
             },
             "require": {
@@ -792,7 +792,7 @@
                 "fabpot/php-cs-fixer": "dev-master",
                 "silex/silex": "dev-master"
             },
-            "time": "2012-12-21 15:20:28",
+            "time": "2012-12-21 16:56:54",
             "type": "library",
             "installation-source": "source",
             "autoload": {
@@ -824,12 +824,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/alchemy-fr/PHP-Unoconv",
-                "reference": "cf28d3d1780b24100213def5dcc984d052a4a1be"
+                "reference": "0.1.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/alchemy-fr/PHP-Unoconv/archive/cf28d3d1780b24100213def5dcc984d052a4a1be.zip",
-                "reference": "cf28d3d1780b24100213def5dcc984d052a4a1be",
+                "url": "https://github.com/alchemy-fr/PHP-Unoconv/archive/0.1.0.zip",
+                "reference": "0.1.0",
                 "shasum": ""
             },
             "require": {
@@ -841,7 +841,7 @@
                 "silex/silex": "dev-master",
                 "fabpot/php-cs-fixer": "dev-master"
             },
-            "time": "2012-12-21 15:21:01",
+            "time": "2012-12-21 16:41:47",
             "type": "library",
             "installation-source": "source",
             "autoload": {
@@ -861,7 +861,7 @@
                 },
                 {
                     "name": "Phraseanet Team",
-                    "email": "support@alchemy.fr",
+                    "email": "info@alchemy.fr",
                     "homepage": "http://www.phraseanet.com/"
                 }
             ],
@@ -1011,12 +1011,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/alchemy-fr/PHPSwftools",
-                "reference": "3194fa38869a01aa6bab6e2ee1c8d357cd809b65"
+                "reference": "0.1.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/alchemy-fr/PHPSwftools/archive/3194fa38869a01aa6bab6e2ee1c8d357cd809b65.zip",
-                "reference": "3194fa38869a01aa6bab6e2ee1c8d357cd809b65",
+                "url": "https://github.com/alchemy-fr/PHPSwftools/archive/0.1.0.zip",
+                "reference": "0.1.0",
                 "shasum": ""
             },
             "require": {
@@ -1029,7 +1029,7 @@
                 "sami/sami": "dev-master",
                 "silex/silex": "dev-master"
             },
-            "time": "2012-12-21 15:21:43",
+            "time": "2012-12-21 16:29:27",
             "type": "library",
             "installation-source": "source",
             "autoload": {
@@ -1409,7 +1409,6 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "gloubster/communications": 20,
-        "media-alchemyst/media-alchemyst": 20,
         "neutron/temporary-filesystem": 20,
         "videlalvaro/php-amqplib": 20
     }

@@ -18,7 +18,7 @@
     ],
     "require": {
         "gloubster/communications": "dev-master",
-        "media-alchemyst/media-alchemyst":"dev-master",
+        "media-alchemyst/media-alchemyst":"0.2.*",
         "system/cpu": "*",
         "neutron/tip-top": "0.1.*",
         "neutron/temporary-filesystem": "dev-master",
