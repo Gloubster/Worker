@@ -245,7 +245,7 @@ abstract class AbstractWorkerTest extends \PHPUnit_Framework_TestCase
             ));
     }
 
-    protected function assertGoodLogJob(AMQPMessage $message)
+    public function assertGoodLogJob(AMQPMessage $message)
     {
         $job = MessageFactory::fromJson($message->body);
 
@@ -259,7 +259,7 @@ abstract class AbstractWorkerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($this->getId(), $job->getWorkerId());
     }
 
-    protected function assertGoodLogWrongJob(AMQPMessage $message)
+    public function assertGoodLogWrongJob(AMQPMessage $message)
     {
         $job = MessageFactory::fromJson($message->body);
 
