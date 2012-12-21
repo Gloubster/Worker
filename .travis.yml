@@ -1,5 +1,8 @@
 language: php
 
+services:
+  - rabbitmq
+
 before_script:
   - sudo apt-get install ffmpeg
   - composer install --dev
