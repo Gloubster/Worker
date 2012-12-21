@@ -1,7 +1,8 @@
 <?php
 
-namespace Gloubster\Worker;
+namespace Gloubster\Tests\Worker;
 
+use Gloubster\Worker\AbstractWorker;
 use Gloubster\Message\Job\JobInterface;
 
 class TestWorker extends AbstractWorker

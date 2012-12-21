@@ -1,9 +1,9 @@
 <?php
 
-namespace Gloubster\Worker;
+namespace Gloubster\Tests\Worker;
 
+use Gloubster\Worker\ImageWorker;
 use Gloubster\Message\Job\ImageJob;
-use Gloubster\Message\Job\VideoJob;
 use Gloubster\Delivery\Filesystem;
 use Gloubster\Message\Factory as MessageFactory;
 use Gloubster\Worker\Job\Result;
@@ -27,7 +27,7 @@ class ImageWorkerTest extends AbstractWorkerTest
 
     public function __construct()
     {
-        $this->source = __DIR__ . '/../../testfiles/photo02.JPG';
+        $this->source = __DIR__ . '/../../../testfiles/photo02.JPG';
     }
 
     /**
@@ -126,7 +126,7 @@ class ImageWorkerTest extends AbstractWorkerTest
             'rotation'         => 90,
             'quality'          => 100,
         );
-        $job = ImageJob::create(__DIR__ . '/../../testfiles/photo02.JPG', Filesystem::create($this->target), $parameters);
+        $job = ImageJob::create(__DIR__ . '/../../../testfiles/photo02.JPG', Filesystem::create($this->target), $parameters);
         $message = $this->getAMQPMessage($job->toJson());
 
         $this->getWorker()->process($message);

@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Gloubster\Worker\FakeSpace;
+namespace Gloubster\Tests\Worker\FakeSpace;
 
 use Gloubster\Message\Job\JobInterface;
 use Gloubster\Exception\RuntimeException;
@@ -18,7 +18,6 @@ use Gloubster\Receipt\Factory as ReceiptFactory;
 
 class Factory
 {
-
     public static function fromJson($json)
     {
         $data = json_decode($json, true);

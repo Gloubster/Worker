@@ -1,7 +1,8 @@
 <?php
 
-namespace Gloubster\Worker\Console;
+namespace Gloubster\Tests\Worker\Console;
 
+use Gloubster\Worker\Console\RunWorker;
 use Gloubster\Configuration;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;

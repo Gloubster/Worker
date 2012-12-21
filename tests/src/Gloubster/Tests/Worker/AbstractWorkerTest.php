@@ -1,7 +1,8 @@
 <?php
 
-namespace Gloubster\Worker;
+namespace Gloubster\Tests\Worker;
 
+use Gloubster\Worker\AbstractWorker;
 use Gloubster\Exception\RuntimeException;
 use Gloubster\Delivery\DeliveryInterface;
 use Gloubster\Message\Factory as MessageFactory;
@@ -20,7 +21,7 @@ abstract class AbstractWorkerTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         parent::setUp();
-        $this->target = __DIR__ . '/../../target' . microtime(true) . 'test';
+        $this->target = __DIR__ . '/../../../target' . microtime(true) . 'test';
 
         if (file_exists($this->target)) {
             unlink($this->target);
@@ -88,7 +89,7 @@ abstract class AbstractWorkerTest extends \PHPUnit_Framework_TestCase
 
     public function testWrongProcess()
     {
-        $wrongData = json_encode(array('type' => 'Gloubster\\Worker\\FakeSpace\\NonImageJob'));
+        $wrongData = json_encode(array('type' => 'Gloubster\\Tests\\Worker\\FakeSpace\\NonImageJob'));
 
         $message = $this->getAMQPMessage($wrongData);
         $channel = $this->getChannel();

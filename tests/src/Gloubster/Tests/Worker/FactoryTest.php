@@ -1,7 +1,8 @@
 <?php
 
-namespace Gloubster\Worker;
+namespace Gloubster\Tests\Worker;
 
+use Gloubster\Worker\Factory;
 use Gloubster\Configuration;
 
 class FactoryTest extends \PHPUnit_Framework_TestCase
@@ -43,7 +44,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
                     )
                 )
             )), array(
-            file_get_contents(__DIR__ . '/../../../../resources/configuration.schema.json')
+            file_get_contents(__DIR__ . '/../../../../../resources/configuration.schema.json')
         ));
 
         $filesystem = $this->getMockBuilder('Neutron\\TemporaryFilesystem\\TemporaryFilesystem')
@@ -76,7 +77,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
                     )
                 )
             )), array(
-            file_get_contents(__DIR__ . '/../../../../resources/configuration.schema.json')
+            file_get_contents(__DIR__ . '/../../../../../resources/configuration.schema.json')
         ));
 
         $filesystem = $this->getMockBuilder('Neutron\\TemporaryFilesystem\\TemporaryFilesystem')
@@ -108,7 +109,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
                     )
                 )
             )), array(
-            file_get_contents(__DIR__ . '/../../../../resources/configuration.schema.json')
+            file_get_contents(__DIR__ . '/../../../../../resources/configuration.schema.json')
         ));
 
         $filesystem = $this->getMockBuilder('Neutron\\TemporaryFilesystem\\TemporaryFilesystem')

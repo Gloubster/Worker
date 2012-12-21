@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Gloubster\Worker\FakeSpace;
+namespace Gloubster\Tests\Worker\FakeSpace;
 
 use Gloubster\Delivery\DeliveryInterface;
 use Gloubster\Exception\InvalidArgumentException;
