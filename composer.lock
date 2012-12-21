@@ -1,5 +1,5 @@
 {
-    "hash": "01f1319af08f14f45a41e05fd4f08925",
+    "hash": "36b66d5c3d0d45b5d3b030e0324b982e",
     "packages": [
         {
             "name": "alchemy/ghostscript",
@@ -65,12 +65,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php",
-                "reference": "a00d6a3b624bd93094b4545c4ea187d772796fff"
+                "reference": "4f5174e7d2e1c313d45b953d3363dfff06d2072a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/aws/aws-sdk-php/archive/a00d6a3b624bd93094b4545c4ea187d772796fff.zip",
-                "reference": "a00d6a3b624bd93094b4545c4ea187d772796fff",
+                "url": "https://github.com/aws/aws-sdk-php/archive/4f5174e7d2e1c313d45b953d3363dfff06d2072a.zip",
+                "reference": "4f5174e7d2e1c313d45b953d3363dfff06d2072a",
                 "shasum": ""
             },
             "require": {
@@ -84,7 +84,7 @@
                 "ext-apc": "*",
                 "phpunit/phpunit": "3.7.*"
             },
-            "time": "2012-12-19 22:13:14",
+            "time": "2012-12-20 20:20:07",
             "type": "library",
             "installation-source": "source",
             "autoload": {
@@ -1048,12 +1048,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Console",
-                "reference": "v2.1.5"
+                "reference": "v2.1.6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/symfony/Console/archive/v2.1.5.zip",
-                "reference": "v2.1.5",
+                "url": "https://github.com/symfony/Console/archive/v2.1.6.zip",
+                "reference": "v2.1.6",
                 "shasum": ""
             },
             "require": {
@@ -1194,12 +1194,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/HttpFoundation",
-                "reference": "v2.1.5"
+                "reference": "v2.1.6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/symfony/HttpFoundation/archive/v2.1.5.zip",
-                "reference": "v2.1.5",
+                "url": "https://github.com/symfony/HttpFoundation/archive/v2.1.6.zip",
+                "reference": "v2.1.6",
                 "shasum": ""
             },
             "require": {
@@ -1238,12 +1238,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Process",
-                "reference": "v2.1.5"
+                "reference": "v2.1.6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/symfony/Process/archive/v2.1.5.zip",
-                "reference": "v2.1.5",
+                "url": "https://github.com/symfony/Process/archive/v2.1.6.zip",
+                "reference": "v2.1.6",
                 "shasum": ""
             },
             "require": {

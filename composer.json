@@ -19,9 +19,9 @@
     "require": {
         "gloubster/communications": "dev-master",
         "media-alchemyst/media-alchemyst":"dev-master",
-	    "system/cpu": "*",
-	    "neutron/tip-top": "0.1.*",
-	    "neutron/temporary-filesystem": "dev-master",
+        "system/cpu": "*",
+        "neutron/tip-top": "0.1.*",
+        "neutron/temporary-filesystem": "dev-master",
         "monolog/monolog": "1.*",
         "symfony/console" : ">=2.0,<=2.2.x-dev",
         "videlalvaro/php-amqplib": "dev-master"
