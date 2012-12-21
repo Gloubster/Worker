@@ -36,7 +36,7 @@ class RunWorkerTest extends \PHPUnit_Framework_TestCase
         $application = new Application();
         $application->add(new RunWorker($conf, $logger));
 
-        $command = $application->find('worker:run');
+        $command = $application->find('run');
 
         $commandTester = new CommandTester($command);
         $commandTester->execute(array(
