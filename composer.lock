@@ -434,12 +434,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/alchemy-fr/Media-Alchemyst",
-                "reference": "35e464263b096cf99ce48ced53e8254ea8cc78f2"
+                "reference": "7f0f15b085ccef8974200b53865cd3e73b9a4753"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/alchemy-fr/Media-Alchemyst/archive/35e464263b096cf99ce48ced53e8254ea8cc78f2.zip",
-                "reference": "35e464263b096cf99ce48ced53e8254ea8cc78f2",
+                "url": "https://github.com/alchemy-fr/Media-Alchemyst/archive/7f0f15b085ccef8974200b53865cd3e73b9a4753.zip",
+                "reference": "7f0f15b085ccef8974200b53865cd3e73b9a4753",
                 "shasum": ""
             },
             "require": {
@@ -459,7 +459,7 @@
                 "grom/silex-service-provider": "dev-master",
                 "phpexiftool/phpexiftool": "dev-master"
             },
-            "time": "2012-12-17 16:57:38",
+            "time": "2012-12-21 16:10:42",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -504,12 +504,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/romainneutron/MediaVorus",
-                "reference": "0800c49913108dccdf6252b5b7ee4bf3b7482ddf"
+                "reference": "0.2.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/romainneutron/MediaVorus/archive/0800c49913108dccdf6252b5b7ee4bf3b7482ddf.zip",
-                "reference": "0800c49913108dccdf6252b5b7ee4bf3b7482ddf",
+                "url": "https://github.com/romainneutron/MediaVorus/archive/0.2.1.zip",
+                "reference": "0.2.1",
                 "shasum": ""
             },
             "require": {
@@ -524,7 +524,7 @@
                 "fabpot/php-cs-fixer": "*",
                 "silex/silex": "1.0.*-dev"
             },
-            "time": "2012-12-21 15:24:27",
+            "time": "2012-12-21 16:17:03",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -909,12 +909,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/romainneutron/PHPExiftool",
-                "reference": "d6d5205acb8fc5466092b69613aa2de8c2d1c8d4"
+                "reference": "204d7a7a41458e9907c43bb1b45daf3db48de59e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/romainneutron/PHPExiftool/archive/d6d5205acb8fc5466092b69613aa2de8c2d1c8d4.zip",
-                "reference": "d6d5205acb8fc5466092b69613aa2de8c2d1c8d4",
+                "url": "https://github.com/romainneutron/PHPExiftool/archive/204d7a7a41458e9907c43bb1b45daf3db48de59e.zip",
+                "reference": "204d7a7a41458e9907c43bb1b45daf3db48de59e",
                 "shasum": ""
             },
             "require": {
@@ -933,7 +933,7 @@
                 "symfony/console": ">=2.0,<=2.2",
                 "symfony/dom-crawler": ">=2.0,<=2.2"
             },
-            "time": "2012-12-21 15:17:47",
+            "time": "2012-12-21 16:05:08",
             "type": "library",
             "installation-source": "source",
             "autoload": {
