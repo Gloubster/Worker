@@ -29,7 +29,7 @@ class RunWorker extends Command
 
     public function __construct(Configuration $conf, Logger $logger)
     {
-        parent::__construct('worker:run');
+        parent::__construct('run');
 
         $this->conf = $conf;
         $this->logger = $logger;

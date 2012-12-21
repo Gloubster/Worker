@@ -13,12 +13,18 @@
 require __DIR__ . '/../vendor/autoload.php';
 
 use Gloubster\Configuration;
+use Gloubster\Exception\RuntimeException;
 use Gloubster\Worker\Console\RunWorker;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 use Symfony\Component\Console\Application;
 
 return call_user_func(function() {
+
+    if (!file_exists(__DIR__ . '/../config/config.json')) {
+        throw new RuntimeException('Configuration is not readable or does not exist');
+    }
+
     $configuration = new Configuration(file_get_contents(__DIR__ . '/../config/config.json'), array(
         file_get_contents(__DIR__ . '/../resources/configuration.schema.json')
     ));
