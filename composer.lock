@@ -115,32 +115,32 @@
         },
         {
             "name": "doctrine/common",
-            "version": "dev-master",
+            "version": "2.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/common",
-                "reference": "a890fe1b689ed65c52bf4a7e64333a27b3c400d6"
+                "reference": "2.3.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/doctrine/common/archive/a890fe1b689ed65c52bf4a7e64333a27b3c400d6.zip",
-                "reference": "a890fe1b689ed65c52bf4a7e64333a27b3c400d6",
+                "url": "https://github.com/doctrine/common/zipball/2.3.0",
+                "reference": "2.3.0",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.2"
             },
-            "time": "2012-12-18 00:45:03",
+            "time": "2012-09-19 22:55:18",
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.4.x-dev"
+                    "dev-master": "2.3.x-dev"
                 }
             },
             "installation-source": "source",
             "autoload": {
                 "psr-0": {
-                    "Doctrine\\Common\\": "lib/"
+                    "Doctrine\\Common": "lib/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -504,27 +504,27 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/romainneutron/MediaVorus",
-                "reference": "000bb25ab0c33080c08190910618714e28aa4c84"
+                "reference": "0800c49913108dccdf6252b5b7ee4bf3b7482ddf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/romainneutron/MediaVorus/archive/000bb25ab0c33080c08190910618714e28aa4c84.zip",
-                "reference": "000bb25ab0c33080c08190910618714e28aa4c84",
+                "url": "https://github.com/romainneutron/MediaVorus/archive/0800c49913108dccdf6252b5b7ee4bf3b7482ddf.zip",
+                "reference": "0800c49913108dccdf6252b5b7ee4bf3b7482ddf",
                 "shasum": ""
             },
             "require": {
                 "phpexiftool/phpexiftool": "dev-master",
                 "php-ffmpeg/php-ffmpeg": "dev-master",
                 "php": ">=5.3.0",
-                "monolog/monolog": "1.0.*",
                 "symfony/http-foundation": ">2.0,<=2.2",
-                "symfony/console": ">2.0,<=2.2"
+                "symfony/console": ">2.0,<=2.2",
+                "monolog/monolog": "1.*"
             },
             "require-dev": {
                 "fabpot/php-cs-fixer": "*",
                 "silex/silex": "1.0.*-dev"
             },
-            "time": "2012-12-14 09:20:49",
+            "time": "2012-12-21 15:24:27",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -555,29 +555,43 @@
         },
         {
             "name": "monolog/monolog",
-            "version": "1.0.2",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Seldaek/monolog",
-                "reference": "1.0.2"
+                "reference": "52b454f89041c41c548bc242482aaf9dc6fee5d8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/Seldaek/monolog/zipball/1.0.2",
-                "reference": "1.0.2",
+                "url": "https://github.com/Seldaek/monolog/archive/52b454f89041c41c548bc242482aaf9dc6fee5d8.zip",
+                "reference": "52b454f89041c41c548bc242482aaf9dc6fee5d8",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.0"
             },
-            "time": "2011-10-24 02:39:02",
+            "require-dev": {
+                "mlehner/gelf-php": "1.0.*"
+            },
+            "suggest": {
+                "mlehner/gelf-php": "Allow sending log messages to a GrayLog2 server",
+                "ext-amqp": "Allow sending log messages to an AMQP server (1.0+ required)",
+                "ext-mongo": "Allow sending log messages to a MongoDB server"
+            },
+            "time": "2012-12-21 09:35:52",
             "type": "library",
-            "installation-source": "dist",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.3.x-dev"
+                }
+            },
+            "installation-source": "source",
             "autoload": {
                 "psr-0": {
                     "Monolog": "src/"
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -761,24 +775,24 @@
             "source": {
                 "type": "git",
                 "url": "git://github.com/alchemy-fr/PHP-MP4Box.git",
-                "reference": "2c272a3f77807771275fb4f2c404071e9c263e19"
+                "reference": "0129a46ef13b85d42619f8194b3243641c4a669a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/alchemy-fr/PHP-MP4Box/zipball/2c272a3f77807771275fb4f2c404071e9c263e19",
-                "reference": "2c272a3f77807771275fb4f2c404071e9c263e19",
+                "url": "https://github.com/alchemy-fr/PHP-MP4Box/archive/0129a46ef13b85d42619f8194b3243641c4a669a.zip",
+                "reference": "0129a46ef13b85d42619f8194b3243641c4a669a",
                 "shasum": ""
             },
             "require": {
-                "monolog/monolog": "1.0.*",
                 "php": ">=5.3.3",
-                "symfony/process": ">=2.0,<=2.2"
+                "symfony/process": ">=2.0,<=2.2",
+                "monolog/monolog": "1.*"
             },
             "require-dev": {
                 "fabpot/php-cs-fixer": "dev-master",
                 "silex/silex": "dev-master"
             },
-            "time": "2012-10-09 17:40:08",
+            "time": "2012-12-21 15:20:28",
             "type": "library",
             "installation-source": "source",
             "autoload": {
@@ -786,6 +800,7 @@
                     "MP4Box": "src"
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -809,24 +824,24 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/alchemy-fr/PHP-Unoconv",
-                "reference": "dd49df9be9ab649af37674f07393037727077124"
+                "reference": "cf28d3d1780b24100213def5dcc984d052a4a1be"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/alchemy-fr/PHP-Unoconv/zipball/dd49df9be9ab649af37674f07393037727077124",
-                "reference": "dd49df9be9ab649af37674f07393037727077124",
+                "url": "https://github.com/alchemy-fr/PHP-Unoconv/archive/cf28d3d1780b24100213def5dcc984d052a4a1be.zip",
+                "reference": "cf28d3d1780b24100213def5dcc984d052a4a1be",
                 "shasum": ""
             },
             "require": {
-                "monolog/monolog": "1.0.*",
                 "php": ">=5.3.3",
-                "symfony/process": ">=2.0,<=2.2"
+                "symfony/process": ">=2.0,<=2.2",
+                "monolog/monolog": "1.*"
             },
             "require-dev": {
                 "silex/silex": "dev-master",
                 "fabpot/php-cs-fixer": "dev-master"
             },
-            "time": "2012-10-08 16:16:40",
+            "time": "2012-12-21 15:21:01",
             "type": "library",
             "installation-source": "source",
             "autoload": {
@@ -834,6 +849,7 @@
                     "Unoconv": "src"
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -845,7 +861,7 @@
                 },
                 {
                     "name": "Phraseanet Team",
-                    "email": "info@alchemy.fr",
+                    "email": "support@alchemy.fr",
                     "homepage": "http://www.phraseanet.com/"
                 }
             ],
@@ -893,30 +909,31 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/romainneutron/PHPExiftool",
-                "reference": "c72f9a88a74c1967fb14de62f342048c8311cb9b"
+                "reference": "d6d5205acb8fc5466092b69613aa2de8c2d1c8d4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/romainneutron/PHPExiftool/zipball/c72f9a88a74c1967fb14de62f342048c8311cb9b",
-                "reference": "c72f9a88a74c1967fb14de62f342048c8311cb9b",
+                "url": "https://github.com/romainneutron/PHPExiftool/archive/d6d5205acb8fc5466092b69613aa2de8c2d1c8d4.zip",
+                "reference": "d6d5205acb8fc5466092b69613aa2de8c2d1c8d4",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3",
-                "doctrine/common": ">=2.2",
                 "phpexiftool/exiftool": "dev-master",
-                "symfony/process": "2.1.*"
+                "monolog/monolog": "1.*",
+                "doctrine/common": ">=2.2,<=2.3",
+                "symfony/process": ">=2.0,<=2.2"
             },
             "require-dev": {
-                "symfony/css-selector": "2.1.*",
-                "symfony/finder": "2.1.*",
-                "symfony/console": "2.1.*",
-                "symfony/dom-crawler": "2.1.*",
                 "fabpot/php-cs-fixer": "dev-master",
                 "sami/sami": "dev-master",
-                "silex/silex": "dev-master"
+                "silex/silex": "dev-master",
+                "symfony/css-selector": ">=2.0,<=2.2",
+                "symfony/finder": ">=2.0,<=2.2",
+                "symfony/console": ">=2.0,<=2.2",
+                "symfony/dom-crawler": ">=2.0,<=2.2"
             },
-            "time": "2012-09-03 14:06:48",
+            "time": "2012-12-21 15:17:47",
             "type": "library",
             "installation-source": "source",
             "autoload": {
@@ -924,6 +941,7 @@
                     "PHPExiftool": "lib"
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -993,25 +1011,25 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/alchemy-fr/PHPSwftools",
-                "reference": "9b79c0fb1f43a2e84c26e908d54b1ed98091510c"
+                "reference": "3194fa38869a01aa6bab6e2ee1c8d357cd809b65"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/alchemy-fr/PHPSwftools/zipball/9b79c0fb1f43a2e84c26e908d54b1ed98091510c",
-                "reference": "9b79c0fb1f43a2e84c26e908d54b1ed98091510c",
+                "url": "https://github.com/alchemy-fr/PHPSwftools/archive/3194fa38869a01aa6bab6e2ee1c8d357cd809b65.zip",
+                "reference": "3194fa38869a01aa6bab6e2ee1c8d357cd809b65",
                 "shasum": ""
             },
             "require": {
-                "monolog/monolog": "1.0.*",
                 "php": ">=5.3.3",
-                "symfony/process": ">=2.0,<=2.2"
+                "symfony/process": ">=2.0,<=2.2",
+                "monolog/monolog": "1.*"
             },
             "require-dev": {
                 "fabpot/php-cs-fixer": "dev-master",
                 "sami/sami": "dev-master",
                 "silex/silex": "dev-master"
             },
-            "time": "2012-10-08 14:06:53",
+            "time": "2012-12-21 15:21:43",
             "type": "library",
             "installation-source": "source",
             "autoload": {
@@ -1019,6 +1037,7 @@
                     "SwfTools": "src"
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
