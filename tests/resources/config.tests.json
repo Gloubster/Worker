@@ -5,5 +5,10 @@
         "user":"guest",
         "password":"guest",
         "vhost": "/"
+    },
+    "workers": {
+        "image": {
+            "queue-name": "Gloubster\\RabbitMQ\\Configuration::QUEUE_IMAGE_PROCESSING"
+        }
     }
 }

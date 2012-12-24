@@ -14,25 +14,15 @@ class RunWorkerTest extends \PHPUnit_Framework_TestCase
      */
     public function testExecute()
     {
-        $this->markTestSkipped('Currently skipped');
+        if (!defined('AMQP_DEBUG')) {
+            echo "defining AMQP_DEBUG to true\n";
+            define('AMQP_DEBUG', true);
+        }
         $logger = $this->getMockBuilder('Monolog\\Logger')
             ->disableOriginalConstructor()
             ->getMock();
 
-        $conf = new Configuration(json_encode(array(
-            "server" => array(
-                "host"     => "localhost",
-                "port"     => 5672,
-                "user"     => "guest",
-                "password" => "guest",
-                "vhost"    => "/",
-            ),
-            "workers"  => array(
-                "image" => array(
-                    "queue-name" => "Gloubster\\RabbitMQ\\Configuration::QUEUE_IMAGE_PROCESSING"
-                )
-            )
-        )));
+        $conf = new Configuration(file_get_contents(__DIR__ . '/../../../../../resources/config.tests.json'));
 
         $application = new Application();
         $application->add(new RunWorker($conf, $logger));
