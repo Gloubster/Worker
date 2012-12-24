@@ -29,6 +29,7 @@ abstract class AbstractWorker
 {
     private $id;
     private $channel;
+    private $conn;
     private $queue;
     private $clock;
     private $running;
