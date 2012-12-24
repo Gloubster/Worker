@@ -9,6 +9,8 @@ before_script:
   - wget http://guest:guest@localhost:55672/cli/rabbitmqadmin
   - chmod +x rabbitmqadmin
   - ./rabbitmqadmin declare queue name=phrasea.worker.test-queue durable=true
+  - ./rabbitmqadmin declare exchange name=phrasea.subdef.dispatcher type=fanout
+  - ./rabbitmqadmin declare exchange name=phrasea.monitor type=fanout
   - sudo apt-get install ffmpeg
   - composer install --dev
 
