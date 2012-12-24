@@ -4,8 +4,8 @@ services:
   - rabbitmq
 
 before_script:
-  - rabbitmq-plugins enable rabbitmq_management
-  - rabbitmq-plugins enable rabbitmq_stomp
+  - sudo rabbitmq-plugins enable rabbitmq_management
+  - sudo rabbitmq-plugins enable rabbitmq_stomp
   - wget http://guest:guest@localhost:55672/cli/rabbitmqadmin
   - chmod +x rabbitmqadmin
   - ./rabbitmqadmin declare queue name=phrasea.worker.test-queue
