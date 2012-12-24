@@ -14,10 +14,6 @@ class RunWorkerTest extends \PHPUnit_Framework_TestCase
      */
     public function testExecute()
     {
-        if (!defined('AMQP_DEBUG')) {
-            echo "defining AMQP_DEBUG to true\n";
-            define('AMQP_DEBUG', true);
-        }
         $logger = $this->getMockBuilder('Monolog\\Logger')
             ->disableOriginalConstructor()
             ->getMock();
