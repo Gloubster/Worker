@@ -8,7 +8,7 @@
     },
     "workers": {
         "image": {
-            "queue-name": "Gloubster\\RabbitMQ\\Configuration::QUEUE_IMAGE_PROCESSING"
+            "queue-name": "Gloubster\\Tests\\Worker\\RabbitMQConfiguration::TEST_QUEUE"
         }
     }
 }
