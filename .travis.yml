@@ -8,7 +8,7 @@ before_script:
   - sudo rabbitmq-plugins enable rabbitmq_stomp
   - wget http://guest:guest@localhost:55672/cli/rabbitmqadmin
   - chmod +x rabbitmqadmin
-  - ./rabbitmqadmin declare queue name=phrasea.worker.test-queue
+  - ./rabbitmqadmin declare queue name=phrasea.worker.test-queue durable=true
   - sudo apt-get install ffmpeg
   - composer install --dev
 
