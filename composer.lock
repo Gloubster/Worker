@@ -1,5 +1,5 @@
 {
-    "hash": "a902f54c2499a3a10a119c9dfc3da316",
+    "hash": "31f1922b280987a197d1c908de22eed6",
     "packages": [
         {
             "name": "alchemy/ghostscript",
@@ -38,6 +38,7 @@
                     "Ghostscript": "src"
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -137,7 +138,7 @@
                     "dev-master": "2.3.x-dev"
                 }
             },
-            "installation-source": "source",
+            "installation-source": "dist",
             "autoload": {
                 "psr-0": {
                     "Doctrine\\Common": "lib/"
@@ -398,6 +399,7 @@
                     "JsonSchema": "src/"
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause"
             ],
@@ -612,16 +614,16 @@
         },
         {
             "name": "neutron/temporary-filesystem",
-            "version": "dev-master",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "git://github.com/romainneutron/Temporary-Filesystem.git",
-                "reference": "7d07cd2b25c03470f27aea69161a816908d7b908"
+                "reference": "1.0.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/romainneutron/Temporary-Filesystem/zipball/7d07cd2b25c03470f27aea69161a816908d7b908",
-                "reference": "7d07cd2b25c03470f27aea69161a816908d7b908",
+                "url": "https://github.com/romainneutron/Temporary-Filesystem/archive/1.0.0.zip",
+                "reference": "1.0.0",
                 "shasum": ""
             },
             "require": {
@@ -629,12 +631,13 @@
             },
             "time": "2012-11-02 11:05:27",
             "type": "library",
-            "installation-source": "source",
+            "installation-source": "dist",
             "autoload": {
                 "psr-0": {
                     "Neutron": "src"
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -682,6 +685,7 @@
                     "Neutron": "src"
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -877,7 +881,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/alchemy-fr/exiftool/zipball/c68d98b5a00aaf7ae0db7eebddfcde27d948e537",
+                "url": "https://github.com/alchemy-fr/exiftool/archive/c68d98b5a00aaf7ae0db7eebddfcde27d948e537.zip",
                 "reference": "c68d98b5a00aaf7ae0db7eebddfcde27d948e537",
                 "shasum": ""
             },
@@ -887,6 +891,7 @@
             "time": "2012-08-29 16:01:26",
             "type": "library",
             "installation-source": "source",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "Perl Licensing"
             ],
@@ -1409,7 +1414,6 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "gloubster/communications": 20,
-        "neutron/temporary-filesystem": 20,
         "videlalvaro/php-amqplib": 20
     }
 }
