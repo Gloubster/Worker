@@ -21,10 +21,21 @@ use Gloubster\Worker\Job\Result;
 
 class ImageWorker extends AbstractWorker
 {
+    private $alchemyst;
 
     public function getType()
     {
         return 'Image';
+    }
+
+    public function __construct($id, AMQPConnection $conn, $queue, TemporaryFilesystem $filesystem, Logger $logger)
+    {
+        parent::__construct($id, $conn, $queue, $filesystem, $logger);
+
+        $drivers = new DriversContainer();
+        $drivers['logger'] = $this->logger;
+
+        $this->alchemyst = new Alchemyst($drivers);
     }
 
     public function compute(JobInterface $job)
@@ -39,8 +50,7 @@ class ImageWorker extends AbstractWorker
         $parameters = $job->getParameters();
         $tmpFile = $this->filesystem->createEmptyFile(sys_get_temp_dir(), null, null, $parameters['format'], 50);
 
-        $alchemyst = new Alchemyst(new DriversContainer());
-        $alchemyst->open($job->getSource())
+        $this->alchemyst->open($job->getSource())
             ->turnInto($tmpFile, $this->specificationsFromJob($job))
             ->close();
 
