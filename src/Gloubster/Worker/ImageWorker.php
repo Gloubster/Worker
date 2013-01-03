@@ -18,6 +18,9 @@ use Gloubster\Exception\RuntimeException;
 use Gloubster\Message\Job\ImageJob;
 use Gloubster\Message\Job\JobInterface;
 use Gloubster\Worker\Job\Result;
+use Monolog\Logger;
+use Neutron\TemporaryFilesystem\TemporaryFilesystem;
+use PhpAmqpLib\Connection\AMQPConnection;
 
 class ImageWorker extends AbstractWorker
 {

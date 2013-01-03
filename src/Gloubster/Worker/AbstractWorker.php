@@ -37,7 +37,7 @@ abstract class AbstractWorker
     protected $filesystem;
     protected $logger;
 
-    final public function __construct($id, AMQPConnection $conn, $queue, TemporaryFilesystem $filesystem, Logger $logger)
+    public function __construct($id, AMQPConnection $conn, $queue, TemporaryFilesystem $filesystem, Logger $logger)
     {
         $this->id = $id;
         $this->queue = $queue;
@@ -171,6 +171,7 @@ abstract class AbstractWorker
 
         $this->log($job);
 
+        $this->logger->addInfo(sprintf('Acknowledging %s', $message->delivery_info['delivery_tag']));
         $this->channel->basic_ack($message->delivery_info['delivery_tag']);
 
         if ($error) {
