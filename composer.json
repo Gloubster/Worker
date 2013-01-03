@@ -14,15 +14,20 @@
         {
             "type": "git",
             "url": "git://github.com/romainneutron/php-amqplib.git"
+        },
+        {
+            "type": "git",
+            "url": "git://github.com/romainneutron/symfony.git"
         }
     ],
     "require": {
         "gloubster/communications": "dev-master",
+        "phpexiftool/exiftool": ">=9.12",
         "media-alchemyst/media-alchemyst":"0.2.*",
-        "system/cpu": "*",
         "neutron/tip-top": "0.1.*",
         "neutron/temporary-filesystem": "1.*",
         "monolog/monolog": "1.*",
+        "symfony/symfony" : "dev-StreamSelect as 2.1.x-dev",
         "symfony/console" : ">=2.0,<=2.2.x-dev",
         "videlalvaro/php-amqplib": "dev-master"
     },
