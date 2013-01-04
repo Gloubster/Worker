@@ -21,6 +21,7 @@
         }
     ],
     "require": {
+        "aws/aws-sdk-php": "dev-master",
         "gloubster/communications": "dev-master",
         "phpexiftool/exiftool": ">=9.12",
         "media-alchemyst/media-alchemyst":"0.2.*",

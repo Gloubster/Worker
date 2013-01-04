@@ -1,5 +1,5 @@
 {
-    "hash": "f9df62ffaedb3c29fe5968ec445ab980",
+    "hash": "a9ed7df2657201430d6d448a1b862b3f",
     "packages": [
         {
             "name": "alchemy/ghostscript",
@@ -66,12 +66,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php",
-                "reference": "7c5977b6cb93e52bb5cbc98b205c0793a9308bd7"
+                "reference": "aa0edec95a03a49b2269dc8a52ea10c87413d07e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/aws/aws-sdk-php/archive/7c5977b6cb93e52bb5cbc98b205c0793a9308bd7.zip",
-                "reference": "7c5977b6cb93e52bb5cbc98b205c0793a9308bd7",
+                "url": "https://github.com/aws/aws-sdk-php/archive/aa0edec95a03a49b2269dc8a52ea10c87413d07e.zip",
+                "reference": "aa0edec95a03a49b2269dc8a52ea10c87413d07e",
                 "shasum": ""
             },
             "require": {
@@ -85,7 +85,7 @@
                 "ext-apc": "*",
                 "phpunit/phpunit": "3.7.*"
             },
-            "time": "2012-12-26 16:49:08",
+            "time": "2013-01-03 22:20:07",
             "type": "library",
             "installation-source": "source",
             "autoload": {
@@ -190,24 +190,26 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Gloubster/Communications",
-                "reference": "eb2c0b1b8934cd4c8e38193e9e70fe51bd83f812"
+                "reference": "db2812d144ebaa0970918de099d1e795e7d70fa5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/Gloubster/Communications/archive/eb2c0b1b8934cd4c8e38193e9e70fe51bd83f812.zip",
-                "reference": "eb2c0b1b8934cd4c8e38193e9e70fe51bd83f812",
+                "url": "https://github.com/Gloubster/Communications/archive/db2812d144ebaa0970918de099d1e795e7d70fa5.zip",
+                "reference": "db2812d144ebaa0970918de099d1e795e7d70fa5",
                 "shasum": ""
             },
             "require": {
-                "justinrainbow/json-schema": "*",
-                "videlalvaro/php-amqplib": "dev-master",
-                "aws/aws-sdk-php": "dev-master"
+                "justinrainbow/json-schema": "*"
             },
             "require-dev": {
                 "symfony/finder": ">=2.0,<=2.2.x-dev",
-                "symfony/filesystem": ">=2.0,<=2.2.x-dev"
+                "symfony/filesystem": ">=2.0,<=2.2.x-dev",
+                "aws/aws-sdk-php": "2.0.*"
             },
-            "time": "2013-01-02 17:39:03",
+            "suggest": {
+                "aws/aws-sdk-php": "Amazon SDK library to enable AmazonS3 delivery"
+            },
+            "time": "2013-01-04 14:02:20",
             "type": "library",
             "installation-source": "source",
             "autoload": {
@@ -1243,6 +1245,7 @@
     ],
     "minimum-stability": "dev",
     "stability-flags": {
+        "aws/aws-sdk-php": 20,
         "gloubster/communications": 20,
         "symfony/symfony": 20,
         "videlalvaro/php-amqplib": 20
