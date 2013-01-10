@@ -30,7 +30,7 @@ class Factory
         $classname = 'Gloubster\\Worker\\' . ucfirst($type) . 'Worker';
 
         if (!defined($worker['queue-name'])) {
-            throw new InvalidArgumentException('Invalid queue name');
+            throw new InvalidArgumentException(sprintf('Invalid queue name : %s', $worker['queue-name']));
         }
 
         $queueName = (string) constant($worker['queue-name']);
