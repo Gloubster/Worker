@@ -10,14 +10,6 @@
         {
             "type": "git",
             "url": "git://github.com/romainneutron/SystemCpu.git"
-        },
-        {
-            "type": "git",
-            "url": "git://github.com/romainneutron/php-amqplib.git"
-        },
-        {
-            "type": "git",
-            "url": "git://github.com/romainneutron/symfony.git"
         }
     ],
     "require": {
@@ -28,8 +20,8 @@
         "neutron/tip-top": "0.1.*",
         "neutron/temporary-filesystem": "1.*",
         "monolog/monolog": "1.*",
-        "symfony/symfony" : "dev-StreamSelect as 2.1.x-dev",
-        "symfony/console" : ">=2.0,<=2.2.x-dev",
+        "symfony/console" : ">=2.0,<=2.2.x-dev", 
+        "symfony/process" : ">=2.1.x-dev",
         "videlalvaro/php-amqplib": "dev-master"
     },
     "require-dev": {
