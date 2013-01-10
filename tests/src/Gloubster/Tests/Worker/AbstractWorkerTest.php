@@ -2,13 +2,12 @@
 
 namespace Gloubster\Tests\Worker;
 
-use Gloubster\Worker\AbstractWorker;
-use Gloubster\Exception\RuntimeException;
+use Gloubster\Configuration;
 use Gloubster\Delivery\DeliveryInterface;
-use Gloubster\Message\Factory as MessageFactory;
 use Gloubster\Delivery\Filesystem;
+use Gloubster\Exception\RuntimeException;
+use Gloubster\Message\Factory as MessageFactory;
 use Gloubster\Message\Presence\WorkerPresence;
-use Gloubster\RabbitMQ\Configuration as RabbitMQConfiguration;
 use Neutron\TemporaryFilesystem\TemporaryFilesystem;
 use PhpAmqpLib\Message\AMQPMessage;
 use PhpAmqpLib\Channel\AMQPChannel;
@@ -97,7 +96,7 @@ abstract class AbstractWorkerTest extends \PHPUnit_Framework_TestCase
 
         $that = $this;
 
-        $this->probePublishValues($channel, null, RabbitMQConfiguration::ROUTINGKEY_ERROR,
+        $this->probePublishValues($channel, null, Configuration::ROUTINGKEY_ERROR,
             function($message) use ($wrongData, $that) {
                 $that->assertEquals($wrongData, $message->body);
             }
@@ -120,7 +119,7 @@ abstract class AbstractWorkerTest extends \PHPUnit_Framework_TestCase
         $channel = $this->getChannel();
 
         $this->ensureAcknowledgement($channel, $message->delivery_info['delivery_tag']);
-        $this->probePublishValues($channel, true, RabbitMQConfiguration::ROUTINGKEY_LOG);
+        $this->probePublishValues($channel, true, Configuration::ROUTINGKEY_LOG);
 
         $this->getWorker($channel)->process($message);
 
@@ -141,7 +140,7 @@ abstract class AbstractWorkerTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue($channel));
 
         $this->ensureAcknowledgement($channel, $message->delivery_info['delivery_tag']);
-        $this->probePublishValues($channel, false, RabbitMQConfiguration::ROUTINGKEY_LOG);
+        $this->probePublishValues($channel, false, Configuration::ROUTINGKEY_LOG);
 
         $exception = new \Exception('Plouf');
 
@@ -177,7 +176,7 @@ abstract class AbstractWorkerTest extends \PHPUnit_Framework_TestCase
         $channel = $this->getChannel();
 
         $this->ensureAcknowledgement($channel, $message->delivery_info['delivery_tag']);
-        $this->probePublishValues($channel, false, RabbitMQConfiguration::ROUTINGKEY_LOG);
+        $this->probePublishValues($channel, false, Configuration::ROUTINGKEY_LOG);
 
         try {
             $this->getWorker($channel)->process($message);
@@ -227,7 +226,7 @@ abstract class AbstractWorkerTest extends \PHPUnit_Framework_TestCase
                         return;
                     }
 
-                    $that->assertEquals(RabbitMQConfiguration::EXCHANGE_DISPATCHER, $exchangeName);
+                    $that->assertEquals(Configuration::EXCHANGE_DISPATCHER, $exchangeName);
                     $that->assertEquals($expectedQueueName, $routingKey);
 
                     if ($good === true) {

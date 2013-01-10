@@ -12,7 +12,7 @@
 namespace Gloubster\Worker;
 
 use Gloubster\Message\Presence\WorkerPresence;
-use Gloubster\RabbitMQ\Configuration as RabbitMQConfiguration;
+use Gloubster\Configuration;
 use Gloubster\Message\Job\JobInterface;
 use Gloubster\Exception\InvalidArgumentException;
 use Gloubster\Exception\RuntimeException;
@@ -81,7 +81,7 @@ abstract class AbstractWorker
             ->setMemory(memory_get_usage())
             ->setWorkerType($this->getType());
 
-        $this->channel->basic_publish(new AMQPMessage($presence->toJson()), RabbitMQConfiguration::EXCHANGE_MONITOR);
+        $this->channel->basic_publish(new AMQPMessage($presence->toJson()), Configuration::EXCHANGE_MONITOR);
     }
 
     final public function run($iterations = true)
@@ -132,7 +132,7 @@ abstract class AbstractWorker
 
         if ($error) {
             $this->logger->addCritical(sprintf('Received a wrong job message : %s', $message->body));
-            $this->channel->basic_publish(new AMQPMessage($message->body), RabbitMQConfiguration::EXCHANGE_DISPATCHER, RabbitMQConfiguration::ROUTINGKEY_ERROR);
+            $this->channel->basic_publish(new AMQPMessage($message->body), Configuration::EXCHANGE_DISPATCHER, Configuration::ROUTINGKEY_ERROR);
             $this->channel->basic_ack($message->delivery_info['delivery_tag']);
 
             throw new RuntimeException('Wrong job message');
@@ -201,6 +201,6 @@ abstract class AbstractWorker
 
     private function log(JobInterface $message)
     {
-        $this->channel->basic_publish(new AMQPMessage($message->toJson()), RabbitMQConfiguration::EXCHANGE_DISPATCHER, RabbitMQConfiguration::ROUTINGKEY_LOG);
+        $this->channel->basic_publish(new AMQPMessage($message->toJson()), Configuration::EXCHANGE_DISPATCHER, Configuration::ROUTINGKEY_LOG);
     }
 }

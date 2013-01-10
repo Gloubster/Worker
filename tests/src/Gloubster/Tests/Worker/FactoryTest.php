@@ -105,7 +105,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
                 ),
                 "workers"  => array(
                     "image" => array(
-                        "queue-name" => 'Gloubster\\RabbitMQ\\Configuration::QUEUE_IMAGE_PROCESSING',
+                        "queue-name" => 'Gloubster\\Configuration::QUEUE_IMAGE_PROCESSING',
                     )
                 )
             )), array(
