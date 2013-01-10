@@ -20,20 +20,25 @@ use Monolog\Handler\StreamHandler;
 use Symfony\Component\Console\Application;
 
 return call_user_func(function() {
+    try {
+        if (!file_exists(__DIR__ . '/../config/config.json')) {
+            throw new RuntimeException('Configuration is not readable or does not exist');
+        }
 
-    if (!file_exists(__DIR__ . '/../config/config.json')) {
-        throw new RuntimeException('Configuration is not readable or does not exist');
+        $configuration = new Configuration(file_get_contents(__DIR__ . '/../config/config.json'), array(
+            file_get_contents(__DIR__ . '/../resources/configuration.schema.json')
+        ));
+
+        $logger = new Logger('Worker');
+        $logger->pushHandler(new StreamHandler('php://stdout'));
+
+        $app = new Application("Gloubster Worker");
+        $app->add(new RunWorker($configuration, $logger));
+
+        return $app->run();
+
+    } catch (\Exception $e) {
+        echo sprintf("An error occured : %s\n", $e->getMessage());
+        exit(1);
     }
-
-    $configuration = new Configuration(file_get_contents(__DIR__ . '/../config/config.json'), array(
-        file_get_contents(__DIR__ . '/../resources/configuration.schema.json')
-    ));
-
-    $logger = new Logger('Worker');
-    $logger->pushHandler(new StreamHandler('php://stdout'));
-
-    $app = new Application("Gloubster Worker");
-    $app->add(new RunWorker($configuration, $logger));
-
-    return $app->run();
 });
