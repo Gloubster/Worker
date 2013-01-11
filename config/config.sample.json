@@ -8,10 +8,10 @@
     },
     "workers": {
         "image": {
-            "queue-name": "Gloubster\\RabbitMQ\\Configuration::QUEUE_IMAGE_PROCESSING"
+            "queue-name": "Gloubster\\Configuration::QUEUE_IMAGE_PROCESSING"
         },
         "video": {
-            "queue-name": "Gloubster\\RabbitMQ\\Configuration::QUEUE_VIDEO_PROCESSING"
+            "queue-name": "Gloubster\\Configuration::QUEUE_VIDEO_PROCESSING"
         }
     }
 }

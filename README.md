@@ -35,10 +35,10 @@ There are two interesting properties in the configuration :
     },
     "workers": {
         "image": {
-            "queue-name": "Gloubster\\RabbitMQ\\Configuration::IMAGE_PROCESSING"
+            "queue-name": "Gloubster\\Configuration::IMAGE_PROCESSING"
         },
         "video": {
-            "queue-name": "Gloubster\\RabbitMQ\\Configuration::VIDEO_PROCESSING"
+            "queue-name": "Gloubster\\Configuration::VIDEO_PROCESSING"
         }
     }
 }

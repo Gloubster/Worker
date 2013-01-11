@@ -11,6 +11,7 @@
 
 namespace Gloubster\Tests\Worker\FakeSpace;
 
+use Gloubster\Configuration;
 use Gloubster\Delivery\DeliveryInterface;
 use Gloubster\Exception\InvalidArgumentException;
 use Gloubster\Receipt\ReceiptInterface;
@@ -298,7 +299,7 @@ class NonImageJob
      */
     public function getRoutingKey()
     {
-        return RabbitMQConfiguration::ROUTINGKEY_IMAGE_PROCESSING;
+        return Configuration::ROUTINGKEY_IMAGE_PROCESSING;
     }
 
     /**
@@ -306,6 +307,6 @@ class NonImageJob
      */
     public function getExchangeName()
     {
-        return RabbitMQConfiguration::EXCHANGE_DISPATCHER;
+        return Configuration::EXCHANGE_DISPATCHER;
     }
 }
