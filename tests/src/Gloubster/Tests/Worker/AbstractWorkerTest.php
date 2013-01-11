@@ -7,7 +7,9 @@ use Gloubster\Delivery\DeliveryInterface;
 use Gloubster\Delivery\Filesystem;
 use Gloubster\Exception\RuntimeException;
 use Gloubster\Message\Factory as MessageFactory;
+use Gloubster\Message\Job\JobInterface;
 use Gloubster\Message\Presence\WorkerPresence;
+use Gloubster\Receipt\AbstractReceipt;
 use Neutron\TemporaryFilesystem\TemporaryFilesystem;
 use PhpAmqpLib\Message\AMQPMessage;
 use PhpAmqpLib\Channel\AMQPChannel;
@@ -112,7 +114,15 @@ abstract class AbstractWorkerTest extends \PHPUnit_Framework_TestCase
 
     public function testProcess()
     {
+        $pathReceipt = tempnam(sys_get_temp_dir(), 'receipt');
+        unlink($pathReceipt);
+
+        $receipt = new TestReceipt();
+        $receipt->setpath($pathReceipt);
+
         $job = $this->getJob(Filesystem::create($this->target));
+        $job->addReceipt($receipt);
+
         $this->assertTrue($job->isOk());
 
         $message = $this->getAMQPMessage($job->toJson());
@@ -124,6 +134,11 @@ abstract class AbstractWorkerTest extends \PHPUnit_Framework_TestCase
         $this->getWorker($channel)->process($message);
 
         $this->assertTrue(file_exists($this->target));
+        $this->assertTrue(file_exists($pathReceipt));
+
+        $job = MessageFactory::fromJson(file_get_contents($pathReceipt));
+        $this->assertInstanceOf('Gloubster\Message\Job\JobInterface', $job);
+        unlink($pathReceipt);
     }
 
     public function testProcessFailed()
@@ -326,4 +341,29 @@ abstract class AbstractWorkerTest extends \PHPUnit_Framework_TestCase
     abstract public function getJob(DeliveryInterface $delivery);
 
     abstract public function getWrongJob(DeliveryInterface $delivery);
+}
+
+class TestReceipt extends AbstractReceipt
+{
+    protected $path;
+
+    public function setPath($value)
+    {
+        $this->path = $value;
+    }
+
+    public function getPath()
+    {
+        return $this->path;
+    }
+
+    public function getName()
+    {
+        return 'test';
+    }
+
+    public function acknowledge(JobInterface $job)
+    {
+        file_put_contents($this->path, $job->toJson());
+    }
 }

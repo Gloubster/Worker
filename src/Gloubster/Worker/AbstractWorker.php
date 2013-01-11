@@ -199,6 +199,13 @@ abstract class AbstractWorker
         return $this;
     }
 
+    private function sendReceipt(JobInterface $job)
+    {
+        foreach ($job->getReceipts() as $receipt) {
+            $receipt->acknowledge($job);
+        }
+    }
+
     private function log(JobInterface $message)
     {
         $this->channel->basic_publish(new AMQPMessage($message->toJson()), Configuration::EXCHANGE_DISPATCHER, Configuration::ROUTINGKEY_LOG);
