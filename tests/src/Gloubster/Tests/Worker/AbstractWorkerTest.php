@@ -9,10 +9,13 @@ use Gloubster\Exception\RuntimeException;
 use Gloubster\Message\Factory as MessageFactory;
 use Gloubster\Message\Job\JobInterface;
 use Gloubster\Message\Presence\WorkerPresence;
+use Gloubster\Worker\Job\Result;
 use Gloubster\Receipt\AbstractReceipt;
 use Neutron\TemporaryFilesystem\TemporaryFilesystem;
 use PhpAmqpLib\Message\AMQPMessage;
 use PhpAmqpLib\Channel\AMQPChannel;
+
+require_once __DIR__ . '/../DeliveryBinary/DeliveryBinary.php';
 
 abstract class AbstractWorkerTest extends \PHPUnit_Framework_TestCase
 {
@@ -139,6 +142,68 @@ abstract class AbstractWorkerTest extends \PHPUnit_Framework_TestCase
         $job = MessageFactory::fromJson(file_get_contents($pathReceipt));
         $this->assertInstanceOf('Gloubster\Message\Job\JobInterface', $job);
         unlink($pathReceipt);
+    }
+
+    public function testProcessWithDeliveryBinary()
+    {
+        $logger = $this->getMockBuilder('Monolog\\Logger')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $job = $this->getJob(new \Gloubster\Delivery\DeliveryBinary());
+
+        $message = $this->getAMQPMessage($job->toJson());
+        $channel = $this->getChannel();
+
+        $conn = $this->getMockBuilder('PhpAmqpLib\Connection\AMQPConnection')
+            ->disableOriginalConstructor()
+            ->getmock();
+
+        $result = new Result(Result::TYPE_BINARYSTRING, 'binary-data');
+
+        $conn->expects($this->any())
+            ->method('channel')
+            ->will($this->returnValue($channel));
+
+        $worker = $this->getMock('Gloubster\Worker\AbstractWorker', array('compute', 'getType'), array('id', $conn, 'queue', new TemporaryFilesystem, $logger));
+
+        $worker->expects($this->any())
+            ->method('compute')
+            ->will($this->returnValue($result));
+
+
+        $worker->process($message);
+    }
+
+    public function testProcessWithWrongDeliveryResult()
+    {
+        $logger = $this->getMockBuilder('Monolog\\Logger')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $job = $this->getJob(new \Gloubster\Delivery\DeliveryBinary());
+
+        $message = $this->getAMQPMessage($job->toJson());
+        $channel = $this->getChannel();
+
+        $conn = $this->getMockBuilder('PhpAmqpLib\Connection\AMQPConnection')
+            ->disableOriginalConstructor()
+            ->getmock();
+
+        $result = new Result('no-type', 'wrong-data');
+
+        $conn->expects($this->any())
+            ->method('channel')
+            ->will($this->returnValue($channel));
+
+        $worker = $this->getMock('Gloubster\Worker\AbstractWorker', array('compute', 'getType'), array('id', $conn, 'queue', new TemporaryFilesystem, $logger));
+
+        $worker->expects($this->any())
+            ->method('compute')
+            ->will($this->returnValue($result));
+
+
+        $worker->process($message);
     }
 
     public function testProcessFailed()
@@ -269,6 +334,12 @@ abstract class AbstractWorkerTest extends \PHPUnit_Framework_TestCase
         $this->assertGreaterThan($job->getBeginning(), $job->getEnd());
         $this->assertGreaterThan(0, $job->getDeliveryDuration());
         $this->assertGreaterThan(0, $job->getProcessDuration());
+
+        $this->assertArrayHasKey('type', $job->getResult());
+        $this->assertArrayHasKey('sha1', $job->getResult());
+        $this->assertArrayHasKey('sha256', $job->getResult());
+        $this->assertArrayHasKey('md5', $job->getResult());
+
         $this->assertInstanceOf('Gloubster\\Delivery\\DeliveryInterface', $job->getDelivery());
         $this->assertEquals($this->getId(), $job->getWorkerId());
     }

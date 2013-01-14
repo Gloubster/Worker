@@ -11,6 +11,9 @@
 
 namespace Gloubster\Worker;
 
+use Doctrine\Common\Annotations\AnnotationRegistry;
+use JMS\Serializer\Serializer;
+use JMS\Serializer\SerializerBuilder;
 use Gloubster\Message\Presence\WorkerPresence;
 use Gloubster\Configuration;
 use Gloubster\Message\Job\JobInterface;
@@ -19,6 +22,7 @@ use Gloubster\Exception\RuntimeException;
 use Gloubster\Worker\Job\Counter;
 use Gloubster\Worker\Job\Result;
 use Gloubster\Message\Factory as MessageFactory;
+use MediaVorus\MediaVorus;
 use Monolog\Logger;
 use Neutron\TipTop\Clock;
 use Neutron\TemporaryFilesystem\TemporaryFilesystem;
@@ -34,6 +38,9 @@ abstract class AbstractWorker
     private $clock;
     private $running;
     private $jobCounter;
+    private $mediavorus;
+    /** @var Serializer */
+    private $serializer;
     protected $filesystem;
     protected $logger;
 
@@ -46,6 +53,16 @@ abstract class AbstractWorker
         $this->logger = $logger;
         $this->filesystem = $filesystem;
         $this->jobCounter = new Counter();
+        $this->mediavorus = MediaVorus::create();
+
+        AnnotationRegistry::registerAutoloadNamespace(
+            'JMS\Serializer\Annotation', __DIR__ . '/../../../vendor/jms/serializer/src'
+        );
+
+        $this->serializer = $serializer = SerializerBuilder::create()
+            ->setCacheDir(__DIR__ . '/../../../cache')
+            ->build();
+
         $this->running = false;
 
         declare(ticks = 1);
@@ -151,6 +168,8 @@ abstract class AbstractWorker
             $this->logger->addInfo('Job computed.');
             $job->setProcessDuration(microtime(true) - $start);
 
+            $job->setResult($this->getTechnicalInformations($data));
+
             $start = microtime(true);
             $this->logger->addInfo(sprintf('Delivering job %s ...', $message->delivery_info['delivery_tag']));
             $this->deliver($job, $data);
@@ -197,6 +216,56 @@ abstract class AbstractWorker
         }
 
         return $this;
+    }
+
+    private function getTechnicalInformations(Result $data)
+    {
+        $availableHashAlgos = hash_algos();
+
+        if ($data->isPath()) {
+            $result = json_decode(
+                $this->serializer->serialize(
+                    $this->mediavorus->guess($data->getData()), 'json'
+                ), true
+            );
+
+            if (in_array('sha256', $availableHashAlgos)) {
+                $result['sha256'] = hash_file('sha256', $data->getData());
+            }
+            if (in_array('sha256', $availableHashAlgos)) {
+                $result['sha1'] = hash_file('sha1', $data->getData());
+            }
+            if (in_array('sha256', $availableHashAlgos)) {
+                $result['md5'] = hash_file('md5', $data->getData());
+            }
+        } elseif ($data->isBinary()) {
+
+            $temp = $this->filesystem->createEmptyFile(sys_get_temp_dir());
+            file_put_contents($temp, $data->getData());
+
+            $tcData = json_decode(
+                $this->serializer->serialize(
+                    $this->mediavorus->guess($temp), 'json'
+                ), true
+            );
+            unlink($temp);
+
+            if (in_array('sha256', $availableHashAlgos)) {
+                $result['sha256'] = hash('sha256', $data->getData());
+            }
+            if (in_array('sha256', $availableHashAlgos)) {
+                $result['sha1'] = hash('sha1', $data->getData());
+            }
+            if (in_array('sha256', $availableHashAlgos)) {
+                $result['md5'] = hash('md5', $data->getData());
+            }
+
+            return $tcData;
+        } else {
+            throw new RuntimeException('Unable to extract technical informations');
+        }
+
+        return $result;
     }
 
     private function sendReceipt(JobInterface $job)

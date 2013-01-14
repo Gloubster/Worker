@@ -79,6 +79,24 @@ class ImageWorkerTest extends AbstractWorkerTest
         $job = MessageFactory::fromJson($message->body);
 
         $this->assertEquals(array('format' => 'jpg'), $job->getParameters());
+
+        $this->assertArrayHasKey('raw_image', $job->getResult());
+        $this->assertArrayHasKey('multiple_layers', $job->getResult());
+        $this->assertArrayHasKey('width', $job->getResult());
+        $this->assertArrayHasKey('height', $job->getResult());
+        $this->assertArrayHasKey('channels', $job->getResult());
+        $this->assertArrayHasKey('focal_length', $job->getResult());
+        $this->assertArrayHasKey('color_depth', $job->getResult());
+        $this->assertArrayHasKey('camera_model', $job->getResult());
+        $this->assertArrayHasKey('flash_fired', $job->getResult());
+        $this->assertArrayHasKey('aperture', $job->getResult());
+        $this->assertArrayHasKey('shutter_speed', $job->getResult());
+        $this->assertArrayHasKey('orientation', $job->getResult());
+        $this->assertArrayHasKey('creation_date', $job->getResult());
+        $this->assertArrayHasKey('hyperfocal_distance', $job->getResult());
+        $this->assertArrayHasKey('ISO', $job->getResult());
+        $this->assertArrayHasKey('light_value', $job->getResult());
+        $this->assertArrayHasKey('color_space', $job->getResult());
     }
 
     public function assertWrongLocalLogJob(AMQPMessage $message)
